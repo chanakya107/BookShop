@@ -1,0 +1,14 @@
+2013-04-19 09:20
+Changed the path of file rendering to look into jar files instead of class path
+Introduced ant build file to compile and create jar.
+
+2013-04-18 16:00
+Introduced sendRequestedAsset to deliver assets from a localfolder in WebContext
+Use cacheOnClient flag to cache the files on the browsers for a month. Reduces number of requests on server.
+
+2013-04-17 19:10
+Fixed Response status always being 200 on asset downloads.
+
+2013-04-17 17:00
+First Release
+Create a RouteMap object and add your routes to start.

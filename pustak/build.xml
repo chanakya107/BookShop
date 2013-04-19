@@ -1,0 +1,100 @@
+<project name="Pustak" default="runTest">
+
+    <property name="jarName" value="jar/Pustak.jar"/>
+    <property name="sourceOutput" value="out/src"/>
+    <property name="testOutput" value="out/test"/>
+    <property name="reportsDir" value="reports"/>
+    <property name="releaseNotes" value="releaseNotes"/>
+    <property name="jars" value="step.web/lib"/>
+    <property name="archiveDir" value="//blrfs02/STEP/PustakArchives"/>
+
+    <target name="ci-setup">
+        <sound>
+            <success source="sounds\sword_swipe.wav"/>
+            <fail source="sounds\Wah_Wah.wav"/>
+        </sound>
+    </target>
+
+    <target name="clean">
+        <delete dir="out"/>
+        <delete dir="jar"/>
+        <delete dir="reports"/>
+
+        <mkdir dir="${reportsDir}"/>
+    </target>
+
+    <target name="compileSrc" depends="clean">
+        <mkdir dir="${sourceOutput}"/>
+        <javac srcdir="src" classpath="lib/jetty-webapp-7.3.0.v20110203.jar:
+                                            lib/servlet-api-3.0.pre4.jar:
+                                            lib/slf4j-api-1.6.1.jar:
+                                            lib/spark-0.9.9.4-SNAPSHOT.jar:
+                                            lib/velocity-1.7.jar:
+                                            lib/velocity-1.7-dep.jar:
+                                            lib/step.web.jar"
+               destdir="${sourceOutput}" includeantruntime="yes"/>
+    </target>
+
+    <target name="compileTest" depends="jar">
+        <mkdir dir="${testOutput}"/>
+        <javac srcdir="test" destdir="${testOutput}"
+               classpath="${sourceOutput}:./lib/junit-4.0.jar:./lib/mockito-all-1.9.5.jar"
+               includeantruntime="yes"/>
+    </target>
+
+    <target name="jar" depends="compileSrc">
+        <mkdir dir="${sourceOutput}/content"/>
+        <copy todir="${sourceOutput}/content/">
+            <fileset dir="content"/>
+        </copy>
+        <jar destfile="${jarName}" basedir="${sourceOutput}">
+            <manifest>
+                <attribute name="Main-Class" value="Main"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="archive-status">
+        <sound>
+            <fail source="sounds\IPL.wav" loops="1"/>
+        </sound>
+    </target>
+
+    <target name="run" depends="jar">
+        <java classname="Main" fork="true">
+            <classpath>
+                <pathelement location="jar/Pustak.jar"/>
+                <pathelement location="lib/step.web.jar"/>
+                <pathelement location="lib/jetty-webapp-7.3.0.v20110203.jar"/>
+                <pathelement location="lib/servlet-api-3.0.pre4.jar"/>
+                <pathelement location="lib/slf4j-api-1.6.1.jar"/>
+                <pathelement location="lib/spark-0.9.9.4-SNAPSHOT.jar"/>
+                <pathelement location="lib/velocity-1.7.jar"/>
+                <pathelement location="lib/velocity-1.7-dep.jar"/>
+            </classpath>
+        </java>
+    </target>
+
+    <target name="runTest" depends="compileTest">
+        <junit printsummary="yes" haltonfailure="yes" showoutput="yes" fork="yes">
+            <classpath>
+                <pathelement path="${jarName}:${testOutput}:./lib/junit-4.0.jar:./lib/mockito-all-1.9.5.jar"/>
+            </classpath>
+            <batchtest fork="yes" haltonfailure="yes" todir="${reportsDir}">
+                <formatter type="xml"/>
+                <fileset dir="${testOutput}">
+                    <include name="**/*Test*.class"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+    <target name="archive">
+        <tstamp>
+            <format property="buildLabel" pattern="yyyy-MM-dd-HHmmss"/>
+        </tstamp>
+        <zip destfile="${archiveDir}/${buildLabel}.zip"
+             basedir="."
+             update="true"/>
+    </target>
+</project>
