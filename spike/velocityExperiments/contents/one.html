@@ -1,0 +1,22 @@
+<html>
+<head>
+    #include( "one.txt" )
+</head>
+<body>
+#set( $newAge = 10 )
+
+<ul>
+    #foreach( $customer in $customersList )
+    <li>$customer</li>
+    #end
+</ul>
+
+<p>hello $person.name, your age is $person.age </p>
+$person.addAge($newAge)
+<p>hello $person.name, your age now is $person.age </p>
+
+#if($person.age > 18)
+    You are eligible to vote.
+#end
+</body>
+</html>

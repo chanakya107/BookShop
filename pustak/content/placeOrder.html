@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>place-order</title>
+    <link rel="Stylesheet" href="./public/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="./public/css/bootstrap.min.css">
+    <link rel="script" href="./public/js/orderDetails.js">
+</head>
+<body>
+<form class="form-horizontal" name="order" method="post" action="addOrder">
+
+    <div class="control-group">
+        <label class="control-label">Name</label>
+
+        <div class="controls">
+            <input type="text" class="input-medium" name="Name" placeholder="Name" required>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">Email</label>
+
+        <div class="controls">
+            <input type="email" class="input-medium" name="Email" placeholder="Email" required>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">Phone Number</label>
+
+        <div class="controls">
+                <input type="tel" class="input-medium" placeholder="9898989898" name="phoneNumber" pattern="[0-9]{10}"
+                   maxlength="10" required>
+        </div>
+    </div>
+
+    <div class="control">
+        <label>Enter Shipment Address</label>
+    </div>
+    <div class="controls">
+        <textarea rows="8" maxlength="200" placeholder="Should not exceed more than 200 characters"
+                  name="Address" required></textarea>
+    </div>
+    <br>
+
+    <div class="controls">
+        <input class="btn btn-warning" type="button" value="cancel">
+        <input class="btn btn-success" type="submit" value="proceed">
+    </div>
+</form>
+
+</body>
+</html>

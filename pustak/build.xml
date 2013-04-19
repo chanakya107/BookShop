@@ -24,21 +24,33 @@
     </target>
 
     <target name="compileSrc" depends="clean">
+
         <mkdir dir="${sourceOutput}"/>
+
         <javac srcdir="src" classpath="lib/jetty-webapp-7.3.0.v20110203.jar:
                                             lib/servlet-api-3.0.pre4.jar:
                                             lib/slf4j-api-1.6.1.jar:
                                             lib/spark-0.9.9.4-SNAPSHOT.jar:
                                             lib/velocity-1.7.jar:
                                             lib/velocity-1.7-dep.jar:
-                                            lib/step.web.jar"
+                                            lib/step.web.jar:
+                                            lib/sqlite.jar"
                destdir="${sourceOutput}" includeantruntime="yes"/>
+
     </target>
 
     <target name="compileTest" depends="jar">
+
         <mkdir dir="${testOutput}"/>
         <javac srcdir="test" destdir="${testOutput}"
-               classpath="${sourceOutput}:./lib/junit-4.0.jar:./lib/mockito-all-1.9.5.jar:./lib/sqlite.jar"
+               classpath="${sourceOutput}:./lib/junit-4.0.jar:./lib/mockito-all-1.9.5.jar:lib/jetty-webapp-7.3.0.v20110203.jar:
+                                            lib/servlet-api-3.0.pre4.jar:
+                                            lib/slf4j-api-1.6.1.jar:
+                                            lib/spark-0.9.9.4-SNAPSHOT.jar:
+                                            lib/velocity-1.7.jar:
+                                            lib/velocity-1.7-dep.jar:
+                                            lib/step.web.jar:
+                                            lib/sqlite.jar"
                includeantruntime="yes"/>
     </target>
 
@@ -47,9 +59,20 @@
         <copy todir="${sourceOutput}/content/">
             <fileset dir="content"/>
         </copy>
+        <!--<mkdir dir="${sourceOutput}/lib"/>-->
+        <!--<copy todir="${sourceOutput}/lib">-->
+        <!--<fileset dir="lib"/>-->
+        <!--</copy>-->
         <jar destfile="${jarName}" basedir="${sourceOutput}">
             <manifest>
                 <attribute name="Main-Class" value="Main"/>
+                <!--<attribute name="Class-Path" value="lib/jetty-webapp-7.3.0.v20110203.jar,-->
+                <!--lib/servlet-api-3.0.pre4.jar,-->
+                <!--lib/slf4j-api-1.6.1.jar,-->
+                <!--lib/spark-0.9.9.4-SNAPSHOT.jar,-->
+                <!--lib/velocity-1.7.jar,-->
+                <!--lib/velocity-1.7-dep.jar,-->
+                <!--lib/step.web.jar"/>-->
             </manifest>
         </jar>
     </target>
@@ -64,6 +87,8 @@
         <java classname="Main" fork="true">
             <classpath>
                 <pathelement location="jar/Pustak.jar"/>
+                <!--// <pathelement location="lib/*.jar"/>-->
+
                 <pathelement location="lib/step.web.jar"/>
                 <pathelement location="lib/jetty-webapp-7.3.0.v20110203.jar"/>
                 <pathelement location="lib/servlet-api-3.0.pre4.jar"/>
@@ -80,6 +105,14 @@
         <junit printsummary="yes" haltonfailure="yes" showoutput="yes" fork="yes">
             <classpath>
                 <pathelement path="${jarName}:${testOutput}:./lib/junit-4.0.jar:./lib/mockito-all-1.9.5.jar"/>
+                <pathelement location="lib/step.web.jar"/>
+                <pathelement location="lib/jetty-webapp-7.3.0.v20110203.jar"/>
+                <pathelement location="lib/servlet-api-3.0.pre4.jar"/>
+                <pathelement location="lib/slf4j-api-1.6.1.jar"/>
+                <pathelement location="lib/spark-0.9.9.4-SNAPSHOT.jar"/>
+                <pathelement location="lib/velocity-1.7.jar"/>
+                <pathelement location="lib/velocity-1.7-dep.jar"/>
+                <pathelement location="lib/sqlite.jar"/>
             </classpath>
             <batchtest fork="yes" haltonfailure="yes" todir="${reportsDir}">
                 <formatter type="xml"/>

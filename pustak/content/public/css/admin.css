@@ -9,5 +9,9 @@
 }
 .section{
     border:#005580 1px groove;
+<<<<<<< HEAD
     height: 400px;
+=======
+    height: 200px;
+>>>>>>> 9245fbdea8480c11b8da6db981aa890535c9d67d
 }

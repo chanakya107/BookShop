@@ -1,10 +1,6 @@
-import controllers.AddBookController;
-import controllers.AssetController;
-import controllers.ResultController;
-import services.AddBookService;
-import services.AddBookServiceImpl;
-import services.BookService;
-import services.BookServiceImpl;
+import controllers.*;
+import services.*;
+import services.impl.OrderServiceImpl;
 import step.web.framework.RequestHandlerResult;
 import step.web.framework.RouteMap;
 import step.web.framework.WebContext;
@@ -18,8 +14,9 @@ public class Main {
 
     private static void initializeRoutes() {
         RouteMap routeMap = RouteMap.create();
-        final BookService bookService=new BookServiceImpl();
+        final BookService bookService = new BookServiceImpl();
         final AddBookService addBookService = new AddBookServiceImpl();
+        final OrderService service = new OrderServiceImpl();
         WebRequestHandler getAssets = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
@@ -27,25 +24,34 @@ public class Main {
                 return AssetController.createAssetController(context).serve();
             }
         };
-        WebRequestHandler searchResult=new WebRequestHandler() {
+
+        WebRequestHandler searchResult = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
-                return  new ResultController(context, bookService).getResult();
+                return new ResultController(context, bookService).getResult();
+            }
+        };
+        WebRequestHandler createOrder = new WebRequestHandler() {
+            @Override
+            public RequestHandlerResult operation(WebContext context) {
+                return new OrderListController(context, service).createOrder();
             }
         };
 
         WebRequestHandler addBook = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
-                return new AddBookController(context,addBookService).createBook();
+                return new AddBookController(context, addBookService).createBook();
             }
         };
 
         routeMap.get("/Admin.html", renderTemplate(ViewTemplates.Admin));
-        routeMap.post("/SearchBook",searchResult);
+        routeMap.get("/placeOrder.html", renderTemplate(ViewTemplates.placeOrder));
         routeMap.get("public/css/*", getAssets);
         routeMap.get("/addbook.html", renderTemplate(ViewTemplates.AddBook));
         routeMap.post("/addbook", addBook);
+        routeMap.post("/addOrder", createOrder);
+        routeMap.post("/SearchBook", searchResult);
 
     }
 
