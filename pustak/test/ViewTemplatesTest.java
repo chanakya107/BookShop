@@ -1,4 +1,4 @@
-import controllers.ViewTemplates;
+import views.ViewTemplates;
 import org.junit.Assert;
 import org.junit.Test;
 

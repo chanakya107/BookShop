@@ -1,15 +1,11 @@
-import controllers.AssetController;
-import controllers.OrderListController;
-import controllers.ResultController;
-import controllers.ViewTemplates;
-import services.BookService;
-import services.BookServiceImpl;
-import services.OrderService;
+import controllers.*;
+import services.*;
 import services.impl.OrderServiceImpl;
 import step.web.framework.RequestHandlerResult;
 import step.web.framework.RouteMap;
 import step.web.framework.WebContext;
 import step.web.framework.WebRequestHandler;
+import views.ViewTemplates;
 
 public class Main {
     public static void main(String[] args) {
@@ -18,9 +14,9 @@ public class Main {
 
     private static void initializeRoutes() {
         RouteMap routeMap = RouteMap.create();
-        final OrderService service = new OrderServiceImpl();
-
         final BookService bookService = new BookServiceImpl();
+        final AddBookService addBookService = new AddBookServiceImpl();
+        final OrderService service = new OrderServiceImpl();
         WebRequestHandler getAssets = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
@@ -36,17 +32,27 @@ public class Main {
             }
         };
         WebRequestHandler createOrder = new WebRequestHandler() {
-                    @Override
-                    public RequestHandlerResult operation(WebContext context) {
-                        return new OrderListController(context, service).createOrder();
-                    }
-                };
+            @Override
+            public RequestHandlerResult operation(WebContext context) {
+                return new OrderListController(context, service).createOrder();
+            }
+        };
+
+        WebRequestHandler addBook = new WebRequestHandler() {
+            @Override
+            public RequestHandlerResult operation(WebContext context) {
+                return new AddBookController(context, addBookService).createBook();
+            }
+        };
 
         routeMap.get("/Admin.html", renderTemplate(ViewTemplates.Admin));
         routeMap.get("/placeOrder.html", renderTemplate(ViewTemplates.placeOrder));
         routeMap.get("public/css/*", getAssets);
+        routeMap.get("/addbook.html", renderTemplate(ViewTemplates.AddBook));
+        routeMap.post("/addbook", addBook);
         routeMap.post("/addOrder", createOrder);
         routeMap.post("/SearchBook", searchResult);
+
     }
 
     private static WebRequestHandler renderTemplate(final ViewTemplates template) {

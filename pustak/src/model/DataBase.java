@@ -47,4 +47,30 @@ public class DataBase {
             return false;
         }
     }
+
+    public void insertBooksToDataBase(String queryString) {
+        DatabaseMetaData meta = null;
+        String sql = "CREATE TABLE books " +
+                "(isbn VARCHAR not NULL, " +
+                " title VARCHAR(255) not NULL, " +
+                " author VARCHAR(255) not NULL, " +
+                " price INTEGER not NULL," +
+                " NewBookQuantity INTEGER, " +
+                " UsedBookQuantity INTEGER, " +
+                " PRIMARY KEY ( isbn ))";
+        createTable(sql);
+        insertQuery(queryString);
+        closeConnection();
+    }
+
+    private void closeConnection() {
+        try {
+            connection.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
