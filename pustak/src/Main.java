@@ -45,6 +45,12 @@ public class Main {
             }
         };
 
+        WebRequestHandler display = new WebRequestHandler() {
+            @Override
+            public RequestHandlerResult operation(WebContext context){
+                return new DisplayBooksController(context, bookService).list();
+            }
+        };
         routeMap.get("/Admin.html", renderTemplate(ViewTemplates.Admin));
         routeMap.get("/placeOrder.html", renderTemplate(ViewTemplates.placeOrder));
         routeMap.get("public/css/*", getAssets);
@@ -52,6 +58,7 @@ public class Main {
         routeMap.post("/addbook", addBook);
         routeMap.post("/addOrder", createOrder);
         routeMap.post("/SearchBook", searchResult);
+        routeMap.get("/", display);
 
     }
 

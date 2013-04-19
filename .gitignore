@@ -1,6 +1,7 @@
 #################
 ## Eclipse
 #################
+*.db
 .idea
 reports
 out
