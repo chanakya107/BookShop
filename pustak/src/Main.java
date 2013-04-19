@@ -1,6 +1,9 @@
 import controllers.AssetController;
 import controllers.OrderListController;
+import controllers.ResultController;
 import controllers.ViewTemplates;
+import services.BookService;
+import services.BookServiceImpl;
 import services.OrderService;
 import services.impl.OrderServiceImpl;
 import step.web.framework.RequestHandlerResult;
@@ -11,12 +14,13 @@ import step.web.framework.WebRequestHandler;
 public class Main {
     public static void main(String[] args) {
         initializeRoutes();
-
     }
 
     private static void initializeRoutes() {
         RouteMap routeMap = RouteMap.create();
         final OrderService service = new OrderServiceImpl();
+
+        final BookService bookService = new BookServiceImpl();
         WebRequestHandler getAssets = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
@@ -25,9 +29,13 @@ public class Main {
             }
         };
 
-        WebRequestHandler createOrder = new
-
-                WebRequestHandler() {
+        WebRequestHandler searchResult = new WebRequestHandler() {
+            @Override
+            public RequestHandlerResult operation(WebContext context) {
+                return new ResultController(context, bookService).getResult();
+            }
+        };
+        WebRequestHandler createOrder = new WebRequestHandler() {
                     @Override
                     public RequestHandlerResult operation(WebContext context) {
                         return new OrderListController(context, service).createOrder();
@@ -38,6 +46,7 @@ public class Main {
         routeMap.get("/placeOrder.html", renderTemplate(ViewTemplates.placeOrder));
         routeMap.get("public/css/*", getAssets);
         routeMap.post("/addOrder", createOrder);
+        routeMap.post("/SearchBook", searchResult);
     }
 
     private static WebRequestHandler renderTemplate(final ViewTemplates template) {

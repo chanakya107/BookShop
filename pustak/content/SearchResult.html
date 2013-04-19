@@ -18,6 +18,7 @@
     <div class="span2"></div>
     <div class="span8">
         <div class="search-bar">
+            <form action="SearchBook" class="form-search" method="post">
                 <div class="input-append">
                     <input type="text" name="searchKey" class="search-query input-xxlarge"
                            placeholder="Enter the Title of the Book">
@@ -46,9 +47,26 @@
             </ul>
         </div>
         <div class="span10 row-fluid section">
+            <table>
+                <tr>
+                    <th>ISBN</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Price</th>
+                </tr>
+                #foreach( $book in $books )
+                <tr>
+                    <td>$book.ISBN </td>
+                    <td>$book.title</td>
+                    <td>$book.Author</td>
+                    <td>$book.price</td>
+                    <td>$book.quantity_New</td>
+                    <td>$book.quantity_used</td>
+                </tr>
+                #end
+            </table>
         </div>
     </div>
     <div class="span2"></div>
 </div>
 </body>
-</html>
