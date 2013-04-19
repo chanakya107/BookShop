@@ -25,16 +25,18 @@ public class Main {
             }
         };
 
-        routeMap.get("/Admin.html", renderTemplate(ViewTemplates.Admin));
-        routeMap.get("/placeOrder.html", renderTemplate(ViewTemplates.placeOrder));
-        routeMap.get("public/css/*", getAssets);
         WebRequestHandler createOrder = new
+
                 WebRequestHandler() {
                     @Override
                     public RequestHandlerResult operation(WebContext context) {
                         return new OrderListController(context, service).createOrder();
                     }
                 };
+
+        routeMap.get("/Admin.html", renderTemplate(ViewTemplates.Admin));
+        routeMap.get("/placeOrder.html", renderTemplate(ViewTemplates.placeOrder));
+        routeMap.get("public/css/*", getAssets);
         routeMap.post("/addOrder", createOrder);
     }
 

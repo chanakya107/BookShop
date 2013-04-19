@@ -19,7 +19,7 @@ public class AssetControllerTest {
         WebContext wc = mock(WebContext.class);
         stub(wc.requestPath()).toReturn("");
 
-        stub(wc.sendFile("pustak/contents/")).toReturn(RequestHandlerResult.ok("ok"));
+        stub(wc.sendFile("content/")).toReturn(RequestHandlerResult.ok("ok"));
 
         AssetController ac = AssetController.createAssetController(wc);
         Assert.assertTrue(ac.serve() != null);

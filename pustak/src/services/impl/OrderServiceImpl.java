@@ -13,8 +13,7 @@ public class OrderServiceImpl implements OrderService {
         Statement statement = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            String dbName = "bookshop.db";
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:pustak/content/public/db/" + dbName);
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:pustak/content/public/db/bookshop.db");
             statement = connection.createStatement();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -40,5 +39,6 @@ public class OrderServiceImpl implements OrderService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
 }

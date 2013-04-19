@@ -6,7 +6,7 @@ import step.web.framework.WebContext;
 public class AssetController {
     private WebContext context;
     private String pathRoot = "/";
-    private String localAssetFolderPath = "pustak/content/";
+    private String localAssetFolderPath = "content/";
 
     private AssetController(WebContext context) {
         this.context = context;
