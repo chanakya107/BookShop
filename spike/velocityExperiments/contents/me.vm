@@ -1,0 +1,5 @@
+<ul>
+    #foreach( $customer in $customersList )
+    <li>$customer</li>
+    #end
+</ul>

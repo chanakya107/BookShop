@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+#parse("me.vm")
+
+#set( $parts = ["volva","stipe","annulus","gills","pileus"] )
+
+<ul>
+    #foreach( $part in $parts)
+    <li>$part</li>
+    #end
+</ul>
+
+</body>
+</html>

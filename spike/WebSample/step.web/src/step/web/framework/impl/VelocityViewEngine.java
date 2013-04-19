@@ -3,7 +3,8 @@ package step.web.framework.impl;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.runtime.resource.loader.JarResourceLoader;
+import org.apache.velocity.runtime.RuntimeConstants;
+import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import step.web.framework.PropertyBag;
 import step.web.framework.ViewEngine;
 import step.web.framework.ViewFileTemplate;
@@ -15,9 +16,8 @@ public class VelocityViewEngine implements ViewEngine {
 
     public VelocityViewEngine() {
         velocityEngine = new VelocityEngine();
-        // todo (mujir/chanakya) : remove this hardcoding. Ideally configure this from a properties (http://click.apache.org/docs/velocity/developer-guide.html#configurationexamples)
-        velocityEngine.setProperty("jar.resource.loader.path", "jar/Pustak.jar");
-        velocityEngine.setProperty("jar.resource.loader.class", JarResourceLoader.class.getName());
+        velocityEngine.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
+        velocityEngine.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
         velocityEngine.init();
     }
 
