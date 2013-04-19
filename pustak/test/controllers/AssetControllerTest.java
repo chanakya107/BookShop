@@ -8,6 +8,7 @@ import step.web.framework.WebContext;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.stub;
 
+
 public class AssetControllerTest {
     @Test(expected = IllegalArgumentException.class)
     public void creating_assetController_of_null_webContext_throws_IllegalArgumentException() {

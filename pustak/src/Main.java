@@ -1,5 +1,8 @@
+import controllers.AddBookController;
 import controllers.AssetController;
 import controllers.ResultController;
+import services.AddBookService;
+import services.AddBookServiceImpl;
 import services.BookService;
 import services.BookServiceImpl;
 import step.web.framework.RequestHandlerResult;
@@ -16,6 +19,7 @@ public class Main {
     private static void initializeRoutes() {
         RouteMap routeMap = RouteMap.create();
         final BookService bookService=new BookServiceImpl();
+        final AddBookService addBookService = new AddBookServiceImpl();
         WebRequestHandler getAssets = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
@@ -30,9 +34,18 @@ public class Main {
             }
         };
 
+        WebRequestHandler addBook = new WebRequestHandler() {
+            @Override
+            public RequestHandlerResult operation(WebContext context) {
+                return new AddBookController(context,addBookService).createBook();
+            }
+        };
+
         routeMap.get("/Admin.html", renderTemplate(ViewTemplates.Admin));
         routeMap.post("/SearchBook",searchResult);
         routeMap.get("public/css/*", getAssets);
+        routeMap.get("/addbook.html", renderTemplate(ViewTemplates.AddBook));
+        routeMap.post("/addbook", addBook);
 
     }
 

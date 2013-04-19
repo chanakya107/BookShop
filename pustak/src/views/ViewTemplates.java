@@ -4,7 +4,8 @@ import step.web.framework.ViewFileTemplate;
 
 public enum ViewTemplates implements ViewFileTemplate {
     Admin("./admin.html"),
-    SearchResult("/searchResult.html");
+    SearchResult("/searchResult.html"),
+    AddBook("pustak/content/addbook.html");
     private String path;
 
     private ViewTemplates(String path) {

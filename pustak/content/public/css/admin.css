@@ -1,0 +1,13 @@
+.header
+{
+    background-color:#808080;
+}
+.search-bar
+{
+    text-align: center;
+    margin-top: 15px;
+}
+.section{
+    border:#005580 1px groove;
+    height: 400px;
+}
