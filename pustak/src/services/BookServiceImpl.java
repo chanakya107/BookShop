@@ -12,7 +12,7 @@ public class BookServiceImpl implements BookService {
     DataBase db = new DataBase();
 
     public BookServiceImpl() {
-        db.connectTo("pustak/content/public/db/pustak.db");
+        db.connectTo("content/public/db/pustak.db");
     }
 
     @Override

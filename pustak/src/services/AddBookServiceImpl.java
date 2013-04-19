@@ -5,7 +5,7 @@ import model.DataBase;
 public class AddBookServiceImpl implements AddBookService {
     @Override
     public void addBook(String isbn, String title, String author, int price, int quantity, String type) {
-        String dbName = "pustak/content/public/db/pustak.db";
+        String dbName = "content/public/db/pustak.db";
         DataBase dataBase = new DataBase();
         String sql;
         if (type.equals("New"))
