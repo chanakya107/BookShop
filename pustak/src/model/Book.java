@@ -2,7 +2,7 @@ package model;
 
 public class Book {
     private int ISBN;
-    private String  title;
+    private String title;
     private String author;
     private int quantity_New;
     private int quantity_used;
@@ -43,7 +43,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return  ISBN +
+        return ISBN +
                 "," + title +
                 "," + author +
                 "," + quantity_New +
@@ -93,5 +93,16 @@ public class Book {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public static Book createBook(int ISBN, String title, String author, int quantity_New, int quantity_used, int price) {
+        Book book = new Book();
+        book.setISBN(ISBN);
+        book.setTitle(title);
+        book.setAuthor(author);
+        book.setQuantity_new(quantity_New);
+        book.setQuantity_used(quantity_used);
+        book.setPrice(price);
+        return book;
     }
 }

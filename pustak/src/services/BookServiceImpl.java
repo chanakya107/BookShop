@@ -10,24 +10,25 @@ import java.util.List;
 
 public class BookServiceImpl implements BookService {
     DataBase db;
+
     @Override
-    public void bindDB(DataBase db)
-    {
-        if(db==null) throw new IllegalArgumentException("Cannot Bind DataBase : "+db);
-        this.db=db;
+    public void bindDB(DataBase db) {
+        if (db == null) throw new IllegalArgumentException("Cannot Bind DataBase : " + db);
+        this.db = db;
     }
+
     @Override
     public Book[] searchBookByTitle(String searchkey) {
         db.connectTo("pustak.db");
-        if(searchkey==null || searchkey.equals(""))
-               return buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity,usedbookquantity from books"));
+        if (searchkey == null || searchkey.equals(""))
+            return buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity,usedbookquantity from books"));
         return buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity,usedbookquantity from books where title like '%" + searchkey + "%'"));
     }
 
     @Override
     public Book[] getAll() {
         db.connectTo("pustak.db");
-        return  buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity,usedbookquantity from books"));
+        return buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity,usedbookquantity from books"));
     }
 
     private Book[] buildResultBooks(ResultSet rs) {
@@ -42,6 +43,7 @@ public class BookServiceImpl implements BookService {
             return null;
         }
     }
+
     @Override
     public Book createBook(int ISBN, String title, String authorName, int price, int usedQuantity, int newQuantity) {
         Book book = new Book();

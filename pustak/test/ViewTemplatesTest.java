@@ -4,7 +4,7 @@ import org.junit.Test;
 
 public class ViewTemplatesTest {
     @Test
-    public void aVoid(){
+    public void aVoid() {
         ViewTemplates templates = ViewTemplates.Admin;
         Assert.assertEquals(templates.getTemplateFileName(), "content/admin.html");
     }
