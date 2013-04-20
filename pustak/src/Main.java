@@ -58,8 +58,8 @@ public class Main {
         routeMap.post("/addbook", addBook);
         routeMap.post("/addOrder", createOrder);
         routeMap.post("/SearchBook", searchResult);
-        routeMap.get("/Index.html", renderTemplate(ViewTemplates.Index));
-        routeMap.post("/display",display);
+        routeMap.get("/index.html", renderTemplate(ViewTemplates.Index));
+        routeMap.post("/display", display);
 
     }
 

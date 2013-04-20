@@ -17,12 +17,12 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book[] searchBookByTitle(String searchkey) {
-        return buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity,usedbookquantity from books where title like '" + searchkey + "'"));
+       return buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity,usedbookquantity from books where title like '" + searchkey + "'"));
     }
 
     @Override
     public Book[] getAll() {
-        return  buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity,usedbookquantity from books"));
+        return buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity,usedbookquantity from books"));
     }
 
     private Book[] buildResultBooks(ResultSet rs) {
