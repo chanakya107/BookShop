@@ -47,6 +47,14 @@ public class Main {
             }
         };
 
+
+        WebRequestHandler UpdateBook = new WebRequestHandler() {
+            @Override
+            public RequestHandlerResult operation(WebContext context) {
+                return new updateBookController(context, bookService).update();
+            }
+        };
+
         WebRequestHandler display = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
@@ -61,12 +69,6 @@ public class Main {
         routeMap.post("/addbook", addBook);
         routeMap.post("/addOrder", createOrder);
         routeMap.post("/SearchBook", searchResult);
-        WebRequestHandler UpdateBook= new WebRequestHandler() {
-            @Override
-            public RequestHandlerResult operation(WebContext context) {
-        return new updateBookController(context,bookService).update();
-            }
-        };
         routeMap.post("/UpdateBook", UpdateBook);
         routeMap.get("/", display);
 

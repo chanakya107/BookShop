@@ -16,7 +16,7 @@ public class ResultController {
     }
 
     public RequestHandlerResult getResult() {
-        String searchkey = context.requestBodyField("searchKey");
+        String searchkey = context.requestBodyField("searchkey");
         context.bind("books", bookService.searchBookByTitle(searchkey));
         return RequestHandlerResult.ok(context.render(ViewTemplates.SearchResult));
     }
