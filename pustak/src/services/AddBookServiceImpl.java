@@ -4,7 +4,7 @@ import model.DataBase;
 
 public class AddBookServiceImpl implements AddBookService {
     @Override
-    public void addBook(String isbn, String title, String author, int price, int quantity, String type) {
+    public String addBook(String isbn, String title, String author, int price, int quantity, String type) {
         String dbName = "content/public/db/pustak.db";
         DataBase dataBase = new DataBase();
         String sql;
@@ -14,7 +14,8 @@ public class AddBookServiceImpl implements AddBookService {
             sql = "values ('" + isbn + "','" + title + "','" + author + "'," + price + "," + 0 + "," + quantity + ")";
         String QueryString = "INSERT INTO books " + sql;
         if (dataBase.connectTo(dbName)){
-            dataBase.insertBooksToDataBase(QueryString);
+            return dataBase.insertBooksToDataBase(QueryString);
         }
+        return "Database is Down";
     }
 }
