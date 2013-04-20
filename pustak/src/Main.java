@@ -41,6 +41,7 @@ public class Main {
                 return new ResultController(context, bookService).getResult();
             }
         };
+
         WebRequestHandler createOrder = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
@@ -55,7 +56,6 @@ public class Main {
             }
         };
 
-
         WebRequestHandler addBook = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
@@ -69,14 +69,14 @@ public class Main {
                 return new DisplayBooksController(context, bookService).list();
             }
         };
-        routeMap.get("/Admin.html", renderTemplate(ViewTemplates.Admin));
+        routeMap.get("/admin.html", renderTemplate(ViewTemplates.Admin));
         routeMap.get("/placeOrder.html", renderTemplate(ViewTemplates.placeOrder));
         routeMap.get("public/css/*", getAssets);
         routeMap.get("/addbook.html", renderTemplate(ViewTemplates.AddBook));
         routeMap.post("/addbook", addBook);
         routeMap.post("/viewOrder", viewOrder);
         routeMap.post("/addOrder", createOrder);
-        routeMap.post("/SearchBook", searchResult);
+        routeMap.post("/searchBook", searchResult);
         routeMap.get("/index.html", renderTemplate(ViewTemplates.Index));
         routeMap.post("/display", display);
 
@@ -87,7 +87,6 @@ public class Main {
             }
         };
         routeMap.post("/UpdateBook", UpdateBook);
-
     }
 
     private static WebRequestHandler renderTemplate(final ViewTemplates template) {
