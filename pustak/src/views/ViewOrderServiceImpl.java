@@ -10,15 +10,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewOrderServiceImpl implements ViewOrderService {
-    DataBase db = new DataBase();
+    DataBase db;
 
     public ViewOrderServiceImpl() {
-        db.connectTo("content/public/db/pustak.db");
+        db.connectTo("pustak.db");
     }
 
     @Override
     public List<Order> getOrders() {
         return getOrdersInList(db.selectQuery("select OrderId,customerName,email,phoneNumber,address,date,isbn from Orders"));
+    }
+
+    @Override
+    public void bindDB(DataBase db) {
+        this.db=db;
     }
 
     private List<Order> getOrdersInList(ResultSet resultSet) {
