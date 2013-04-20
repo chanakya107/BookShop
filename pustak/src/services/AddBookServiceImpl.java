@@ -3,19 +3,24 @@ package services;
 import model.DataBase;
 
 public class AddBookServiceImpl implements AddBookService {
+    private DataBase db;
+
     @Override
     public String addBook(String isbn, String title, String author, int price, int quantity, String type) {
-        String dbName = "pustak.db";
-        DataBase dataBase = new DataBase();
+         db.connectTo("pustak.db");
         String sql;
         if (type.equals("New"))
             sql = "values ('" + isbn + "','" + title + "','" + author + "'," + price + "," + quantity + "," + 0 + ")";
         else
             sql = "values ('" + isbn + "','" + title + "','" + author + "'," + price + "," + 0 + "," + quantity + ")";
         String QueryString = "INSERT INTO books " + sql;
-        if (dataBase.connectTo(dbName)){
-            return dataBase.insertBooksToDataBase(QueryString);
-        }
-        return "Database is Down";
+        String s = db.insertBooksToDataBase(QueryString);
+        db.closeConnection();
+        return s;
+    }
+
+    @Override
+    public void bindDB(DataBase db) {
+        this.db = db;
     }
 }

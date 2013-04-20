@@ -1,6 +1,5 @@
 package controllers;
 
-import model.DataBase;
 import services.OrderService;
 import step.web.framework.RequestHandlerResult;
 import step.web.framework.WebContext;
@@ -21,7 +20,7 @@ public class OrderListController {
         String phoneNumber = context.requestBodyField("phoneNumber");
         String address = context.requestBodyField("Address");
 
-        service.storeOrder(customerName, email, phoneNumber, address,new DataBase());
+        service.storeOrder(customerName, email, phoneNumber, address);
 
         return RequestHandlerResult.ok(context.render(ViewTemplates.orderSuccessful));
     }

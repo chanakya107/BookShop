@@ -9,7 +9,7 @@ public class DataBase {
     public boolean connectTo(String dbName) {
         try {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:content/public/db/" + dbName);
+            connection = DriverManager.getConnection("jdbc:sqlite:" + dbName);
             statement = connection.createStatement();
             return true;
         } catch (ClassNotFoundException e) {
@@ -21,11 +21,11 @@ public class DataBase {
     }
 
     public ResultSet selectQuery(String selectQuery) {
+        ResultSet rs=null;
         try {
-            return statement.executeQuery(selectQuery);
-        } catch (SQLException e) {
-            return null;
-        }
+            rs = statement.executeQuery(selectQuery);
+        } catch (SQLException e) {e.printStackTrace();}
+        return rs;
     }
 
     public boolean createTable(String createTableQuery) {
@@ -45,7 +45,6 @@ public class DataBase {
         } catch (SQLException e) {
             message = "ISBN already present : Failed To Add Book.";
         }
-        closeConnection();
         return message;
     }
 
@@ -57,25 +56,16 @@ public class DataBase {
                 " author VARCHAR(255) not NULL, " +
                 " price INTEGER not NULL," +
                 " newbookquantity INTEGER, " +
-                " oldbookquantity INTEGER, " +
+                " usedbookquantity INTEGER, " +
                 " PRIMARY KEY ( isbn ))";
         createTable(sql);
         return insertQuery(queryString);
     }
 
-    private void closeConnection() {
+    public void closeConnection() {
         try {
             connection.close();
             statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public void dropTable(String query) {
-        try {
-            statement.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="public/css/bootstrap-responsive.min.css"/>
+    <link rel="stylesheet" href="public/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="public/css/admin.css"/>
+    <title></title>
+</head>
+<body>
+<div class="row header">
+    <div class="span2"></div>
+    <div class="span8">
+        <h1>Pustak.com</h1>
+    </div>
+    <div class="span2"></div>
+</div>
+<div class="row">
+    <div class="span2"></div>
+    <div class="span8">
+        <div class="search-bar">
+            <form action="display" method="post">
+                <div class="input-append">
+                    <input type="text" name="searchKey" class="search-query input-xxlarge"
+                           placeholder="Enter the Title of the Book">
+                    <button type="submit" class="btn btn-info">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div>
+    #set ($count=0)
+    #foreach($book in $books )
+    #if($count < 12)
+    <div class="span5">
+        <ul class="thumbnails">
+            <li class="span3">
+                <div class="thumbnail">
+                    <p><b>Title: </b>$book.title
+                        <br/>
+                        <b>Author: </b>$book.Author
+                        <br/>
+                        <b>Price: </b>$book.price
+                        <br/> <br/>
+                        <button class="btn btn-small btn-primary" type="button">BUY</button>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+    #end
+    #set ( $count=$count+1)
+    #end
+    <div class="span2"></div>
+</div>
+</body>
+</html>

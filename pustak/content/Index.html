@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <link rel="stylesheet" href="public/css/bootstrap-responsive.min.css"/>
     <link rel="stylesheet" href="public/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="public/css/admin.css"/>
 </head>
 <body>
 <div class="span2"></div>
@@ -31,11 +32,30 @@
 
         </ul>
 
+
+        <div class="row header">
+            <div class="span2"></div>
+            <div class="span8">
+                <h1>Pustak.com</h1>
+
+            </div>
+            <div class="span2"></div>
+        </div>
+        <div class="row">
+            <div class="span2"></div>
+            <div class="span8">
+                <form method="post" action="display">
+                    <div class="search-bar">
+                        <div class="input-append">
+                            <input type="text" name="searchKey" class="search-query input-xxlarge"
+                                   placeholder="Enter the Title of the Book">
+                            <button type="submit" class="btn btn-info">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-    #end
-    #set ( $count=$count+1)
-    #end
-    <div class="span2"></div>
 </div>
 </body>
 </html>
