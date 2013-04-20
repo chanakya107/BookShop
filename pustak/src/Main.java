@@ -1,4 +1,5 @@
 import controllers.*;
+import model.DataBase;
 import services.*;
 import services.impl.OrderServiceImpl;
 import step.web.framework.RequestHandlerResult;
@@ -14,8 +15,11 @@ public class Main {
 
     private static void initializeRoutes() {
         RouteMap routeMap = RouteMap.create();
+        DataBase db=new DataBase();
         final BookService bookService = new BookServiceImpl();
+            bookService.bindDB(db);
         final AddBookService addBookService = new AddBookServiceImpl();
+             addBookService.bindDB(db);
         final OrderService service = new OrderServiceImpl();
         WebRequestHandler getAssets = new WebRequestHandler() {
             @Override
