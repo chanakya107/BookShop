@@ -53,6 +53,7 @@ public class Main {
                 return new DisplayBooksController(context, bookService).list();
             }
         };
+
         routeMap.get("/Admin.html", renderTemplate(ViewTemplates.Admin));
         routeMap.get("/placeOrder.html", renderTemplate(ViewTemplates.placeOrder));
         routeMap.get("public/css/*", getAssets);

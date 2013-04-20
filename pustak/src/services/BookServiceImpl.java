@@ -16,13 +16,13 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book[] searchBookByTitle(String searchkey) {
-        return buildResultBooks(db.selectQuery("select isbn,title,author,price,newbooksquantity,usedbooksquantity from books where title like '" + searchkey + "'"));
+    public Book[] searchBookByTitle(String searchKey) {
+        return buildResultBooks(db.selectQuery("select isbn,title,author,price,newbooksquantity,usedbooksquantity from books where title like '" + searchKey + "'"));
     }
 
     @Override
     public Book[] getAll() {
-        return  buildResultBooks(db.selectQuery("select ISBN,title,author,price,NewbooksQuantity,usedbooksQuantity from Books"));
+        return buildResultBooks(db.selectQuery("select ISBN,title,author,price,NewbooksQuantity,usedbooksQuantity from Books"));
     }
 
     private Book[] buildResultBooks(ResultSet rs) {
@@ -37,6 +37,7 @@ public class BookServiceImpl implements BookService {
             return null;
         }
     }
+
     @Override
     public Book createBook(int ISBN, String title, String authorName, int price, int usedQuantity, int newQuantity) {
         Book book = new Book();
