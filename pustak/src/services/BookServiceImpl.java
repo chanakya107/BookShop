@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookServiceImpl implements BookService {
-    DataBase db = new DataBase();
+    DataBase db;
 
     public BookServiceImpl() {
         db.connectTo("pustak.db");
@@ -28,9 +28,10 @@ public class BookServiceImpl implements BookService {
     private Book[] buildResultBooks(ResultSet rs) {
         List<Book> books = new ArrayList<Book>();
         try {
-            String plusFreeTitle = rs.getString(2).replace("+", " ");
-            String plusFreeAuthorName = rs.getString(3).replace("+", " ");
+            System.out.println(rs.next());
             while (rs.next()) {
+                String plusFreeTitle = rs.getString(2).replace("+", " ");
+                String plusFreeAuthorName = rs.getString(3).replace("+", " ");
                 books.add(createBook(rs.getInt(1), plusFreeTitle, plusFreeAuthorName, rs.getInt(4), rs.getInt(5), rs.getInt(6)));
             }
             return books.toArray(new Book[books.size()]);
