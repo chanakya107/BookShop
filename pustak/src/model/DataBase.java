@@ -25,18 +25,15 @@ public class DataBase {
         try {
             rs = statement.executeQuery(selectQuery);
         } catch (SQLException e) {e.printStackTrace();}
-        closeConnection();
         return rs;
     }
 
     public boolean createTable(String createTableQuery) {
         try {
             statement.executeUpdate(createTableQuery);
-            closeConnection();
             return true;
         } catch (SQLException e) {
         }
-        closeConnection();
         return false;
     }
 
@@ -48,7 +45,6 @@ public class DataBase {
         } catch (SQLException e) {
             message = "ISBN already present : Failed To Add Book.";
         }
-        closeConnection();
         return message;
     }
 
@@ -66,7 +62,7 @@ public class DataBase {
         return insertQuery(queryString);
     }
 
-    private void closeConnection() {
+    public void closeConnection() {
         try {
             connection.close();
             statement.close();
