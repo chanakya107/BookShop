@@ -31,12 +31,13 @@ public class Main {
                 return new ResultController(context, bookService).getResult();
             }
         };
-        WebRequestHandler createOrder = new WebRequestHandler() {
-            @Override
-            public RequestHandlerResult operation(WebContext context) {
-                return new OrderListController(context, service).createOrder();
-            }
-        };
+        WebRequestHandler createOrder = new
+                WebRequestHandler() {
+                    @Override
+                    public RequestHandlerResult operation(WebContext context) {
+                        return new OrderListController(context, service).createOrder();
+                    }
+                };
 
         WebRequestHandler addBook = new WebRequestHandler() {
             @Override
@@ -47,24 +48,24 @@ public class Main {
 
         WebRequestHandler display = new WebRequestHandler() {
             @Override
-            public RequestHandlerResult operation(WebContext context){
+            public RequestHandlerResult operation(WebContext context) {
                 return new DisplayBooksController(context, bookService).list();
             }
         };
-        routeMap.get("/Admin.html", renderTemplate(ViewTemplates.Admin));
+        routeMap.get("/admin.html", renderTemplate(ViewTemplates.Admin));
         routeMap.get("/placeOrder.html", renderTemplate(ViewTemplates.placeOrder));
         routeMap.get("public/css/*", getAssets);
         routeMap.get("/addbook.html", renderTemplate(ViewTemplates.AddBook));
         routeMap.post("/addbook", addBook);
         routeMap.post("/addOrder", createOrder);
-        routeMap.post("/SearchBook", searchResult);
-        routeMap.get("/index.html", renderTemplate(ViewTemplates.Index));
+        routeMap.post("/searchBook", searchResult);
+        routeMap.get("/", renderTemplate(ViewTemplates.Index));
         routeMap.post("/display", display);
 
-        WebRequestHandler UpdateBook= new WebRequestHandler() {
+        WebRequestHandler UpdateBook = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
-        return new updateBookController(context,bookService).update();
+                return new updateBookController(context, bookService).update();
             }
         };
         routeMap.post("/UpdateBook", UpdateBook);
