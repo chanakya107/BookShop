@@ -4,11 +4,11 @@ import step.web.framework.ViewFileTemplate;
 
 public enum ViewTemplates implements ViewFileTemplate {
     Admin("content/admin.html"),
-    AddBook("content/addbook.html"),
+    AddBook("content/addBook.html"),
     placeOrder("content/placeOrder.html"),
     orderSuccessful("content/orderSuccessful.html"),
     SearchResult("content/searchResult.html"),
-    Index("content/Index.html");
+    Index("content/index.html");
     private String path;
 
     private ViewTemplates(String path) {
