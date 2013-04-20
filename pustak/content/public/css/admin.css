@@ -8,7 +8,11 @@
     margin-top: 15px;
 }
 .section{
-    border:#005580 1px groove;
+    border:1px solid wheat;
     height: 400px;
 
+}
+.bodySection
+{
+    margin-top:10px;
 }

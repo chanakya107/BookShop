@@ -14,7 +14,9 @@ public class AddBookServiceImpl implements AddBookService {
         else
             sql = "values ('" + isbn + "','" + title + "','" + author + "'," + price + "," + 0 + "," + quantity + ")";
         String QueryString = "INSERT INTO books " + sql;
-            return db.insertBooksToDataBase(QueryString);
+        String s = db.insertBooksToDataBase(QueryString);
+        db.closeConnection();
+        return s;
     }
 
     @Override

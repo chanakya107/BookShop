@@ -12,9 +12,6 @@ import java.util.List;
 public class ViewOrderServiceImpl implements ViewOrderService {
     DataBase db;
 
-    public ViewOrderServiceImpl() {
-    }
-
     @Override
     public List<Order> getOrders() {
         return getOrdersInList(db.selectQuery("select OrderId,customerName,email,phoneNumber,address,date,isbn from Orders"));

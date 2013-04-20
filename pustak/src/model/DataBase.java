@@ -34,7 +34,6 @@ public class DataBase {
     public boolean createTable(String createTableQuery) {
         try {
             statement.executeUpdate(createTableQuery);
-            closeConnection();
             return true;
         } catch (SQLException e) {
             return false;
@@ -66,7 +65,7 @@ public class DataBase {
         return insertQuery(queryString);
     }
 
-    private void closeConnection() {
+    public void closeConnection() {
         try {
             connection.close();
             statement.close();

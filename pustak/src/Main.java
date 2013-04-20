@@ -60,7 +60,6 @@ public class Main {
             }
         };
 
-
         WebRequestHandler addBook = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
@@ -97,7 +96,6 @@ public class Main {
 
 
         routeMap.post("/UpdateBook", UpdateBook);
-
     }
 
     private static WebRequestHandler renderTemplate(final ViewTemplates template) {
