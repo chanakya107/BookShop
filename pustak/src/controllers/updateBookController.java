@@ -3,6 +3,7 @@ package controllers;
 import services.BookService;
 import step.web.framework.RequestHandlerResult;
 import step.web.framework.WebContext;
+import views.ViewTemplates;
 
 public class updateBookController {
     private final WebContext context;
@@ -15,6 +16,6 @@ public class updateBookController {
 
     public RequestHandlerResult update() {
 //        bookService.updateStock(context.requestBodyField("isbn"));
-        return null;
+        return RequestHandlerResult.ok(context.render(ViewTemplates.UpdateBook));
     }
 }
