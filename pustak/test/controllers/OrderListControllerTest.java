@@ -1,5 +1,6 @@
 package controllers;
 
+import model.DataBase;
 import org.junit.Before;
 import org.junit.Test;
 import services.OrderService;
@@ -52,6 +53,6 @@ public class OrderListControllerTest {
         when(context.requestBodyField("phoneNumber")).thenReturn("7894562132");
         when(context.requestBodyField("Address")).thenReturn("Jalahalli village");
         controller.createOrder();
-        verify(service).storeOrder("chethan","chethandec22@gmail.com","7894562132","Jalahalli village");
+        verify(service).storeOrder("chethan","chethandec22@gmail.com","7894562132","Jalahalli village",new DataBase());
     }
 }
