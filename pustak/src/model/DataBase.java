@@ -21,20 +21,21 @@ public class DataBase {
     }
 
     public ResultSet selectQuery(String selectQuery) {
+        ResultSet rs=null;
         try {
-            return statement.executeQuery(selectQuery);
-        } catch (SQLException e) {
-            return null;
-        }
+            rs = statement.executeQuery(selectQuery);
+        } catch (SQLException e) {e.printStackTrace();}
+        return rs;
     }
 
     public boolean createTable(String createTableQuery) {
         try {
             statement.executeUpdate(createTableQuery);
+            closeConnection();
             return true;
         } catch (SQLException e) {
-            return false;
         }
+        return false;
     }
 
     public String insertQuery(String insertQuery) {
@@ -45,7 +46,6 @@ public class DataBase {
         } catch (SQLException e) {
             message = "ISBN already present : Failed To Add Book.";
         }
-        closeConnection();
         return message;
     }
 
@@ -57,7 +57,7 @@ public class DataBase {
                 " author VARCHAR(255) not NULL, " +
                 " price INTEGER not NULL," +
                 " newbookquantity INTEGER, " +
-                " oldbookquantity INTEGER, " +
+                " usedbookquantity INTEGER, " +
                 " PRIMARY KEY ( isbn ))";
         createTable(sql);
         return insertQuery(queryString);
@@ -67,15 +67,6 @@ public class DataBase {
         try {
             connection.close();
             statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public void dropTable(String query) {
-        try {
-            statement.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
