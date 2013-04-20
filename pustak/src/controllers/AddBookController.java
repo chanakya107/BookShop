@@ -17,6 +17,7 @@ public class AddBookController {
     public static AddBookController createAddBookController(WebContext context, AddBookService addBookService){
         if (context == null) throw new IllegalArgumentException("Cannot create addBookController of the context : "+context);
         if (addBookService == null) throw new IllegalArgumentException("Cannot create addBookController of the addBookService : "+addBookService);
+        context.bind("message","Enter");
         return new AddBookController(context,addBookService);
     }
 
