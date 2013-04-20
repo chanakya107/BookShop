@@ -5,6 +5,8 @@ import step.web.framework.RequestHandlerResult;
 import step.web.framework.RouteMap;
 import step.web.framework.WebContext;
 import step.web.framework.WebRequestHandler;
+import views.ViewOrderService;
+import views.ViewOrderServiceImpl;
 import views.ViewTemplates;
 
 public class Main {
@@ -16,7 +18,8 @@ public class Main {
         RouteMap routeMap = RouteMap.create();
         final BookService bookService = new BookServiceImpl();
         final AddBookService addBookService = new AddBookServiceImpl();
-        final OrderService service = new OrderServiceImpl();
+        final OrderService orderService = new OrderServiceImpl();
+        final ViewOrderService viewOrderService = new ViewOrderServiceImpl();
         WebRequestHandler getAssets = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
@@ -34,9 +37,17 @@ public class Main {
         WebRequestHandler createOrder = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
-                return new OrderListController(context, service).createOrder();
+                return new OrderListController(context, orderService).createOrder();
             }
         };
+
+        WebRequestHandler viewOrder = new WebRequestHandler() {
+            @Override
+            public RequestHandlerResult operation(WebContext webContext) {
+                return ViewOrderController.createViewOrderController(webContext, viewOrderService).getOrders();
+            }
+        };
+
 
         WebRequestHandler addBook = new WebRequestHandler() {
             @Override
@@ -47,7 +58,7 @@ public class Main {
 
         WebRequestHandler display = new WebRequestHandler() {
             @Override
-            public RequestHandlerResult operation(WebContext context){
+            public RequestHandlerResult operation(WebContext context) {
                 return new DisplayBooksController(context, bookService).list();
             }
         };
@@ -56,6 +67,7 @@ public class Main {
         routeMap.get("public/css/*", getAssets);
         routeMap.get("/addbook.html", renderTemplate(ViewTemplates.AddBook));
         routeMap.post("/addbook", addBook);
+        routeMap.post("/viewOrder", viewOrder);
         routeMap.post("/addOrder", createOrder);
         routeMap.post("/SearchBook", searchResult);
         routeMap.get("/", display);

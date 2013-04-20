@@ -57,8 +57,8 @@ public class DataBase {
                 " title VARCHAR(255) not NULL, " +
                 " author VARCHAR(255) not NULL, " +
                 " price INTEGER not NULL," +
-                " NewBookQuantity INTEGER, " +
-                " UsedBookQuantity INTEGER, " +
+                " newbookquantity INTEGER, " +
+                " usedbookquantity INTEGER, " +
                 " PRIMARY KEY ( isbn ))";
         createTable(sql);
         return insertQuery(queryString);
