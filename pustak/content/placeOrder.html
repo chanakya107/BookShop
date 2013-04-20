@@ -29,7 +29,7 @@
         <label class="control-label">Phone Number</label>
 
         <div class="controls">
-                <input type="tel" class="input-medium" placeholder="9898989898" name="phoneNumber" pattern="[0-9]{10}"
+            <input type="tel" class="input-medium" placeholder="9898989898" name="phoneNumber" pattern="[0-9]{10}"
                    maxlength="10" required>
         </div>
     </div>
@@ -44,7 +44,9 @@
     <br>
 
     <div class="controls">
-        <input class="btn btn-warning" type="button" value="cancel">
+        <form method="get" action="/">
+            <input class="btn btn-warning" type="submit" value="cancel">
+        </form>
         <input class="btn btn-success" type="submit" value="proceed">
     </div>
 </form>

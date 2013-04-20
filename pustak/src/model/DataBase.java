@@ -6,10 +6,10 @@ public class DataBase {
     private Connection connection;
     private Statement statement;
 
-    public boolean connectTo(String dbPath) {
+    public boolean connectTo(String dbName) {
         try {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:content/public/db/" + dbPath);
+            connection = DriverManager.getConnection("jdbc:sqlite:content/public/db/" + dbName);
             statement = connection.createStatement();
             return true;
         } catch (ClassNotFoundException e) {
