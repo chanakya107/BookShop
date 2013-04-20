@@ -31,12 +31,14 @@ public class Main {
                 return new ResultController(context, bookService).getResult();
             }
         };
-        WebRequestHandler createOrder = new WebRequestHandler() {
-            @Override
-            public RequestHandlerResult operation(WebContext context) {
-                return new OrderListController(context, service).createOrder();
-            }
-        };
+        WebRequestHandler createOrder = new
+
+                WebRequestHandler() {
+                    @Override
+                    public RequestHandlerResult operation(WebContext context) {
+                        return new OrderListController(context, service).createOrder();
+                    }
+                };
 
         WebRequestHandler addBook = new WebRequestHandler() {
             @Override
@@ -47,7 +49,7 @@ public class Main {
 
         WebRequestHandler display = new WebRequestHandler() {
             @Override
-            public RequestHandlerResult operation(WebContext context){
+            public RequestHandlerResult operation(WebContext context) {
                 return new DisplayBooksController(context, bookService).list();
             }
         };

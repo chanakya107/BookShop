@@ -9,7 +9,9 @@
         Add
     </title>
 </head>
+
 <body>
+
 <div class="row-fluid header">
     <div class="span2"></div>
     <div class="span8">
@@ -17,40 +19,54 @@
     </div>
     <div class="span2"></div>
 </div>
+
 <div class="row-fluid">
     <div class="span2"></div>
+
     <div class="span8">
         <div class="span8 row-fluid section">
             <form method="post" action="addbook">
+
                 <div>
                     ISBN:<input type="text" name="isbn" required placeholder="Enter ISBN of the Book"/>
                 </div>
+
                 <div>
                     Title:<input type="text" name="title" required placeholder="Enter Title of the Book"/>
                 </div>
+
                 <div>
                     Author:<input type="text" name="author" required placeholder="Enter Author Name"/>
                 </div>
+
                 <div>
                     Price:<input type="tel" name="price" required pattern="[0-9]{3}"
                                  placeholder="Enter Price of the Book"/>
                 </div>
+
                 <div>
                     Quantity:<input type="number" name="quantity" required data-mask="" placeholder="Enter Quantity"/>
                 </div>
+
                 <input type="radio" class="btn btn-primary" name="bookstatus" value="New" required>New
                 <input type="radio" class="btn btn-primary" name="bookstatus" value="Used" required>Used
+
                 <button type="submit" id="add"> ADD</button>
             </form>
         </div>
     </div>
+
     <div class="span2"></div>
+
 </div>
+
 <div class="row-fluid">
     <div class="span2"></div>
     <div class="span8">
         $message
     </div>
 </div>
+
 </body>
+
 </html>
