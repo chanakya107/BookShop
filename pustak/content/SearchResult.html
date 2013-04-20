@@ -47,12 +47,15 @@
             </ul>
         </div>
         <div class="span10 row-fluid section">
-            <table>
+            <form action="updatebook" method="post">
+            <table class="table table-striped table-bordered">
                 <tr>
                     <th>ISBN</th>
                     <th>Title</th>
                     <th>Author</th>
                     <th>Price</th>
+                    <th>New copy count</th>
+                    <th>Used copy count</th>
                 </tr>
                 #foreach( $book in $books )
                 <tr>
@@ -62,9 +65,13 @@
                     <td>$book.price</td>
                     <td>$book.quantity_New</td>
                     <td>$book.quantity_used</td>
+                    <td>
+                        <button class="offset2 btn btn-small btn-primary" type="submit">UPDATE</button>
+                    </td>
                 </tr>
                 #end
             </table>
+            </form>
         </div>
     </div>
     <div class="span2"></div>

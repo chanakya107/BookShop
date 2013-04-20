@@ -12,6 +12,7 @@ public class DisplayBooksControllerTest {
     WebContext context;
     BookService bookServices;
     Book book;
+    Book[] books;
     DisplayBooksController displayBooksController;
 
     @Before
@@ -19,14 +20,6 @@ public class DisplayBooksControllerTest {
         context = mock(WebContext.class);
         bookServices = mock(BookService.class);
         displayBooksController = new DisplayBooksController(context, bookServices);
-    }
-
-    @Test
-    public void when_displayBookController_list_is_called_getAll_service_is_invoked() {
-
-        DisplayBooksController displayBooksController = new DisplayBooksController(context, bookServices);
-        displayBooksController.list();
-        verify(bookServices).getAll();
     }
 
     @Test
