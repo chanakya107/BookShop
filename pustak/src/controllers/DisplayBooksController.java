@@ -16,10 +16,9 @@ public class DisplayBooksController {
     }
 
     public RequestHandlerResult list() {
-        String searchkey = context.requestBodyField("searchKey");
-        context.bind("books", bookService.searchBookByTitle(searchkey));
-        return RequestHandlerResult.ok(context.render(ViewTemplates.Index));
+        String searchKey = context.requestBodyField("searchKey");
+        context.bind("books",bookService.searchBookByTitle(searchKey));
+        return RequestHandlerResult.ok(context.render(ViewTemplates.SearchResult));
     }
-
 
 }

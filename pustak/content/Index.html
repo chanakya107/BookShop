@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <link rel="stylesheet" href="public/css/bootstrap-responsive.min.css"/>
     <link rel="stylesheet" href="public/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="public/css/admin.css"/>
 </head>
 <body>
-<div class="row-fluid header" method="post" action="display">
+<div class="row-fluid header">
     <div class="span2"></div>
     <div class="span8">
         <h1>Pustak.com</h1>
@@ -16,19 +16,20 @@
 <div class="row-fluid">
     <div class="span2"></div>
     <div class="span4">
-        <div class="search-bar">
-            <div class="input-append">
-                <input type="text" name="searchKey" class="search-query input-xxlarge"
-                       placeholder="Enter the Title of the Book">
-                <button type="submit" class="btn btn-info">Search</button>
+        <form method="post" action="display">
+            <div class="search-bar">
+                <div class="input-append">
+                    <input type="text" name="searchKey" class="search-query input-xxlarge"
+                           placeholder="Enter the Title of the Book">
+                    <button type="submit" class="btn btn-info">Search</button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
     <!--search result display-->
     <div class="span2"></div>
     <div class="span8">
         #set ($count=0)
-        <h2>List of Books</h2>
         #foreach($book in $books )
         #if($count < 10)
 
