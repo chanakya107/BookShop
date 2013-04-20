@@ -34,8 +34,8 @@ public class DataBase {
             closeConnection();
             return true;
         } catch (SQLException e) {
+            return false;
         }
-        return false;
     }
 
     public String insertQuery(String insertQuery) {
