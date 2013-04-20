@@ -14,7 +14,7 @@ public class OrderServiceImplTest {
         DataBase dataBase = mock(DataBase.class);
         OrderServiceImpl orderService = new OrderServiceImpl();
         orderService.storeOrder("Neha", "neharastogi093@gmail.com", "1234567890", "haryana", dataBase);
-        verify(dataBase).connectTo("content/public/db/pustak.db");
+        verify(dataBase).connectTo("pustak.db");
         verify(dataBase).selectQuery("SELECT * from Orders");
         verify(dataBase).insertQuery("INSERT INTO Orders VALUES(null,'" + "Neha" + "','" + "neharastogi093@gmail.com" + "','" + "1234567890" + "','" + "haryana" + "')");
     }
@@ -25,7 +25,7 @@ public class OrderServiceImplTest {
         OrderServiceImpl orderService = new OrderServiceImpl();
         orderService.storeOrder("Neha", "neharastogi093@gmail.com", "1234567890", "haryana", dataBase);
         when(dataBase.selectQuery("SELECT * from Orders")).thenReturn(null);
-        verify(dataBase).connectTo("content/public/db/pustak.db");
+        verify(dataBase).connectTo("pustak.db");
         verify(dataBase).createTable("CREATE TABLE Orders (OrderId INTEGER Primary key AUTOINCREMENT, customerName text, email text, phoneNumber text,address text)");
         verify(dataBase).insertQuery("INSERT INTO Orders VALUES(null,'" + "Neha" + "','" + "neharastogi093@gmail.com" + "','" + "1234567890" + "','" + "haryana" + "')");
     }
