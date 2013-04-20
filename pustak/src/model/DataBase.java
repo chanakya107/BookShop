@@ -21,18 +21,18 @@ public class DataBase {
     }
 
     public ResultSet selectQuery(String selectQuery) {
-        ResultSet rs=null;
+        ResultSet rs;
         try {
             rs = statement.executeQuery(selectQuery);
-        } catch (SQLException e) {e.printStackTrace();}
-        closeConnection();
+        } catch (SQLException e) {
+            return null;
+        }
         return rs;
     }
 
     public boolean createTable(String createTableQuery) {
         try {
             statement.executeUpdate(createTableQuery);
-            closeConnection();
             return true;
         } catch (SQLException e) {
         }
@@ -48,12 +48,10 @@ public class DataBase {
         } catch (SQLException e) {
             message = "ISBN already present : Failed To Add Book.";
         }
-        closeConnection();
         return message;
     }
 
     public String insertBooksToDataBase(String queryString) {
-        DatabaseMetaData meta = null;
         String sql = "CREATE TABLE books " +
                 "(isbn VARCHAR not NULL, " +
                 " title VARCHAR(255) not NULL, " +
@@ -66,7 +64,7 @@ public class DataBase {
         return insertQuery(queryString);
     }
 
-    private void closeConnection() {
+    public void closeConnection() {
         try {
             connection.close();
             statement.close();
@@ -93,5 +91,21 @@ public class DataBase {
         int result = connection != null ? connection.hashCode() : 0;
         result = 31 * result + (statement != null ? statement.hashCode() : 0);
         return result;
+    }
+
+    public void dropTable(String orders) {
+        try {
+            statement.executeUpdate("DROP table " + orders);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateQuery(String query) {
+        try {
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

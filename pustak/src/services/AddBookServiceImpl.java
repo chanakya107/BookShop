@@ -7,14 +7,14 @@ public class AddBookServiceImpl implements AddBookService {
 
     @Override
     public String addBook(String isbn, String title, String author, int price, int quantity, String type) {
-         db.connectTo("pustak.db");
+        db.connectTo("pustak.db");
         String sql;
         if (type.equals("New"))
             sql = "values ('" + isbn + "','" + title + "','" + author + "'," + price + "," + quantity + "," + 0 + ")";
         else
             sql = "values ('" + isbn + "','" + title + "','" + author + "'," + price + "," + 0 + "," + quantity + ")";
         String QueryString = "INSERT INTO books " + sql;
-            return db.insertBooksToDataBase(QueryString);
+        return db.insertBooksToDataBase(QueryString);
     }
 
     @Override

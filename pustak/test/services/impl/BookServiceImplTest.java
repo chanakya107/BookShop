@@ -1,9 +1,11 @@
-package services;
+package services.impl;
 
 import model.Book;
 import model.DataBase;
 import org.junit.Assert;
 import org.junit.Test;
+import services.BookService;
+import services.BookServiceImpl;
 
 import java.sql.ResultSet;
 
@@ -59,8 +61,9 @@ public class BookServiceImplTest {
         Book book = bookService.createBook(123, "Prince", "Jain", 123, 123, 123);
         Assert.assertEquals("123,Prince,Jain,123,123,123", book.toString());
     }
+
     @Test(expected = IllegalArgumentException.class)
-    public void binding_null_db_gives_IllegalArgumentException(){
+    public void binding_null_db_gives_IllegalArgumentException() {
         BookService bookService = new BookServiceImpl();
         bookService.bindDB(null);
     }

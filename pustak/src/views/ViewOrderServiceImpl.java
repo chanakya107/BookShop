@@ -12,10 +12,6 @@ import java.util.List;
 public class ViewOrderServiceImpl implements ViewOrderService {
     DataBase db;
 
-    public ViewOrderServiceImpl() {
-        db.connectTo("pustak.db");
-    }
-
     @Override
     public List<Order> getOrders() {
         return getOrdersInList(db.selectQuery("select OrderId,customerName,email,phoneNumber,address,date,isbn from Orders"));
@@ -23,7 +19,7 @@ public class ViewOrderServiceImpl implements ViewOrderService {
 
     @Override
     public void bindDB(DataBase db) {
-        this.db=db;
+        this.db = db;
     }
 
     private List<Order> getOrdersInList(ResultSet resultSet) {
@@ -41,7 +37,7 @@ public class ViewOrderServiceImpl implements ViewOrderService {
     private Order createOrder(int orderId, String customerName, String email, String phoneNumber, String address, String date, String isbn) {
         ResultSet resultSet = getBookDetails(isbn);
         try {
-            return new Order(orderId,customerName,email,phoneNumber,address,date,isbn,resultSet.getString(1),resultSet.getString(2),resultSet.getInt(3));
+            return new Order(orderId, customerName, email, phoneNumber, address, date, isbn, resultSet.getString(1), resultSet.getString(2), resultSet.getInt(3));
         } catch (SQLException e) {
             e.printStackTrace();
         }
