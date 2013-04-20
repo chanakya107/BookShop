@@ -17,10 +17,10 @@ public class Main {
         final BookService bookService = new BookServiceImpl();
         final AddBookService addBookService = new AddBookServiceImpl();
         final OrderService service = new OrderServiceImpl();
+
         WebRequestHandler getAssets = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
-
                 return AssetController.createAssetController(context).serve();
             }
         };
@@ -31,14 +31,12 @@ public class Main {
                 return new ResultController(context, bookService).getResult();
             }
         };
-        WebRequestHandler createOrder = new
-
-                WebRequestHandler() {
-                    @Override
-                    public RequestHandlerResult operation(WebContext context) {
-                        return new OrderListController(context, service).createOrder();
-                    }
-                };
+        WebRequestHandler createOrder = new WebRequestHandler() {
+            @Override
+            public RequestHandlerResult operation(WebContext context) {
+                return new OrderListController(context, service).createOrder();
+            }
+        };
 
         WebRequestHandler addBook = new WebRequestHandler() {
             @Override
@@ -46,7 +44,6 @@ public class Main {
                 return AddBookController.createAddBookController(context, addBookService).createBook();
             }
         };
-
 
         WebRequestHandler UpdateBook = new WebRequestHandler() {
             @Override
@@ -62,13 +59,13 @@ public class Main {
             }
         };
 
-        routeMap.get("/Admin.html", renderTemplate(ViewTemplates.Admin));
+        routeMap.get("/admin.html", renderTemplate(ViewTemplates.Admin));
         routeMap.post("/placeOrder", renderTemplate(ViewTemplates.placeOrder));
         routeMap.get("public/css/*", getAssets);
         routeMap.get("/addbook.html", renderTemplate(ViewTemplates.AddBook));
         routeMap.post("/addbook", addBook);
         routeMap.post("/addOrder", createOrder);
-        routeMap.post("/SearchBook", searchResult);
+        routeMap.post("/searchBook", searchResult);
         routeMap.post("/UpdateBook", UpdateBook);
         routeMap.get("/", display);
 
