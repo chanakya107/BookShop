@@ -41,7 +41,7 @@ public class Main {
         WebRequestHandler addBook = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
-                return new AddBookController(context, addBookService).createBook();
+                return AddBookController.createAddBookController(context, addBookService).createBook();
             }
         };
 
