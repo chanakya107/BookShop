@@ -60,7 +60,7 @@ public class DataBase {
                 " author VARCHAR(255) not NULL, " +
                 " price INTEGER not NULL," +
                 " newbookquantity INTEGER, " +
-                " oldbookquantity INTEGER, " +
+                " usedbookquantity INTEGER, " +
                 " PRIMARY KEY ( isbn ))";
         createTable(sql);
         return insertQuery(queryString);

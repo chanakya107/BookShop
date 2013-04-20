@@ -6,6 +6,8 @@ import step.web.framework.RequestHandlerResult;
 import step.web.framework.RouteMap;
 import step.web.framework.WebContext;
 import step.web.framework.WebRequestHandler;
+import views.ViewOrderService;
+import views.ViewOrderServiceImpl;
 import views.ViewTemplates;
 
 public class Main {
@@ -20,7 +22,11 @@ public class Main {
             bookService.bindDB(db);
         final AddBookService addBookService = new AddBookServiceImpl();
              addBookService.bindDB(db);
-        final OrderService service = new OrderServiceImpl();
+        final OrderService orderService = new OrderServiceImpl();
+            orderService.bindDB(db);
+        final ViewOrderService viewOrderService = new ViewOrderServiceImpl();
+              viewOrderService.bindDB(db);
+
         WebRequestHandler getAssets = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
@@ -38,9 +44,17 @@ public class Main {
         WebRequestHandler createOrder = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
-                return new OrderListController(context, service).createOrder();
+                return new OrderListController(context, orderService).createOrder();
             }
         };
+
+        WebRequestHandler viewOrder = new WebRequestHandler() {
+            @Override
+            public RequestHandlerResult operation(WebContext webContext) {
+                return ViewOrderController.createViewOrderController(webContext, viewOrderService).getOrders();
+            }
+        };
+
 
         WebRequestHandler addBook = new WebRequestHandler() {
             @Override
@@ -51,7 +65,7 @@ public class Main {
 
         WebRequestHandler display = new WebRequestHandler() {
             @Override
-            public RequestHandlerResult operation(WebContext context){
+            public RequestHandlerResult operation(WebContext context) {
                 return new DisplayBooksController(context, bookService).list();
             }
         };
@@ -60,8 +74,12 @@ public class Main {
         routeMap.get("public/css/*", getAssets);
         routeMap.get("/addbook.html", renderTemplate(ViewTemplates.AddBook));
         routeMap.post("/addbook", addBook);
+        routeMap.post("/viewOrder", viewOrder);
         routeMap.post("/addOrder", createOrder);
         routeMap.post("/SearchBook", searchResult);
+        routeMap.get("/index.html", renderTemplate(ViewTemplates.Index));
+        routeMap.post("/display", display);
+
         WebRequestHandler UpdateBook= new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
@@ -69,7 +87,6 @@ public class Main {
             }
         };
         routeMap.post("/UpdateBook", UpdateBook);
-        routeMap.get("/", display);
 
     }
 

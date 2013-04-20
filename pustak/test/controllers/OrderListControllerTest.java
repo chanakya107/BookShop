@@ -1,14 +1,11 @@
 package controllers;
 
-import model.DataBase;
 import org.junit.Before;
 import org.junit.Test;
 import services.OrderService;
 import step.web.framework.WebContext;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class OrderListControllerTest {
     private OrderListController controller;
@@ -53,6 +50,6 @@ public class OrderListControllerTest {
         when(context.requestBodyField("phoneNumber")).thenReturn("7894562132");
         when(context.requestBodyField("Address")).thenReturn("Jalahalli village");
         controller.createOrder();
-        verify(service).storeOrder("chethan","chethandec22@gmail.com","7894562132","Jalahalli village",new DataBase());
+        verify(service).storeOrder("chethan","chethandec22@gmail.com","7894562132","Jalahalli village");
     }
 }
