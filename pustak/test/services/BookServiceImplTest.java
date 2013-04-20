@@ -16,7 +16,7 @@ public class BookServiceImplTest {
         BookService bookService = new BookServiceImpl();
         DataBase db = mock(DataBase.class);
         ResultSet rs = mock(ResultSet.class);
-        stub(db.selectQuery("select isbn,title,author,price,newbookquantity,usedbookquantity from books where title like 'Alchemist'")).toReturn(rs);
+        stub(db.selectQuery("select isbn,title,author,price,newbookquantity,usedbookquantity from books where title like '%Alchemist%'")).toReturn(rs);
         bookService.bindDB(db);
         db.connectTo("pustak.db");
 
