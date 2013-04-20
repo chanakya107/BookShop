@@ -1,27 +1,24 @@
 package controllers;
 
 
-import model.Book;
 import services.BookService;
 import step.web.framework.RequestHandlerResult;
 import step.web.framework.WebContext;
 import views.ViewTemplates;
 
 public class DisplayBooksController {
+    private final BookService bookService;
     private WebContext context;
-    private final BookService displayDetails;
 
     public DisplayBooksController(WebContext context, BookService displayDetails) {
         this.context = context;
-        this.displayDetails = displayDetails;
+        this.bookService = displayDetails;
     }
 
-    public RequestHandlerResult list(){
-        Book[] books = displayDetails.getAll();
-        context.bind("books", books);
-        return RequestHandlerResult.ok(context.render(ViewTemplates.Index));
+    public RequestHandlerResult list() {
+        String searchKey = context.requestBodyField("searchKey");
+        context.bind("books", bookService.searchBookByTitle(searchKey));
+        return RequestHandlerResult.ok(context.render(ViewTemplates.TitleSearchResult));
     }
-
-
 
 }

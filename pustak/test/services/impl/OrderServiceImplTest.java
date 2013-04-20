@@ -13,7 +13,8 @@ public class OrderServiceImplTest {
     public void store_order_will_store_data_into_dataBase() {
         DataBase dataBase = mock(DataBase.class);
         OrderServiceImpl orderService = new OrderServiceImpl();
-        orderService.storeOrder("Neha", "neharastogi093@gmail.com", "1234567890", "haryana", dataBase);
+        orderService.bindDB(dataBase);
+        orderService.storeOrder("Neha", "neharastogi093@gmail.com", "1234567890", "haryana");
         verify(dataBase).connectTo("pustak.db");
         verify(dataBase).selectQuery("SELECT * from Orders");
         verify(dataBase).insertQuery("INSERT INTO Orders VALUES(null,'" + "Neha" + "','" + "neharastogi093@gmail.com" + "','" + "1234567890" + "','" + "haryana" + "')");
@@ -23,7 +24,8 @@ public class OrderServiceImplTest {
     public void store_order_will_create_the_Orders_table_if_table_is_not_present() {
         DataBase dataBase = mock(DataBase.class);
         OrderServiceImpl orderService = new OrderServiceImpl();
-        orderService.storeOrder("Neha", "neharastogi093@gmail.com", "1234567890", "haryana", dataBase);
+        orderService.bindDB(dataBase);
+        orderService.storeOrder("Neha", "neharastogi093@gmail.com", "1234567890", "haryana");
         when(dataBase.selectQuery("SELECT * from Orders")).thenReturn(null);
         verify(dataBase).connectTo("pustak.db");
         verify(dataBase).createTable("CREATE TABLE Orders (OrderId INTEGER Primary key AUTOINCREMENT, customerName text, email text, phoneNumber text,address text)");

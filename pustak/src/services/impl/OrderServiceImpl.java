@@ -7,12 +7,20 @@ import java.sql.*;
 
 public class OrderServiceImpl implements OrderService {
 
+    private DataBase db;
+
     @Override
-    public void storeOrder(String customerName, String email, String phoneNumber, String address, DataBase dataBase) {
-        dataBase.connectTo("pustak.db");
-        ResultSet resultSet = dataBase.selectQuery("SELECT * from Orders");
+    public void storeOrder(String customerName, String email, String phoneNumber, String address) {
+        db.connectTo("pustak.db");
+        ResultSet resultSet = db.selectQuery("SELECT * from Orders");
         if (resultSet == null)
-            dataBase.createTable("CREATE TABLE Orders (OrderId INTEGER Primary key AUTOINCREMENT, customerName text, email text, phoneNumber text,address text)");
-        dataBase.insertQuery("INSERT INTO Orders VALUES(null,'" + customerName + "','" + email + "','" + phoneNumber + "','" + address + "')");
+            db.createTable("CREATE TABLE Orders (OrderId INTEGER Primary key AUTOINCREMENT, customerName text, email text, phoneNumber text,address text)");
+        db.insertQuery("INSERT INTO Orders VALUES(null,'" + customerName + "','" + email + "','" + phoneNumber + "','" + address + "')");
+    }
+
+    @Override
+    public void bindDB(DataBase db) {
+
+        this.db = db;
     }
 }
