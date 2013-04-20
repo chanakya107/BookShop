@@ -84,14 +84,18 @@ public class Main {
 
         routeMap.get("/", renderTemplate(ViewTemplates.Index));
         routeMap.get("/Admin.html", renderTemplate(ViewTemplates.Admin));
+        routeMap.get("/admin.html", renderTemplate(ViewTemplates.Admin));
         routeMap.get("/placeOrder.html", renderTemplate(ViewTemplates.placeOrder));
         routeMap.get("/addbook.html", renderTemplate(ViewTemplates.AddBook));
         routeMap.get("public/css/*", getAssets);
+        routeMap.get("/ViewOrders.html",renderTemplate(ViewTemplates.DisplayOrders));
         routeMap.post("/addbook", addBook);
         routeMap.post("/viewOrder", viewOrder);
         routeMap.post("/addOrder", createOrder);
         routeMap.post("/searchBook", searchResult);
         routeMap.post("/display", display);
+
+
         routeMap.post("/UpdateBook", UpdateBook);
 
     }

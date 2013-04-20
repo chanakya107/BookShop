@@ -9,7 +9,7 @@ public class DataBase {
     public boolean connectTo(String dbName) {
         try {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:content/public/db/" + dbName);
+            connection = DriverManager.getConnection("jdbc:sqlite:" + dbName);
             statement = connection.createStatement();
             return true;
         } catch (ClassNotFoundException e) {
@@ -24,6 +24,7 @@ public class DataBase {
         ResultSet rs = null;
         try {
             rs = statement.executeQuery(selectQuery);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -36,8 +37,8 @@ public class DataBase {
             closeConnection();
             return true;
         } catch (SQLException e) {
+            return false;
         }
-        return false;
     }
 
     public String insertQuery(String insertQuery) {
