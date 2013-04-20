@@ -9,7 +9,7 @@ public class DataBase {
     public boolean connectTo(String dbPath) {
         try {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
+            connection = DriverManager.getConnection("jdbc:sqlite:content/public/db/" + dbPath);
             statement = connection.createStatement();
             return true;
         } catch (ClassNotFoundException e) {
