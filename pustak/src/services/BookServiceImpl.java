@@ -20,6 +20,11 @@ public class BookServiceImpl implements BookService {
         return buildResultBooks(db.selectQuery("select isbn,title,author,price,newbooksquantity,usedbooksquantity from books where title like '" + searchkey + "'"));
     }
 
+    @Override
+    public Book[] getAll() {
+        return  buildResultBooks(db.selectQuery("select ISBN,title,author,price,NewbooksQuantity,usedbooksQuantity from Books"));
+    }
+
     private Book[] buildResultBooks(ResultSet rs) {
         List<Book> books = new ArrayList<Book>();
         try {

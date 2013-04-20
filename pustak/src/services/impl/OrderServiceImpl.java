@@ -13,7 +13,7 @@ public class OrderServiceImpl implements OrderService {
         Statement statement = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:content/public/db/bookshop.db");
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:content/public/db/pustak.db");
             statement = connection.createStatement();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
