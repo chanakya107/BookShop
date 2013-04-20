@@ -17,7 +17,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book[] searchBookByTitle(String searchkey) {
-        return buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity,usedbookquantity from books where title like '" + searchkey + "'"));
+        return buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity,usedbookquantity from books where title like '%" + searchkey + "%'"));
     }
 
     @Override
@@ -29,8 +29,10 @@ public class BookServiceImpl implements BookService {
     private Book[] buildResultBooks(ResultSet rs) {
         List<Book> books = new ArrayList<Book>();
         try {
+            String plusFreeTitle = rs.getString(2).replace("+", " ");
+            String plusFreeAuthorName = rs.getString(3).replace("+", " ");
             while (rs.next()) {
-                books.add(createBook(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6)));
+                books.add(createBook(rs.getInt(1), plusFreeTitle, plusFreeAuthorName, rs.getInt(4), rs.getInt(5), rs.getInt(6)));
             }
             return books.toArray(new Book[books.size()]);
         } catch (SQLException e) {
