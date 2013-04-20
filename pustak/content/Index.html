@@ -27,38 +27,7 @@
         </form>
     </div>
     <!--search result display-->
-    <div class="span2"></div>
-    <div class="span8">
-        #set ($count=0)
-        #foreach($book in $books )
-        #if($count < 10)
 
-        <div>list of books
-            <ul class="thumbnails">
-                <li class="span4">
-                    <div class="thumbnail">
-                        <a href="#" class="thumbnail">
-                        </a>
-
-                        <p>$book.title
-                            <br/>
-                            $book.author
-                            <br/>
-                            $book.price
-                            <br/>
-                            <button class="btn btn-small btn-primary" type="button">BUY</button>
-                        </p>
-                    </div>
-                </li>
-
-            </ul>
-
-        </div>
-        #end
-        #set ( $count=$count+1)
-        #end
-        <div class="span2"></div>
-    </div>
 </div>
 </body>
 </html>

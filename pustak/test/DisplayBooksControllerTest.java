@@ -5,13 +5,16 @@ import org.junit.Test;
 import services.BookService;
 import step.web.framework.WebContext;
 
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class DisplayBooksControllerTest {
     WebContext context;
     BookService bookServices;
     Book book;
+    Book[] books;
     DisplayBooksController displayBooksController;
 
     @Before
@@ -25,8 +28,9 @@ public class DisplayBooksControllerTest {
     public void when_displayBookController_list_is_called_getAll_service_is_invoked() {
 
         DisplayBooksController displayBooksController = new DisplayBooksController(context, bookServices);
+        when(bookServices.searchBookByTitle("searchKey")).thenReturn(books);
         displayBooksController.list();
-        verify(bookServices).getAll();
+        verify(bookServices).searchBookByTitle("");
     }
 
     @Test
