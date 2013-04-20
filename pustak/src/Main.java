@@ -51,13 +51,13 @@ public class Main {
                 return new DisplayBooksController(context, bookService).list();
             }
         };
-        routeMap.get("/Admin.html", renderTemplate(ViewTemplates.Admin));
+        routeMap.get("/admin.html", renderTemplate(ViewTemplates.Admin));
         routeMap.get("/placeOrder.html", renderTemplate(ViewTemplates.placeOrder));
         routeMap.get("public/css/*", getAssets);
         routeMap.get("/addbook.html", renderTemplate(ViewTemplates.AddBook));
         routeMap.post("/addbook", addBook);
         routeMap.post("/addOrder", createOrder);
-        routeMap.post("/SearchBook", searchResult);
+        routeMap.post("/searchBook", searchResult);
         routeMap.get("/", display);
 
     }
