@@ -9,7 +9,8 @@ public enum ViewTemplates implements ViewFileTemplate {
     orderSuccessful("content/orderSuccessful.html"),
     SearchResult("content/searchResult.html"),
     TitleSearchResult("content/titleSearchResult.html"),
-    Index("content/index.html");
+    Index("content/index.html"),
+    UpdateBook("content/updateBook.html");
     private String path;
 
     private ViewTemplates(String path) {

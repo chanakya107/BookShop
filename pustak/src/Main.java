@@ -61,6 +61,14 @@ public class Main {
         routeMap.get("/index.html", renderTemplate(ViewTemplates.Index));
         routeMap.post("/display", display);
 
+        WebRequestHandler UpdateBook= new WebRequestHandler() {
+            @Override
+            public RequestHandlerResult operation(WebContext context) {
+        return new updateBookController(context,bookService).update();
+            }
+        };
+        routeMap.post("/UpdateBook", UpdateBook);
+
     }
 
     private static WebRequestHandler renderTemplate(final ViewTemplates template) {
