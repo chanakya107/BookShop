@@ -23,6 +23,8 @@ public class ViewOrderServiceImpl implements ViewOrderService {
     }
 
     private List<Order> getOrdersInList(ResultSet resultSet) {
+        db.connectTo("pustak.db");
+
         List<Order> orders = new ArrayList<Order>();
         try {
             while (resultSet.next()) {

@@ -9,7 +9,7 @@ public class DataBase {
     public boolean connectTo(String dbName) {
         try {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:content/public/db/" + dbName);
+            connection = DriverManager.getConnection("jdbc:sqlite:" + dbName);
             statement = connection.createStatement();
             return true;
         } catch (ClassNotFoundException e) {
@@ -35,9 +35,8 @@ public class DataBase {
             statement.executeUpdate(createTableQuery);
             return true;
         } catch (SQLException e) {
+            return false;
         }
-        closeConnection();
-        return false;
     }
 
     public String insertQuery(String insertQuery) {
