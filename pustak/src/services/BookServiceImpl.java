@@ -12,17 +12,17 @@ public class BookServiceImpl implements BookService {
     DataBase db = new DataBase();
 
     public BookServiceImpl() {
-        db.connectTo("content/public/db/pustak.db");
+        db.connectTo("pustak.db");
     }
 
     @Override
     public Book[] searchBookByTitle(String searchkey) {
-        return buildResultBooks(db.selectQuery("select isbn,title,author,price,newbooksquantity,usedbooksquantity from books where title like '" + searchkey + "'"));
+        return buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity,usedbookquantity from books where title like '" + searchkey + "'"));
     }
 
     @Override
     public Book[] getAll() {
-        return  buildResultBooks(db.selectQuery("select ISBN,title,author,price,NewbooksQuantity,usedbooksQuantity from Books"));
+        return  buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity,usedbookquantity from books"));
     }
 
     private Book[] buildResultBooks(ResultSet rs) {

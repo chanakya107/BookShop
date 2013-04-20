@@ -9,7 +9,7 @@ public class DataBase {
     public boolean connectTo(String dbPath) {
         try {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
+            connection = DriverManager.getConnection("jdbc:sqlite:content/public/db/" + dbPath);
             statement = connection.createStatement();
             return true;
         } catch (ClassNotFoundException e) {
@@ -56,8 +56,8 @@ public class DataBase {
                 " title VARCHAR(255) not NULL, " +
                 " author VARCHAR(255) not NULL, " +
                 " price INTEGER not NULL," +
-                " NewBookQuantity INTEGER, " +
-                " UsedBookQuantity INTEGER, " +
+                " newbookquantity INTEGER, " +
+                " oldbookquantity INTEGER, " +
                 " PRIMARY KEY ( isbn ))";
         createTable(sql);
         return insertQuery(queryString);

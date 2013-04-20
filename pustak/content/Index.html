@@ -20,8 +20,9 @@
                 <a href="#" class="thumbnail">
                     <img data-src="holder.js/300x200" alt="">
                 </a>
-
-                    <p>$book.title<br/>$book.author<br/>$book.price<br/><button class="btn btn-small btn-primary" type="button">BUY</button></p>
+                    <form method="post" action="placeOrder" >
+                    <p>$book.title<br/>$book.author<br/>$book.price<br/><button class="btn btn-small btn-primary" type="submit">BUY</button></p>
+                    </form>
                 </div>
             </li>
 
