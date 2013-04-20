@@ -33,8 +33,8 @@ public class DataBase {
             statement.executeUpdate(createTableQuery);
             return true;
         } catch (SQLException e) {
+            return false;
         }
-        return false;
     }
 
     public String insertQuery(String insertQuery) {

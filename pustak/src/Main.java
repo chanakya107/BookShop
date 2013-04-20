@@ -78,13 +78,14 @@ public class Main {
         routeMap.post("/viewOrder", viewOrder);
         routeMap.post("/addOrder", createOrder);
         routeMap.post("/searchBook", searchResult);
-        routeMap.get("/index.html", renderTemplate(ViewTemplates.Index));
+        routeMap.get("/", renderTemplate(ViewTemplates.Index));
+
         routeMap.post("/display", display);
 
-        WebRequestHandler UpdateBook= new WebRequestHandler() {
+        WebRequestHandler UpdateBook = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
-        return new updateBookController(context,bookService).update();
+                return new updateBookController(context, bookService).update();
             }
         };
         routeMap.post("/UpdateBook", UpdateBook);
