@@ -103,6 +103,13 @@
                     <td>
                         $order.status
                     </td>
+                    #if($order.status == "Pending")
+                    <td>
+                        <form action="" method="post">
+                            <input type="submit" value="Dispatch">
+                        </form>
+                    </td>
+                    #end
                 </tr>
                 #end
             </table>

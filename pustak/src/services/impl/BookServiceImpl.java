@@ -19,10 +19,15 @@ public class BookServiceImpl implements BookService {
     }
     @Override
     public Book[] searchBookByTitle(String searchkey) {
+        Book[] books;
         db.connectTo("pustak.db");
-        if(searchkey==null || searchkey.equals(""))
-            return buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity,usedbookquantity from books"));
-        return buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity,usedbookquantity from books where title like '%" + searchkey + "%'"));
+        if(searchkey==null || searchkey.equals("")) {
+            books = buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity,usedbookquantity from books"));
+            db.closeConnection();
+            return books;
+        }
+        books= buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity,usedbookquantity from books where title like '%" + searchkey + "%'"));
+        return books;
     }
 
     private Book[] buildResultBooks(ResultSet rs) {

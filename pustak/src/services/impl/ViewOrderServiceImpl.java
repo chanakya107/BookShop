@@ -16,8 +16,9 @@ public class ViewOrderServiceImpl implements ViewOrderService {
     @Override
     public List<Order> getOrders() {
         db.connectTo("pustak.db");
+        List<Order> ordersInList = getOrdersInList(db.selectQuery("select orderId,customerName,email,phoneNumber,address,date,isbn,status from orders"));
         db.closeConnection();
-        return getOrdersInList(db.selectQuery("select orderId,customerName,email,phoneNumber,address,date,isbn,status from orders"));
+        return ordersInList;
     }
 
     @Override
@@ -27,17 +28,19 @@ public class ViewOrderServiceImpl implements ViewOrderService {
 
     @Override
     public List<Order> getOrdersWithBookDetails(List<Order> orders) {
+        ResultSet resultSet1;
+        db.connectTo("pustak.db");
         for (Order order : orders) {
-            ResultSet resultSet = db.selectQuery("select title,author,price from books where isbn like '" + order.getIsbn() + "'");
+            resultSet1 = db.selectQuery("select title,author,price from books where isbn like '%" + order.getIsbn() + "%'");
             try {
-                order.setTitle(resultSet.getString(1));
-                order.setAuthor(resultSet.getString(2));
-                order.setPrice(resultSet.getInt(3));
+                order.setTitle(resultSet1.getString(1).replace("+", " "));
+                order.setAuthor(resultSet1.getString(2).replace("+", " "));
+                order.setPrice(resultSet1.getInt(3));
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            closeResultSet(resultSet);
         }
+        db.closeConnection();
         return orders;
     }
 
@@ -51,18 +54,8 @@ public class ViewOrderServiceImpl implements ViewOrderService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        closeResultSet(resultSet);
         return orders;
     }
-
-    private void closeResultSet(ResultSet resultSet) {
-        try {
-            resultSet.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     private Order createOrder(int orderId, String customerName, String email, String phoneNumber, String address, String date, String isbn, String status) {
         return new Order(orderId, customerName, email, phoneNumber, address, date, isbn, status);
     }
