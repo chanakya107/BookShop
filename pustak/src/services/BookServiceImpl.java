@@ -45,7 +45,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book createBook(int ISBN, String title, String authorName, int price, int usedQuantity, int newQuantity) {
+    public Book createBook(int ISBN, String title, String authorName, int price, int newQuantity, int usedQuantity) {
         Book book = new Book();
         book.setISBN(ISBN);
         book.setTitle(title);
