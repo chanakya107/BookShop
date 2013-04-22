@@ -1,13 +1,11 @@
 import controllers.*;
 import model.DataBase;
 import services.*;
-import services.impl.OrderServiceImpl;
+import services.impl.*;
 import step.web.framework.RequestHandlerResult;
 import step.web.framework.RouteMap;
 import step.web.framework.WebContext;
 import step.web.framework.WebRequestHandler;
-import views.ViewOrderService;
-import views.ViewOrderServiceImpl;
 import views.ViewTemplates;
 
 public class Main {
@@ -35,6 +33,7 @@ public class Main {
 
         final PlaceOrderService placeOrderService = new PlaceOrderServiceImpl();
         placeOrderService.bindDB(dataBase);
+
 
         WebRequestHandler getAssets = new WebRequestHandler() {
             @Override
@@ -100,6 +99,7 @@ public class Main {
         routeMap.get("/ViewOrders.html", renderTemplate(ViewTemplates.DisplayOrders));
         routeMap.post("/placeOrder", placeOrder);
         routeMap.get("public/css/*", getAssets);
+
         routeMap.post("/addbook", addBook);
         routeMap.post("/viewOrder", viewOrder);
         routeMap.post("/addOrder", createOrder);

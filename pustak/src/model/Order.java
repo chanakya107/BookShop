@@ -8,12 +8,12 @@ public class Order {
     private final String address;
     private final String date;
     private final String isbn;
-    private final String title;
-    private final String author;
-    private final int price;
+    private String title;
+    private String author;
+    private int price;
     private String status;
 
-    public Order(int orderId, String customerName, String email, String phoneNumber, String address, String date, String isbn, String title, String author, int price, String status) {
+    public Order(int orderId, String customerName, String email, String phoneNumber, String address, String date, String isbn, String status) {
         this.orderId = orderId;
         this.customerName = customerName;
         this.email = email;
@@ -21,9 +21,6 @@ public class Order {
         this.address = address;
         this.date = date;
         this.isbn = isbn;
-        this.title = title;
-        this.author = author;
-        this.price = price;
         this.status = status;
     }
 
@@ -69,5 +66,17 @@ public class Order {
 
     public String getStatus() {
         return status;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }

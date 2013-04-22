@@ -63,6 +63,9 @@
                     <td>
                         Price
                     </td>
+                    <td>
+                        Status
+                    </td>
                 </tr>
                 #foreach($order in $orders)
                 <tr>
@@ -99,6 +102,13 @@
                     <td>
                         $order.status
                     </td>
+                    #if($order.status == "Pending")
+                    <td>
+                        <form action="" method="post">
+                            <input type="submit" value="Dispatch">
+                        </form>
+                    </td>
+                    #end
                 </tr>
                 #end
             </table>
