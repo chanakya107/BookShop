@@ -5,6 +5,12 @@
     <link rel="stylesheet" href="public/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="public/css/admin.css"/>
     <title></title>
+    <script type="text/javascript">
+        function submit()
+        {
+            document.submit();
+        }
+    </script>
 </head>
 <body>
 <div class="row-fluid header">
@@ -45,9 +51,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="viewOrders.html">
-                        View Orders
-                    </a>
+                    <form action="viewOrder" method="post">
+                        <a href="" onclick="submit()">View Orders</a>
+                        <!--<button type="submit">-->
+                            <!--View Orders-->
+                        <!--</button>-->
+                    </form>
                 </li>
             </ul>
         </div>
