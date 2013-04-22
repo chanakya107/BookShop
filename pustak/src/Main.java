@@ -70,10 +70,10 @@ public class Main {
             }
         };
         routeMap.get("/admin.html", renderTemplate(ViewTemplates.Admin));
-        routeMap.get("/placeOrder.html", renderTemplate(ViewTemplates.placeOrder));
+        routeMap.post("/placeOrder", renderTemplate(ViewTemplates.placeOrder));
         routeMap.get("public/css/*", getAssets);
         routeMap.get("/addbook.html", renderTemplate(ViewTemplates.AddBook));
-        routeMap.get("/ViewOrders.html",renderTemplate(ViewTemplates.DisplayOrders));
+        routeMap.get("/viewOrders.html",renderTemplate(ViewTemplates.DisplayOrders));
         routeMap.post("/addbook", addBook);
         routeMap.post("/viewOrder", viewOrder);
         routeMap.post("/addOrder", createOrder);

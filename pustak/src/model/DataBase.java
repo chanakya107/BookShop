@@ -92,6 +92,14 @@ public class DataBase {
         return result;
     }
 
+    public void dropTable(String tableName) {
+        try {
+            statement.executeUpdate("DROP table " + tableName);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void updateQuery(String query) {
         try {
             statement.executeUpdate(query);

@@ -6,17 +6,20 @@ import services.OrderService;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class OrderServiceImpl implements OrderService {
 
     private DataBase dataBase;
 
     @Override
-    public void storeOrder(String customerName, String email, String phoneNumber, String address, Book ISBN) {
+    public void storeOrder(String customerName, String email, String phoneNumber, String address, Book book) {
+        String time = new SimpleDateFormat("yyyy-MM-dd_hh:mm:ss").format(Calendar.getInstance().getTime());
         ResultSet resultSet = dataBase.selectQuery("SELECT * from Orders");
         if (resultSet == null)
-            dataBase.createTable("CREATE TABLE Orders (OrderId INTEGER Primary key AUTOINCREMENT, customerName text, email text, phoneNumber text,address text)");
-        dataBase.insertQuery("INSERT INTO Orders VALUES(null,'" + customerName + "','" + email + "','" + phoneNumber + "','" + address + "')");
+            dataBase.createTable("CREATE TABLE orders (orderId INTEGER Primary key AUTOINCREMENT, customerName text, email text, phoneNumber text,address text,date DATETIME,isbn text,status text)");
+        dataBase.insertQuery("INSERT INTO Orders VALUES(null,'" + customerName + "','" + email + "','" + phoneNumber + "','" + address + "','" + time + "','" + book.getISBN() + "','Pending')");
     }
 
     @Override
@@ -38,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void reduceCount(Book book) {
-        String query = "UPDATE books SET newbookquantity=newbookquantity-1 where isbn like '%" + book.getISBN() + "%'";
+        String query = "UPDATE books SET newbookquantity=" + (book.getQuantity_New() - 1) + " where isbn like '%" + book.getISBN() + "%'";
         dataBase.updateQuery(query);
     }
 }
