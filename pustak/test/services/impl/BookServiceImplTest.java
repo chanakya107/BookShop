@@ -98,12 +98,14 @@ public class BookServiceImplTest {
         Assert.assertEquals(new Book[0], foundBooks);
     }
 
+
     @Test
     public void createBook_returns_me_the_book() {
         BookService bookService = new BookServiceImpl();
         Book book = bookService.createBook(123, "Prince", "Jain", 123, 123);
         Assert.assertEquals("123,Prince,Jain,123,0,123", book.toString());
     }
+
 
     @Test(expected = IllegalArgumentException.class)
     public void binding_null_db_gives_IllegalArgumentException() {
