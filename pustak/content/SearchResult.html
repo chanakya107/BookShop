@@ -20,8 +20,8 @@
         <div class="search-bar">
             <form action="SearchBook" class="form-search" method="post">
                 <div class="input-append">
-                    <input type="text" name="searchKey" class="search-query input-xxlarge"
-                           placeholder="Enter the Title of the Book">
+                    <input type="text" name="searchKey" value="" class="search-query input-xxlarge"
+                           placeholder="Enter the Title of the Book" required>
                     <button type="submit" class="btn btn-info">Search</button>
                 </div>
             </form>
@@ -52,6 +52,7 @@
             </ul>
         </div>
         <div class="span10 row-fluid section">
+            <h2>Search Result</h2>
             <form action="updatebook" method="post">
                 <table class="table table-striped table-bordered">
                     <tr>
@@ -82,3 +83,4 @@
     <div class="span2"></div>
 </div>
 </body>
+</html>

@@ -9,7 +9,7 @@ public class DataBase {
     public boolean connectTo(String dbName) {
         try {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:" + dbName);
+            connection = DriverManager.getConnection("jdbc:sqlite:content/public/db/" + dbName);
             statement = connection.createStatement();
             return true;
         } catch (ClassNotFoundException e) {
@@ -21,11 +21,11 @@ public class DataBase {
     }
 
     public ResultSet selectQuery(String selectQuery) {
-        ResultSet rs;
+        ResultSet rs = null;
         try {
             rs = statement.executeQuery(selectQuery);
         } catch (SQLException e) {
-            return null;
+            e.printStackTrace();
         }
         return rs;
     }
@@ -90,14 +90,6 @@ public class DataBase {
         int result = connection != null ? connection.hashCode() : 0;
         result = 31 * result + (statement != null ? statement.hashCode() : 0);
         return result;
-    }
-
-    public void dropTable(String orders) {
-        try {
-            statement.executeUpdate("DROP table " + orders);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     public void updateQuery(String query) {
