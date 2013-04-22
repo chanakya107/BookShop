@@ -1,7 +1,9 @@
 package services.impl;
 
+import junit.framework.Assert;
 import model.DataBase;
 import org.junit.Before;
+import org.junit.Test;
 import views.ViewOrderService;
 import views.ViewOrderServiceImpl;
 
@@ -16,6 +18,11 @@ public class ViewOrderServiceImplTest {
         db = mock(DataBase.class);
         service = new ViewOrderServiceImpl();
         service.bindDB(db);
+    }
+
+    @Test
+    public void one_plus_one(){
+        Assert.assertEquals(1,1);
     }
 
 //    @Test
