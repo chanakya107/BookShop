@@ -31,8 +31,13 @@ public class OrderServiceImpl implements OrderService {
     public Book getBook(String isbn) {
         String query = "select isbn,title,author,price,newbookquantity,usedbookquantity from books where isbn like '%" + isbn + "%'";
         ResultSet resultSet = dataBase.selectQuery(query);
+        Book book;
         try {
-            return Book.createBook(resultSet.getInt(1), resultSet.getString(2).replace("+", " "), resultSet.getString(3).replace("+", " "), resultSet.getInt(4), resultSet.getInt(5), resultSet.getInt(6));
+            while (resultSet.next()) {
+                book = Book.createBook(resultSet.getInt(1), resultSet.getString(2).replace("+", " "), resultSet.getString(3).replace("+", " "), resultSet.getInt(4), resultSet.getInt(5), resultSet.getInt(6));
+                return book;
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

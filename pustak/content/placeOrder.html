@@ -29,6 +29,7 @@
         </div>
         <div class="span10 row-fluid section">
             <h2>Shipping Details</h2>
+
             <form class="form-horizontal" name="order" method="post" action="addOrder">
                 <table>
                     <tr>
@@ -41,7 +42,8 @@
                     </tr>
                     <tr>
                         <td>Phone Number</td>
-                        <td><input type="tel" class="input-medium" placeholder="9898989898" name="phoneNumber" pattern="[0-9]{10}"
+                        <td><input type="tel" class="input-medium" placeholder="9898989898" name="phoneNumber"
+                                   pattern="[0-9]{10}"
                                    maxlength="10" required></td>
                     </tr>
                     <tr>
@@ -50,10 +52,10 @@
                                       name="Address" required></textarea></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><form method="get" action="">
-                            <input class="btn btn-warning" type="submit" value="cancel">
-                        </form>
-                                <input class="btn btn-success" type="submit" value="proceed">
+                        <td colspan="2">
+                            <a href="Index.html"><input type="button" class="btn btn-danger" value="Cancel"></a>
+
+                            <input class="btn btn-success" type="submit" value="proceed">
                         </td>
                     </tr>
                 </table>
