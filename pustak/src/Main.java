@@ -70,6 +70,7 @@ public class Main {
             }
         };
         routeMap.get("/admin.html", renderTemplate(ViewTemplates.Admin));
+        routeMap.get("/index.html", renderTemplate(ViewTemplates.Index));
         routeMap.post("/placeOrder", renderTemplate(ViewTemplates.placeOrder));
         routeMap.get("public/css/*", getAssets);
         routeMap.get("/addbook.html", renderTemplate(ViewTemplates.AddBook));
