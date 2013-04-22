@@ -35,7 +35,7 @@ public class BookServiceImpl implements BookService {
         List<Book> books = new ArrayList<Book>();
         try {
             while (rs.next()) {
-                books.add(createBook(rs.getInt(1),rs.getString(2).replace("+", " "), rs.getString(3).replace("+", " "), rs.getInt(4), rs.getInt(5), rs.getInt(6)));
+                books.add(createBook(rs.getInt(1), rs.getString(2).replace("+", " "), rs.getString(3).replace("+", " "), rs.getInt(4), rs.getInt(5), rs.getInt(6)));
             }
             return books.toArray(new Book[books.size()]);
         } catch (SQLException e) {

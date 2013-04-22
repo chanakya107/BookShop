@@ -83,7 +83,7 @@ public class Main {
         routeMap.post("/placeOrder", placeOrder);
         routeMap.get("public/css/*", getAssets);
         routeMap.get("/addbook.html", renderTemplate(ViewTemplates.AddBook));
-        routeMap.get("/ViewOrders.html",renderTemplate(ViewTemplates.DisplayOrders));
+        routeMap.get("/ViewOrders.html", renderTemplate(ViewTemplates.DisplayOrders));
         routeMap.post("/addbook", addBook);
         routeMap.post("/viewOrder", viewOrder);
         routeMap.post("/addOrder", createOrder);
