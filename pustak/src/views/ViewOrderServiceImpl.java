@@ -25,6 +25,8 @@ public class ViewOrderServiceImpl implements ViewOrderService {
 
     private List<Order> getOrdersInList(ResultSet resultSet) {
 
+
+
         List<Order> orders = new ArrayList<Order>();
         try {
             while (resultSet.next()) {
