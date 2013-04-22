@@ -22,8 +22,11 @@
                 <div class="input-append">
                     <input type="text" name="searchKey" class="search-query input-xxlarge"
                            placeholder="Enter the Title of the Book" required>
+                    <select name="category">
+                        <option value="New">New</option>
+                        <option value="Used">Used</option>
+                    </select>
                     <button type="submit" class="btn btn-info">Search</button>
-                    <input type="d">
                 </div>
             </form>
         </div>
@@ -54,6 +57,7 @@
         </div>
         <div class="span10 row-fluid section">
             <h2>Search Result</h2>
+
             <form action="updatebook" method="post">
                 <table class="table table-striped table-bordered">
                     <tr>

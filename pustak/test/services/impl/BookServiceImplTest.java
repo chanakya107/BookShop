@@ -14,7 +14,6 @@ import static org.mockito.Mockito.stub;
 public class BookServiceImplTest {
 
 
-
 //    @Test
 //    public void searchBookByTitle_gives_books_that_matches_the_given_title_to_be_searched() throws SQLException, SQLException {
 //        BookService bookService = new BookServiceImpl();
@@ -78,7 +77,8 @@ public class BookServiceImplTest {
         bookService.bindDB(db);
         db.connectTo("pustak.db");
 
-        Book[] foundBooks = bookService.searchBookByTitle("");
+        String category = "New";
+        Book[] foundBooks = bookService.searchBookByTitle("", category);
 
         Assert.assertEquals(new Book[0], foundBooks);
     }
@@ -92,7 +92,8 @@ public class BookServiceImplTest {
         bookService.bindDB(db);
         db.connectTo("pustak.db");
 
-        Book[] foundBooks = bookService.searchBookByTitle(null);
+        String category = "New";
+        Book[] foundBooks = bookService.searchBookByTitle(null, category);
 
         Assert.assertEquals(new Book[0], foundBooks);
     }
@@ -100,8 +101,8 @@ public class BookServiceImplTest {
     @Test
     public void createBook_returns_me_the_book() {
         BookService bookService = new BookServiceImpl();
-        Book book = bookService.createBook(123, "Prince", "Jain", 123, 123, 123);
-        Assert.assertEquals("123,Prince,Jain,123,123,123", book.toString());
+        Book book = bookService.createBook(123, "Prince", "Jain", 123, 123);
+        Assert.assertEquals("123,Prince,Jain,123,0,123", book.toString());
     }
 
     @Test(expected = IllegalArgumentException.class)
