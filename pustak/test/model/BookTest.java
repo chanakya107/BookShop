@@ -5,7 +5,7 @@ import org.junit.Test;
 
 public class BookTest {
     @Test
-    public void getISBN_gives_the_ISBN_of_a_book(){
+    public void getISBN_gives_the_ISBN_of_a_book() {
         Book alchemist = new Book();
         alchemist.setISBN(123);
 
@@ -13,7 +13,7 @@ public class BookTest {
     }
 
     @Test
-    public void getTitle_gives_the_title_of_a_book(){
+    public void getTitle_gives_the_title_of_a_book() {
         Book alchemist = new Book();
         alchemist.setTitle("Alchemist");
 
@@ -21,7 +21,7 @@ public class BookTest {
     }
 
     @Test
-    public void getAuthor_gives_the_author_of_a_book(){
+    public void getAuthor_gives_the_author_of_a_book() {
         Book alchemist = new Book();
         alchemist.setAuthor("Paulo Coelho");
 
@@ -29,7 +29,7 @@ public class BookTest {
     }
 
     @Test
-    public void getPrice_gives_the_price_of_a_book(){
+    public void getPrice_gives_the_price_of_a_book() {
         Book alchemist = new Book();
         alchemist.setPrice(300);
 
@@ -45,7 +45,7 @@ public class BookTest {
     }
 
     @Test
-    public void getNewQuantity_gives_the_quantity_of_new_books(){
+    public void getNewQuantity_gives_the_quantity_of_new_books() {
         Book alchemist = new Book();
         alchemist.setQuantity_new(3);
 

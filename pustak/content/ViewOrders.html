@@ -33,6 +33,38 @@
         </div>
         <div class="span10 row-fluid section">
             <table class="table table-bordered">
+                <tr>
+                    <td>
+                        OrderId
+                    </td>
+                    <td>
+                        CustomerName
+                    </td>
+                    <td>
+                        Email
+                    </td>
+                    <td>
+                        PhoneNumber
+                    </td>
+                    <td>
+                        Address
+                    </td>
+                    <td>
+                        DateOfOrder
+                    </td>
+                    <td>
+                        ISBN
+                    </td>
+                    <td>
+                        Title
+                    </td>
+                    <td>
+                        Author
+                    </td>
+                    <td>
+                        Price
+                    </td>
+                </tr>
                 #foreach($order in $orders)
                 <tr>
                     <td>
@@ -64,6 +96,9 @@
                     </td>
                     <td>
                         $order.price
+                    </td>
+                    <td>
+                        $order.status
                     </td>
                 </tr>
                 #end

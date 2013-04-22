@@ -13,7 +13,8 @@ public class AssetController {
     }
 
     public static AssetController createAssetController(WebContext context) {
-        if(context==null) throw new IllegalArgumentException("Cannot create AssetController of Webcontext : "+  context);
+        if (context == null)
+            throw new IllegalArgumentException("Cannot create AssetController of Webcontext : " + context);
         return new AssetController(context);
     }
 
@@ -23,6 +24,6 @@ public class AssetController {
     }
 
     private String translatePath() {
-        return localAssetFolderPath+ context.requestPath().replaceFirst(pathRoot, "");
+        return localAssetFolderPath + context.requestPath().replaceFirst(pathRoot, "");
     }
 }

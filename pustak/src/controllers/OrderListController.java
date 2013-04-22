@@ -1,5 +1,6 @@
 package controllers;
 
+import model.Book;
 import services.OrderService;
 import step.web.framework.RequestHandlerResult;
 import step.web.framework.WebContext;
@@ -19,10 +20,11 @@ public class OrderListController {
         String email = context.requestBodyField("Email");
         String phoneNumber = context.requestBodyField("phoneNumber");
         String address = context.requestBodyField("Address");
-
-        service.storeOrder(customerName, email, phoneNumber, address);
+        String ISBN = context.requestBodyField("ISBN");
+        Book book = service.getBook(ISBN);
+        service.storeOrder(customerName, email, phoneNumber, address, book);
+        service.reduceCount(book);
 
         return RequestHandlerResult.ok(context.render(ViewTemplates.orderSuccessful));
     }
-
 }

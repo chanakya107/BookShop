@@ -6,56 +6,29 @@
     <link rel="stylesheet" href="public/css/admin.css"/>
 </head>
 <body>
-<div class="span2"></div>
-<div class="span8">
+<div class="row header">
+    <div class="span2"></div>
+    <div class="span8">
+        <h1>Pustak.com</h1>
 
-    <h2>List of Books</h2>
-    #set ($count=0)
-    #foreach($book in $books )
-    #if($count < 10)
-
-    <div>
-        <ul class="thumbnails">
-            <li class="span4">
-                <div class="thumbnail">
-                    <a href="#" class="thumbnail">
-                        <img data-src="holder.js/300x200" alt="">
-                    </a>
-
-                    <form method="post" action="placeOrder">
-                        <p>$book.title<br/>$book.author<br/>$book.price<br/>
-                            <button class="btn btn-small btn-primary" type="submit">BUY</button>
-                        </p>
-                    </form>
+    </div>
+    <div class="span2"></div>
+</div>
+<div class="row">
+    <div class="span2"></div>
+    <div class="span8">
+        <form method="post" action="display">
+            <div class="search-bar">
+                <div class="input-append">
+                    <input type="text" name="searchKey" class="search-query input-xxlarge"
+                           placeholder="Enter the Title of the Book">
+                    <button type="submit" class="btn btn-info">Search</button>
                 </div>
-            </li>
-
-        </ul>
-
-
-        <div class="row header">
-            <div class="span2"></div>
-            <div class="span8">
-                <h1>Pustak.com</h1>
-
             </div>
-            <div class="span2"></div>
-        </div>
-        <div class="row">
-            <div class="span2"></div>
-            <div class="span8">
-                <form method="post" action="display">
-                    <div class="search-bar">
-                        <div class="input-append">
-                            <input type="text" name="searchKey" class="search-query input-xxlarge"
-                                   placeholder="Enter the Title of the Book">
-                            <button type="submit" class="btn btn-info">Search</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
+
+<div class="span2"></div>
 </body>
 </html>

@@ -15,6 +15,7 @@ public class AddBookControllerTest {
     WebContext context;
     AddBookService service;
     AddBookController controller;
+
     @Before
     public void setup() {
         context = mock(WebContext.class);
@@ -39,7 +40,7 @@ public class AddBookControllerTest {
     }
 
     @Test
-    public void createBook_will_return_RequestHandlerResult(){
+    public void createBook_will_return_RequestHandlerResult() {
         stub(context.requestBodyField("isbn")).toReturn("isbn");
         stub(context.requestBodyField("title")).toReturn("title");
         stub(context.requestBodyField("author")).toReturn("author");
@@ -49,7 +50,7 @@ public class AddBookControllerTest {
         stub(context.render(ViewTemplates.AddBook)).toReturn("ok");
 
         RequestHandlerResult result = controller.createBook();
-        verify(service).addBook("isbn","title","author",98,2,"New");
+        verify(service).addBook("isbn", "title", "author", 98, 2, "New");
         Assert.assertTrue(result != null);
     }
 }
