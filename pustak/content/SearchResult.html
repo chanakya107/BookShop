@@ -51,6 +51,9 @@
             </ul>
         </div>
         <div class="span10 row-fluid section">
+            #if($books.isEmpty())
+                  <p class="lead">No books found</p>
+            #else
             <form action="updatebook" method="post">
                 <table class="table table-striped table-bordered">
                     <tr>
@@ -74,10 +77,13 @@
                         </td>
                     </tr>
                     #end
-                </table>
+            #end
+            </table>
             </form>
         </div>
     </div>
     <div class="span2"></div>
 </div>
+</div>
 </body>
+</html>

@@ -21,5 +21,4 @@ public class PlaceOrderController {
         webContext.bind("orderedBook", book);
         return RequestHandlerResult.ok(webContext.render(ViewTemplates.placeOrder));
     }
-
 }
