@@ -23,7 +23,7 @@ public class BookServiceImpl implements BookService {
         db.connectTo("pustak.db");
         if(searchkey==null || searchkey.equals(""))
                return buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity,usedbookquantity from books"));
-        return buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity,usedbookquantity from books where title like '%" + searchkey + "%'"));
+        return buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity,usedbookquantity from books where title like '%"+searchkey+"%'"));
     }
 
     @Override
