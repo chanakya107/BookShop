@@ -11,8 +11,9 @@ public class Order {
     private final String title;
     private final String author;
     private final int price;
+    private String status;
 
-    public Order(int orderId, String customerName, String email, String phoneNumber, String address, String date, String isbn, String title, String author, int price) {
+    public Order(int orderId, String customerName, String email, String phoneNumber, String address, String date, String isbn, String title, String author, int price, String status) {
         this.orderId = orderId;
         this.customerName = customerName;
         this.email = email;
@@ -23,6 +24,7 @@ public class Order {
         this.title = title;
         this.author = author;
         this.price = price;
+        this.status = status;
     }
 
     public int getOrderId() {
@@ -63,5 +65,9 @@ public class Order {
 
     public int getPrice() {
         return price;
+    }
+
+    public String getStatus() {
+        return status;
     }
 }

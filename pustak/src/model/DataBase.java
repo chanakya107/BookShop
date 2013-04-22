@@ -9,7 +9,7 @@ public class DataBase {
     public boolean connectTo(String dbName) {
         try {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:" + dbName);
+            connection = DriverManager.getConnection("jdbc:sqlite:content/public/db/" + dbName);
             statement = connection.createStatement();
             return true;
         } catch (ClassNotFoundException e) {
@@ -92,9 +92,9 @@ public class DataBase {
         return result;
     }
 
-    public void dropTable(String orders) {
+    public void dropTable(String tableName) {
         try {
-            statement.executeUpdate("DROP table " + orders);
+            statement.executeUpdate("DROP table " + tableName);
         } catch (SQLException e) {
             e.printStackTrace();
         }
