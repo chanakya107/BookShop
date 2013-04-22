@@ -9,4 +9,5 @@ public interface ViewOrderService {
     List<Order> getOrders();
 
     void bindDB(DataBase db);
+    List<Order> getOrdersWithBookDetails(List<Order> orders);
 }

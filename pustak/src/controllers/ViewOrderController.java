@@ -1,9 +1,12 @@
 package controllers;
 
+import model.Order;
 import step.web.framework.RequestHandlerResult;
 import step.web.framework.WebContext;
 import views.ViewOrderService;
 import views.ViewTemplates;
+
+import java.util.List;
 
 public class ViewOrderController {
     private final WebContext webContext;
@@ -15,7 +18,8 @@ public class ViewOrderController {
     }
 
     public RequestHandlerResult getOrders() {
-        webContext.bind("orders", service.getOrders());
+        List<Order> orders = service.getOrders();
+        webContext.bind("orders", service.getOrdersWithBookDetails(orders));
         return RequestHandlerResult.ok(webContext.render(ViewTemplates.DisplayOrders));
     }
 
