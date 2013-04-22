@@ -17,17 +17,15 @@ public class Main {
 
     private static void initializeRoutes() {
         RouteMap routeMap = RouteMap.create();
-        DataBase dataBase = new DataBase();
+        DataBase db=new DataBase();
         final BookService bookService = new BookServiceImpl();
-        bookService.bindDB(dataBase);
+        bookService.bindDB(db);
         final AddBookService addBookService = new AddBookServiceImpl();
-        addBookService.bindDB(dataBase);
+        addBookService.bindDB(db);
         final OrderService orderService = new OrderServiceImpl();
-        orderService.bindDB(dataBase);
+        orderService.bindDB(db);
         final ViewOrderService viewOrderService = new ViewOrderServiceImpl();
-        viewOrderService.bindDB(dataBase);
-        final PlaceOrderService placeOrderService = new PlaceOrderServiceImpl();
-        placeOrderService.bindDB(dataBase);
+        viewOrderService.bindDB(db);
 
         WebRequestHandler getAssets = new WebRequestHandler() {
             @Override
@@ -71,23 +69,14 @@ public class Main {
                 return new DisplayBooksController(context, bookService).list();
             }
         };
-
-        WebRequestHandler placeOrder = new WebRequestHandler() {
-            @Override
-            public RequestHandlerResult operation(WebContext webContext) {
-                return new PlaceOrderController(webContext, placeOrderService).placeOrder();
-            }
-        };
-
         routeMap.get("/admin.html", renderTemplate(ViewTemplates.Admin));
-        routeMap.post("/placeOrder", placeOrder);
+        routeMap.post("/placeOrder", renderTemplate(ViewTemplates.placeOrder));
         routeMap.get("public/css/*", getAssets);
         routeMap.get("/addbook.html", renderTemplate(ViewTemplates.AddBook));
         routeMap.get("/viewOrders.html",renderTemplate(ViewTemplates.DisplayOrders));
         routeMap.post("/addbook", addBook);
         routeMap.post("/viewOrder", viewOrder);
         routeMap.post("/addOrder", createOrder);
-
         routeMap.post("/searchBook", searchResult);
         routeMap.get("/", renderTemplate(ViewTemplates.Index));
 

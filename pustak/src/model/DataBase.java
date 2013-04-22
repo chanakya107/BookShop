@@ -21,11 +21,11 @@ public class DataBase {
     }
 
     public ResultSet selectQuery(String selectQuery) {
-        ResultSet rs;
+        ResultSet rs = null;
         try {
             rs = statement.executeQuery(selectQuery);
         } catch (SQLException e) {
-            return null;
+            e.printStackTrace();
         }
         return rs;
     }
