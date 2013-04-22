@@ -23,10 +23,14 @@ public class OrderListController {
         String address = context.requestBodyField("Address");
         String ISBN = context.requestBodyField("ISBN");
 
+
         orderedBook = service.getBook(ISBN);
 
         service.storeOrder(customerName, email, phoneNumber, address, orderedBook);
+
         service.reduceCount(orderedBook);
+
+        service.sendInvoice(orderedBook, customerName, email, address);
         return RequestHandlerResult.ok(context.render(ViewTemplates.orderSuccessful));
     }
 }

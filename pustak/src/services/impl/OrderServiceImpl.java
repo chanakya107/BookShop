@@ -1,9 +1,12 @@
 package services.impl;
 
+import emails.Invoice;
+import mail.Mail;
 import model.Book;
 import model.DataBase;
 import services.OrderService;
 
+import javax.mail.MessagingException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -12,10 +15,11 @@ import java.util.Calendar;
 public class OrderServiceImpl implements OrderService {
 
     private DataBase dataBase;
+    private String time;
 
     @Override
     public void storeOrder(String customerName, String email, String phoneNumber, String address, Book book) {
-        String time = new SimpleDateFormat("yyyy-MM-dd_hh:mm:ss").format(Calendar.getInstance().getTime());
+        time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(Calendar.getInstance().getTime());
         ResultSet resultSet = dataBase.selectQuery("SELECT * from Orders");
 
         if (resultSet == null)
@@ -48,5 +52,17 @@ public class OrderServiceImpl implements OrderService {
 
         String query = "UPDATE books SET newbookquantity=" + (book.getQuantity_New() - 1) + " where isbn like '%" + book.getISBN() + "%'";
         dataBase.updateQuery(query);
+    }
+
+    @Override
+    public void sendInvoice(Book orderedBook, String customerName, String email, String address) {
+        Invoice invoice = new Invoice(orderedBook, customerName, time);
+        Mail mail = new Mail(invoice.getSubject(), invoice.getContent());
+        try {
+            email = email.replace("%40", "@");
+            mail.sendMail(email);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 }

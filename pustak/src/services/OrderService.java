@@ -12,4 +12,6 @@ public interface OrderService {
     Book getBook(String isbn);
 
     void reduceCount(Book isbn);
+
+    void sendInvoice(Book orderedBook, String customerName, String email, String address);
 }
