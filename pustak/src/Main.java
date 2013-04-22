@@ -1,25 +1,22 @@
 import controllers.*;
 import model.DataBase;
 import services.*;
-import services.impl.AddBookServiceImpl;
-import services.impl.BookServiceImpl;
-import services.impl.OrderServiceImpl;
+import services.impl.*;
 import step.web.framework.RequestHandlerResult;
 import step.web.framework.RouteMap;
 import step.web.framework.WebContext;
 import step.web.framework.WebRequestHandler;
-import services.ViewOrderService;
-import services.impl.ViewOrderServiceImpl;
 import views.ViewTemplates;
 
 public class Main {
+
     public static void main(String[] args) {
         initializeRoutes();
     }
 
     private static void initializeRoutes() {
         RouteMap routeMap = RouteMap.create();
-        DataBase db=new DataBase();
+        DataBase db = new DataBase();
         final BookService bookService = new BookServiceImpl();
         bookService.bindDB(db);
         final AddBookService addBookService = new AddBookServiceImpl();
@@ -28,7 +25,8 @@ public class Main {
         orderService.bindDB(db);
         final ViewOrderService viewOrderService = new ViewOrderServiceImpl();
         viewOrderService.bindDB(db);
-
+        final PlaceOrderService placeOrderService = new PlaceOrderServiceImpl();
+        placeOrderService.bindDB(db);
         WebRequestHandler getAssets = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
@@ -71,9 +69,18 @@ public class Main {
                 return new DisplayBooksController(context, bookService).list();
             }
         };
+
+        WebRequestHandler placeOrder = new WebRequestHandler() {
+            @Override
+            public RequestHandlerResult operation(WebContext webContext) {
+                return new PlaceOrderController(webContext, placeOrderService).placeOrder();
+            }
+        };
+
+
         routeMap.get("/admin.html", renderTemplate(ViewTemplates.Admin));
         routeMap.get("/index.html", renderTemplate(ViewTemplates.Index));
-        routeMap.post("/placeOrder", renderTemplate(ViewTemplates.placeOrder));
+        routeMap.post("/placeOrder", placeOrder);
         routeMap.get("public/css/*", getAssets);
         routeMap.get("/addbook.html", renderTemplate(ViewTemplates.AddBook));
         routeMap.get("/viewOrders.html", renderTemplate(ViewTemplates.DisplayOrders));

@@ -34,11 +34,11 @@
                 <table>
                     <tr>
                         <td>Name</td>
-                        <td><input type="text" class="input-medium" name="Name" placeholder="Name" required></td>
+                        <td><input type="text" class="input-medium" name="Name" placeholder="Name" required maxlength="20"></td>
                     </tr>
                     <tr>
                         <td>Email</td>
-                        <td><input type="email" class="input-medium" name="Email" placeholder="Email" required></td>
+                        <td><input type="email" class="input-medium" name="Email" placeholder="Email" required maxlength="30"></td>
                     </tr>
                     <tr>
                         <td>Phone Number</td>
@@ -60,6 +60,7 @@
                     </tr>
                 </table>
                 <input type="hidden" value="$orderedBook.ISBN" name="ISBN">
+                $orderedBook.ISBN
 
             </form>
         </div>
