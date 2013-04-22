@@ -78,7 +78,8 @@ public class BookServiceImplTest {
         bookService.bindDB(db);
         db.connectTo("pustak.db");
 
-        Book[] foundBooks = bookService.searchBookByTitle("");
+        String category="New";
+        Book[] foundBooks = bookService.searchBookByTitle("", category);
 
         Assert.assertEquals(new Book[0], foundBooks);
     }
@@ -92,7 +93,8 @@ public class BookServiceImplTest {
         bookService.bindDB(db);
         db.connectTo("pustak.db");
 
-        Book[] foundBooks = bookService.searchBookByTitle(null);
+        String category="New";
+        Book[] foundBooks = bookService.searchBookByTitle(null, category);
 
         Assert.assertEquals(new Book[0], foundBooks);
     }
@@ -100,7 +102,7 @@ public class BookServiceImplTest {
     @Test
     public void createBook_returns_me_the_book() {
         BookService bookService = new BookServiceImpl();
-        Book book = bookService.createBook(123, "Prince", "Jain", 123, 123, 123);
+        Book book = bookService.createBook(123, "Prince", "Jain", 123, 123);
         Assert.assertEquals("123,Prince,Jain,123,123,123", book.toString());
     }
 
