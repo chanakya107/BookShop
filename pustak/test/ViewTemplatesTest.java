@@ -1,6 +1,6 @@
-import views.ViewTemplates;
 import org.junit.Assert;
 import org.junit.Test;
+import views.ViewTemplates;
 
 public class ViewTemplatesTest {
     @Test
