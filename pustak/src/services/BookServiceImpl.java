@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookServiceImpl implements BookService {
+
     DataBase db;
 
     @Override
@@ -22,6 +23,8 @@ public class BookServiceImpl implements BookService {
         db.connectTo("pustak.db");
         if (searchkey == null || searchkey.equals(""))
             return buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity,usedbookquantity from books"));
+
+        System.out.println("Abhilash");
         return buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity,usedbookquantity from books where title like '%" + searchkey + "%'"));
     }
 
@@ -36,7 +39,7 @@ public class BookServiceImpl implements BookService {
         try {
             while (rs.next()) {
 
-                books.add(createBook(rs.getInt(1),rs.getString(2).replace("+", " "), rs.getString(3).replace("+", " "), rs.getInt(4), rs.getInt(5), rs.getInt(6)));
+                books.add(createBook(rs.getInt(1), rs.getString(2).replace("+", " "), rs.getString(3).replace("+", " "), rs.getInt(4), rs.getInt(5), rs.getInt(6)));
             }
             return books.toArray(new Book[books.size()]);
         } catch (SQLException e) {
