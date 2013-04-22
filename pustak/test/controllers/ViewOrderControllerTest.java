@@ -4,7 +4,7 @@ import model.Order;
 import org.junit.Before;
 import org.junit.Test;
 import step.web.framework.WebContext;
-import views.ViewOrderService;
+import services.ViewOrderService;
 
 import java.util.ArrayList;
 import java.util.List;

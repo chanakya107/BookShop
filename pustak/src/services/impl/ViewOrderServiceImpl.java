@@ -1,8 +1,9 @@
-package views;
+package services.impl;
 
 
 import model.DataBase;
 import model.Order;
+import services.ViewOrderService;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,6 +16,7 @@ public class ViewOrderServiceImpl implements ViewOrderService {
     @Override
     public List<Order> getOrders() {
         db.connectTo("pustak.db");
+        db.closeConnection();
         return getOrdersInList(db.selectQuery("select orderId,customerName,email,phoneNumber,address,date,isbn,status from orders"));
     }
 

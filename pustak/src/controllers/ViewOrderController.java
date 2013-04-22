@@ -3,7 +3,7 @@ package controllers;
 import model.Order;
 import step.web.framework.RequestHandlerResult;
 import step.web.framework.WebContext;
-import views.ViewOrderService;
+import services.ViewOrderService;
 import views.ViewTemplates;
 
 import java.util.List;

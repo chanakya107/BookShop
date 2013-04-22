@@ -4,8 +4,7 @@ import junit.framework.Assert;
 import model.DataBase;
 import org.junit.Before;
 import org.junit.Test;
-import views.ViewOrderService;
-import views.ViewOrderServiceImpl;
+import services.ViewOrderService;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

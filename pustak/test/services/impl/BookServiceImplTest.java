@@ -5,14 +5,11 @@ import model.DataBase;
 import org.junit.Assert;
 import org.junit.Test;
 import services.BookService;
-import services.BookServiceImpl;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.stub;
-import static org.mockito.Mockito.when;
 
 public class BookServiceImplTest {
 
