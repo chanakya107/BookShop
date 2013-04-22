@@ -93,13 +93,13 @@ public class Main {
         };
 
         routeMap.get("/", renderTemplate(ViewTemplates.Index));
+        routeMap.get("/Index.html", renderTemplate(ViewTemplates.Index));
         routeMap.get("/admin.html", renderTemplate(ViewTemplates.Admin));
         routeMap.get("/addbook.html", renderTemplate(ViewTemplates.AddBook));
         routeMap.get("/placeOrder.html", renderTemplate(ViewTemplates.placeOrder));
         routeMap.get("/ViewOrders.html", renderTemplate(ViewTemplates.DisplayOrders));
         routeMap.post("/placeOrder", placeOrder);
         routeMap.get("public/css/*", getAssets);
-
         routeMap.post("/addbook", addBook);
         routeMap.post("/viewOrder", viewOrder);
         routeMap.post("/addOrder", createOrder);
