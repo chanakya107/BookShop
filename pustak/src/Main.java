@@ -19,8 +19,7 @@ public class Main {
         DataBase dataBase = new DataBase();
 //        Todo: move service
         final BookService bookService = new BookServiceImpl(dataBase);
-        final OrderService orderService = new OrderServiceImpl();
-        orderService.bindDB(dataBase);
+        final OrderService orderService = new OrderServiceImpl(dataBase);
 
         WebRequestHandler getAssets = new WebRequestHandler() {
             @Override

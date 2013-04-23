@@ -22,5 +22,4 @@ public class DisplayBooksController {
 //        context.bind("books", bookService.searchBookByTitle(searchKey,category));
         return RequestHandlerResult.ok(context.render(ViewTemplates.TitleSearchResult));
     }
-
 }

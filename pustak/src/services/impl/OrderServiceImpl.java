@@ -1,12 +1,12 @@
 package services.impl;
 
 import emails.Invoice;
+import mail.Mail;
 import model.Book;
 import model.Customer;
 import model.DataBase;
 import model.Order;
 import services.OrderService;
-import mail.*;
 
 import javax.mail.MessagingException;
 import java.sql.ResultSet;
@@ -20,6 +20,10 @@ public class OrderServiceImpl implements OrderService {
 
     private DataBase dataBase;
     private String time;
+
+    public OrderServiceImpl(DataBase dataBase) {
+        this.dataBase = dataBase;
+    }
 
     @Override
     public void storeOrder(Customer customer, Book orderedBook) {
@@ -69,21 +73,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void bindDB(DataBase dataBase) {
-        this.dataBase = dataBase;
-    }
-
-    @Override
     public Book fetchBook(String isbn) {
 
-        String query = "select isbn,title,author,price,newbookquantity,usedbookquantity from books where isbn like '%" + isbn + "%'";
+        String query = "select isbn,title,author1,author2,price,newbookquantity,usedbookquantity from books where isbn like '%" + isbn + "%'";
 
         ResultSet resultSet = dataBase.selectQuery(query);
-        Book book;
         try {
             while (resultSet.next()) {
-//                book = Book.createBook(resultSet.getInt(1), resultSet.getString(2).replace("+", " "), resultSet.getString(3).replace("+", " "), resultSet.getInt(4), resultSet.getInt(5), resultSet.getInt(6));
-//                return book;
+                return new Book(resultSet.getString(1), resultSet.getString(2).replace("+", " "), resultSet.getString(3).replace("+", " "), resultSet.getString(4).replace("+", " "), resultSet.getInt(5), resultSet.getInt(6), resultSet.getInt(7));
             }
 
         } catch (SQLException e) {
