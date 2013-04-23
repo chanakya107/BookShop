@@ -71,11 +71,12 @@ public class OrderControllerTest {
         when(context.requestBodyField("phoneNumber")).thenReturn("0987654316");
         when(context.requestBodyField("Address")).thenReturn("fasdfasf sdf asddf");
         when(context.requestBodyField("ISBN")).thenReturn("12345");
+        when(context.requestBodyField("pinCode")).thenReturn("560023");
         Book book = mock(Book.class);
         when(service.fetchBook("12345")).thenReturn(book);
 
         controller.createOrder();
-        verify(service).storeOrder(new Customer("chethan","chethandec22@gmail.com","0987654316","fasdfasf sdf asddf"), book);
+        verify(service).storeOrder(new Customer("chethan","chethandec22@gmail.com","0987654316","fasdfasf sdf asddf", "560023"), book);
     }
 
     @Test

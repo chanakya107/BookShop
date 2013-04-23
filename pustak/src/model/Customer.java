@@ -5,13 +5,15 @@ public class Customer {
     private final String email;
     private final String phoneNumber;
     private final String address;
+    private final String pinCode;
 
-    public Customer(String customerName, String email, String phoneNumber, String address) {
+    public Customer(String customerName, String email, String phoneNumber, String address, String pinCode) {
 
         this.customerName = customerName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.pinCode = pinCode;
     }
 
     @Override
@@ -48,5 +50,9 @@ public class Customer {
 
     public String getAddress() {
         return address;
+    }
+
+    public String getPinCode() {
+        return pinCode;
     }
 }

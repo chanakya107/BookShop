@@ -74,9 +74,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Book fetchBook(String isbn) {
-
         String query = "select isbn,title,author1,author2,price,newbookquantity,usedbookquantity from books where isbn like '%" + isbn + "%'";
-
         ResultSet resultSet = dataBase.selectQuery(query);
         try {
             while (resultSet.next()) {

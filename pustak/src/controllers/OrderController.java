@@ -25,8 +25,9 @@ public class OrderController {
         String phoneNumber = context.requestBodyField("phoneNumber");
         String address = context.requestBodyField("Address");
         String ISBN = context.requestBodyField("ISBN");
+        String pincode = context.requestBodyField("pinCode");
 
-        Customer customer = new Customer(customerName, email, phoneNumber, address);
+        Customer customer = new Customer(customerName, email, phoneNumber, address,pincode);
         Book orderedBook = service.fetchBook(ISBN);
         service.storeOrder(customer, orderedBook);
         service.reduceCount(orderedBook);
