@@ -30,4 +30,11 @@ public class OrderController {
         service.sendInvoice(orderedBook, customer);
         return RequestHandlerResult.ok(context.render(ViewTemplates.orderSuccessful));
     }
+
+    public RequestHandlerResult placeOrder() {
+        String isbn = context.requestBodyField("isbn");
+        Book book = service.fetchBook(isbn);
+        context.bind("orderedBook", book);
+        return RequestHandlerResult.ok(context.render(ViewTemplates.placeOrder));
+    }
 }

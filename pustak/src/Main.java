@@ -32,10 +32,6 @@ public class Main {
         final ViewOrderService viewOrderService = new ViewOrderServiceImpl();
         viewOrderService.bindDB(dataBase);
 
-        final PlaceOrderService placeOrderService = new PlaceOrderServiceImpl();
-        placeOrderService.bindDB(dataBase);
-
-
         WebRequestHandler getAssets = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
@@ -89,7 +85,7 @@ public class Main {
         WebRequestHandler placeOrder = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext webContext) {
-                return new PlaceOrderController(webContext, placeOrderService).placeOrder();
+                return new OrderController(webContext, orderService).placeOrder();
             }
         };
 
