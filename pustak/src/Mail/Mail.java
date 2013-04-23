@@ -12,7 +12,7 @@ public class Mail {
     private final String messageBody;
     private Session session;
     private Properties props;
-
+    //todo: test not written for this class
     public Mail(String subject, String messageBody) {
         this.subject = subject;
         this.messageBody = messageBody;

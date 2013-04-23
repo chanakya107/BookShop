@@ -10,41 +10,48 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookServiceImpl implements BookService {
-    DataBase db;
 
-    @Override
-    public void bindDB(DataBase db) {
-        if (db == null) throw new IllegalArgumentException("Cannot Bind DataBase : " + db);
-        this.db = db;
+    private DataBase dataBase;
+
+    public BookServiceImpl(DataBase dataBase) {
+        this.dataBase = dataBase;
     }
 
     @Override
-    public Book[] searchBookByTitle(String searchkey, String category) {
+    public Book[] searchBookByTitle(String searchKey, String type) {
         Book[] books;
-        db.connectTo("pustak.db");
-        if (searchkey == null || searchkey.equals("")) {
-            books = buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity,usedbookquantity from books"));
-            db.closeConnection();
-            return books;
-        }
-        if (category.equals("New")) {
-
-            books = buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity from books where title like '%" + searchkey + "%'"));
-            return books;
+        dataBase.connectTo("pustak.db");
+        if (type.equals("New")) {
+            if (searchKey == null || searchKey.equals(""))
+                books = buildResultBooks(dataBase.selectQuery("select isbn,title,author1,author2,price,newbookquantity from books"));
+            else
+                books = buildResultBooks(dataBase.selectQuery("select isbn,title,author1,author2,price,newbookquantity from books where title like '%" + searchKey + "%'"));
         } else {
-            books = buildResultBooks(db.selectQuery("select isbn,title,author,price,usedbookquantity from books  where title like '%" + searchkey + "%'"));
-            return books;
+            if (searchKey == null || searchKey.equals(""))
+                books = buildResultBooks(dataBase.selectQuery("select isbn,title,author1,author2,price/2,usedbookquantity from books"));
+            else
+                books = buildResultBooks(dataBase.selectQuery("select isbn,title,author1,author2,price/2,usedbookquantity from books  where title like '%" + searchKey + "%'"));
         }
+
+        dataBase.closeConnection();
+        return books;
+    }
+
+    public boolean addBook(Book book) {
+        dataBase.connectTo("pustak.db");
+        String insertQuery = "INSERT INTO books " + "values ('" + book.getISBN() + "','" + book.getTitle() + "','" + book.getAuthor1() + "','" + book.getAuthor2() + "'," + book.getPrice() + "," + book.getNewQuantity() + "," + book.getUsedQuantity() + ")";
+        return dataBase.insertQuery(insertQuery);
     }
 
     private Book[] buildResultBooks(ResultSet rs) {
         List<Book> books = new ArrayList<Book>();
         try {
             while (rs.next()) {
-                String plusFreeTitle = rs.getString(2).replace("+", " ");
-                String plusFreeAuthorName = rs.getString(3).replace("+", " ");
-                if (rs.getInt(5) != 0)
-                    books.add(createBook(rs.getInt(1), plusFreeTitle, plusFreeAuthorName, rs.getInt(4), rs.getInt(5)));
+                String title = rs.getString(2).replace("+", " ");
+                String firstAuthorName = rs.getString(3).replace("+", " ");
+                String secondAuthorName = rs.getString(4).replace("+", " ");
+                if (rs.getInt(6) != 0)
+                    books.add(new Book(rs.getString(1), title, firstAuthorName, secondAuthorName, rs.getInt(5), rs.getInt(6), 0));
             }
             return books.toArray(new Book[books.size()]);
         } catch (SQLException e) {
@@ -52,17 +59,4 @@ public class BookServiceImpl implements BookService {
             return null;
         }
     }
-
-    @Override
-    public Book createBook(int ISBN, String title, String authorName, int price, int Quantity) {
-        Book book = new Book();
-        book.setISBN(ISBN);
-        book.setTitle(title);
-        book.setAuthor(authorName);
-        book.setPrice(price);
-        book.setQuantity_new(Quantity);
-        return book;
-    }
-
-
 }
