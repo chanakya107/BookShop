@@ -82,10 +82,11 @@ public class OrderControllerTest {
     @Test
     public void create_order_will_reduce_the_number_of_quantity_of_the_book_in_the_database() {
         when(context.requestBodyField("ISBN")).thenReturn("12345");
+        when(context.requestBodyField("bookType")).thenReturn("New");
         Book book = mock(Book.class);
         when(service.fetchBook("12345")).thenReturn(book);
         controller.createOrder();
-        verify(service).reduceCount(book);
+        verify(service).reduceCount(book, "New");
     }
 
     @Test

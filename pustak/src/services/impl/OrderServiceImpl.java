@@ -28,11 +28,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void storeOrder(Customer customer, Book orderedBook) {
         time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(Calendar.getInstance().getTime());
-//        ResultSet resultSet = dataBase.selectQuery("SELECT * from Orders");
-
-//        if (resultSet == null)
-        dataBase.createTable("CREATE TABLE Orders (orderId INTEGER Primary key AUTOINCREMENT, customerName text, email text, phoneNumber text,address text,pinCode text,date DATETIME,isbn text,status text)");
-        dataBase.insertQuery("INSERT INTO Orders VALUES(null,'" + customer.getCustomerName() + "','" + customer.getEmail() + "','" + customer.getPhoneNumber() + "','" + customer.getAddress() + "','" + customer.getPinCode() + "','" + time + "','" + orderedBook.getISBN() + "','Pending')");
+        ResultSet resultSet = dataBase.selectQuery("SELECT * from Orders");
+        if (resultSet == null)
+            dataBase.createTable("CREATE TABLE orders (orderid INTEGER Primary key AUTOINCREMENT, customername text, email text, phonenumber text,address text,pincode text,date DATETIME,isbn text,status text)");
+        dataBase.insertQuery("INSERT INTO orders VALUES(null,'" + customer.getCustomerName() + "','" + customer.getEmail() + "','" + customer.getPhoneNumber() + "','" + customer.getAddress() + "','" + customer.getPinCode() + "','" + time + "','" + orderedBook.getISBN() + "','Pending')");
     }
 
     @Override
@@ -49,13 +48,13 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getOrders() {
         dataBase.connectTo("pustak.db");
-        return getOrdersInList(dataBase.selectQuery("select orderId,customerName,email,phoneNumber,address,date,isbn,status from orders"));
+
+        return getOrdersInList(dataBase.selectQuery("select orderid,customername,email,phonenumber,address,date,isbn,status from orders"));
     }
 
     @Override
     public List<Order> getOrdersWithBookDetails(List<Order> orders) {
         ResultSet resultSet1;
-        dataBase.connectTo("pustak.db");
         for (Order order : orders) {
             resultSet1 = dataBase.selectQuery("select title,author,price from books where isbn like '%" + order.getIsbn() + "%'");
             try {
@@ -92,8 +91,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void reduceCount(Book book) {
-        String query = "UPDATE books SET newbookquantity=" + (book.getNewQuantity() - 1) + " where isbn like '%" + book.getISBN() + "%'";
+    public void reduceCount(Book book, String bookType) {
+        String query = "UPDATE books SET newbookquantity=" + (book.getQuantity(bookType) - 1) + " where isbn like '%" + book.getISBN() + "%'";
         dataBase.updateQuery(query);
     }
 

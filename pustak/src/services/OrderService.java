@@ -10,7 +10,7 @@ public interface OrderService {
 
     Book fetchBook(String isbn);
 
-    void reduceCount(Book isbn);
+    void reduceCount(Book isbn, String bookType);
 
     void storeOrder(Customer customer, Book orderedBook);
 
