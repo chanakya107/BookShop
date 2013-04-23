@@ -9,6 +9,7 @@ import views.ViewTemplates;
 public class OrderListController {
     private final WebContext context;
     private final OrderService service;
+    private Book orderedBook;
 
     public OrderListController(WebContext context, OrderService service) {
         this.context = context;
@@ -16,15 +17,19 @@ public class OrderListController {
     }
 
     public RequestHandlerResult createOrder() {
+
         String customerName = context.requestBodyField("Name");
         String email = context.requestBodyField("Email");
         String phoneNumber = context.requestBodyField("phoneNumber");
         String address = context.requestBodyField("Address");
         String ISBN = context.requestBodyField("ISBN");
-        Book book = service.getBook(ISBN);
-        service.storeOrder(customerName, email, phoneNumber, address, book);
-        service.reduceCount(book);
 
+
+        orderedBook = service.getBook(ISBN);
+        service.storeOrder(customerName, email, phoneNumber, address, orderedBook);
+        service.reduceCount(orderedBook);
+
+        service.sendInvoice(orderedBook, customerName, email, address);
         return RequestHandlerResult.ok(context.render(ViewTemplates.orderSuccessful));
     }
 }

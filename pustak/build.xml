@@ -34,7 +34,8 @@
                                             lib/velocity-1.7.jar:
                                             lib/velocity-1.7-dep.jar:
                                             lib/step.web.jar:
-                                            lib/sqlite.jar"
+                                            lib/sqlite.jar:
+                                            lib/mail.jar"
                destdir="${sourceOutput}" includeantruntime="yes"/>
 
     </target>
@@ -50,7 +51,8 @@
                                             lib/velocity-1.7.jar:
                                             lib/velocity-1.7-dep.jar:
                                             lib/step.web.jar:
-                                            lib/sqlite.jar"
+                                            lib/sqlite.jar:
+                                            lib/mail.jar"
                includeantruntime="yes"/>
     </target>
 
@@ -97,6 +99,7 @@
                 <pathelement location="lib/velocity-1.7.jar"/>
                 <pathelement location="lib/velocity-1.7-dep.jar"/>
                 <pathelement location="lib/sqlite.jar"/>
+                <pathelement location="lib/mail.jar"/>
             </classpath>
         </java>
     </target>
@@ -113,6 +116,7 @@
                 <pathelement location="lib/velocity-1.7.jar"/>
                 <pathelement location="lib/velocity-1.7-dep.jar"/>
                 <pathelement location="lib/sqlite.jar"/>
+                <pathelement location="lib/mail.jar"/>
             </classpath>
             <batchtest fork="yes" haltonfailure="yes" todir="${reportsDir}">
                 <formatter type="xml"/>
