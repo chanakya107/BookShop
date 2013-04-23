@@ -18,7 +18,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
-//TODO: database connection is not closed properly.
+    //TODO: database connection is not closed properly.
     private DataBase dataBase;
     private String time;
 
@@ -26,17 +26,16 @@ public class OrderServiceImpl implements OrderService {
         this.dataBase = dataBase;
     }
 
-    @Override
-    public void storeOrder(Customer customer, Book orderedBook) {
+    private void storeOrder(Customer customer, String isbn) {
         time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(Calendar.getInstance().getTime());
         ResultSet resultSet = dataBase.selectQuery("SELECT * from Orders");
         if (resultSet == null)
             dataBase.createTable("CREATE TABLE orders (orderid INTEGER Primary key AUTOINCREMENT, customername text, email text, phonenumber text,address text,pincode text,date DATETIME,isbn text,status text)");
-        dataBase.insertQuery("INSERT INTO orders VALUES(null,'" + customer.getCustomerName() + "','" + customer.getEmail() + "','" + customer.getPhoneNumber() + "','" + customer.getAddress() + "','" + customer.getPinCode() + "','" + time + "','" + orderedBook.getISBN() + "','Pending')");
+        dataBase.insertQuery("INSERT INTO orders VALUES(null,'" + customer.getCustomerName() + "','" + customer.getEmail() + "','" + customer.getPhoneNumber() + "','" + customer.getAddress() + "','" + customer.getPinCode() + "','" + time + "','" + isbn + "','Pending')");
     }
 
-    @Override
-    public void sendInvoice(Book orderedBook, Customer customer) {
+    private void sendInvoice(String isbn, Customer customer) {
+        Book orderedBook = fetchBook(isbn);
         Invoice invoice = new Invoice(orderedBook, customer.getCustomerName(), time);
         Mail mail = new Mail(invoice.getSubject(), invoice.getContent());
         try {
@@ -100,6 +99,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public void processOrder(Customer customer, String isbn, String bookType) {
+        storeOrder(customer, isbn);
+        reduceCount(isbn, bookType);
+        sendInvoice(isbn, customer);
+    }
+
+    @Override
     public Book fetchBook(String isbn) {
         String query = "select isbn,title,author1,author2,price,newbookquantity,usedbookquantity from books where isbn like '%" + isbn + "%'";
         ResultSet resultSet = dataBase.selectQuery(query);
@@ -111,9 +117,9 @@ public class OrderServiceImpl implements OrderService {
         return null;
     }
 
-    @Override
-    public void reduceCount(Book book, String bookType) {
-        String query = "UPDATE books SET newbookquantity=" + (book.getQuantity(bookType) - 1) + " where isbn like '%" + book.getISBN() + "%'";
+    private void reduceCount(String isbn, String bookType) {
+        Book book = fetchBook(isbn);
+        String query = "UPDATE books SET newbookquantity=" + book.getNewBookQuantity(bookType) + ", usedbookquantity=" + book.getUsedBookQuantity(bookType) + " where isbn like '%" + isbn + "%'";
         dataBase.updateQuery(query);
     }
 
