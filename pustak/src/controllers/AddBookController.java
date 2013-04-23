@@ -20,7 +20,6 @@ public class AddBookController {
             throw new IllegalArgumentException("Cannot create addBookController of the context : " + context);
         if (bookService == null)
             throw new IllegalArgumentException("Cannot create addBookController of the bookService : " + bookService);
-        context.bind("message", "Enter");
         return new AddBookController(context, bookService);
     }
 
@@ -33,7 +32,7 @@ public class AddBookController {
         int quantity = Integer.parseInt(context.requestBodyField("quantity"));
         String type = context.requestBodyField("bookstatus");
         Book book;
-        if (type == "New")
+        if (type.equals("New"))
             book = new Book(isbn, title, author1, author2, price, quantity, 0);
         else
             book = new Book(isbn, title, author1, author2, price, 0, quantity);
@@ -41,12 +40,8 @@ public class AddBookController {
         if (bookService.addBook(book))
             message = "Book successfully added to Inventory.";
         else
-            message = "ISBN Already Exists";
-        bind(message);
-        return RequestHandlerResult.ok(context.render(ViewTemplates.AddBook));
-    }
-
-    private void bind(String message) {
+            message = "ISBN Already Exists.";
         context.bind("message", message);
+        return RequestHandlerResult.ok(context.render(ViewTemplates.AddBook));
     }
 }

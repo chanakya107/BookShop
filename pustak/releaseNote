@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 22-04-13
 
 Done:
@@ -39,3 +40,9 @@ Todo:
         7. Display of data to view order table.
         8.Pin code  is to be added to the address.
         9.View Order
+=======
+Back Office:
+    1)SearchBy Title
+Front Office:
+    2)SearchBY Title
+>>>>>>> 4fbd814bee9e27b31ac60eccf7dd1d103c7ed468

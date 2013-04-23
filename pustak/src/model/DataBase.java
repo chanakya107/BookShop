@@ -42,15 +42,17 @@ public class DataBase {
             statement.executeUpdate(insertQuery);
             return true;
         } catch (SQLException e) {
+            e.printStackTrace();
             return false;
         }
     }
 
-    public void insertBooksToDataBase(String queryString) {
+    public void createBooksTable() {
         String sql = "CREATE TABLE books " +
                 "(isbn VARCHAR not NULL, " +
                 " title VARCHAR(255) not NULL, " +
-                " author VARCHAR(255) not NULL, " +
+                " author1 VARCHAR(255) not NULL, " +
+                "author2 VARCHAR(255)," +
                 " price INTEGER not NULL," +
                 " newbookquantity INTEGER, " +
                 " usedbookquantity INTEGER, " +

@@ -1,7 +1,6 @@
 package controllers;
 
 import services.BookService;
-import services.impl.BookServiceImpl;
 import step.web.framework.RequestHandlerResult;
 import step.web.framework.WebContext;
 import views.ViewTemplates;
@@ -15,17 +14,20 @@ public class UpdateBookController {
         this.bookService = bookService;
     }
 
-    public RequestHandlerResult update() {
-//        bookService.updateStock(context.requestBodyField("isbn"));
-        return RequestHandlerResult.ok(context.render(ViewTemplates.UpdateBook));
+    public static UpdateBookController createUpdateBookController(WebContext context, BookService bookService) {
+        if (context == null)
+            throw new IllegalArgumentException("Cannot create addBookController of the context : " + context);
+        if (bookService == null)
+            throw new IllegalArgumentException("Cannot create addBookController of the bookService : " + bookService);
+        return new UpdateBookController(context, bookService);
     }
 
-    public static UpdateBookController createController(WebContext context, BookService bookService) {
-        if( context == null)
-            throw  new IllegalArgumentException("Webcontext cannot be null" + context);
-         else if(bookService==null) {
-            throw new IllegalArgumentException("BookService cannot be null"+bookService);
-        }
-        return null;
+    public RequestHandlerResult update(){
+        String isbn = context.requestBodyField("isbn");
+        int additionalCopies = Integer.parseInt(context.requestBodyField("AdditionalCopies"));
+        String type = context.requestBodyField("bookstatus");
+        bookService.updateStock(additionalCopies, isbn, type);
+        context.bind("isbn", isbn);
+        return RequestHandlerResult.ok(context.render(ViewTemplates.UpdateAcknowledgement));
     }
 }

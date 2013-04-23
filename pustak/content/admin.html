@@ -8,7 +8,7 @@
     <title></title>
     <script type="text/javascript">
         function submit() {
-            document.submit();
+        document.submit();
         }
     </script>
 </head>
@@ -31,11 +31,7 @@
             <div class="search-bar">
                 <div class="input-append">
                     <input type="text" name="searchKey" class="search-query input-xxlarge"
-                           placeholder="Enter the Title of the Book" required>
-                    <select name="category">
-                        <option value="New">New</option>
-                        <option value="Used">Used</option>
-                    </select>
+                           placeholder="Enter the Title of the Book" value=" ">
                     <button type="submit" class="btn btn-info">Search</button>
                 </div>
             </div>
@@ -66,21 +62,17 @@
                     </a>
                 </li>
                 <li>
-                    <form action="viewOrder" method="post">
-                        <button type="submit">
-                            View Orders
-                        </button>
-                    </form>
+                        <form action="viewOrder" method="post">
+                            <a href="viewOrders.html">
+                                View Orders
+                            </a>
+                        </form>
                 </li>
             </ul>
         </div>
-
         <div class="span10 row-fluid section"></div>
     </div>
-
     <div class="span2"></div>
 </div>
-
 </body>
-
 </html>
