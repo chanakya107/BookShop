@@ -24,9 +24,8 @@ public class DataBase {
         try {
             return statement.executeQuery(selectQuery);
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     public boolean createTable(String createTableQuery) {
@@ -34,33 +33,32 @@ public class DataBase {
             statement.executeUpdate(createTableQuery);
             return true;
         } catch (SQLException e) {
+            e.printStackTrace();
             return false;
         }
     }
 
-    public String insertQuery(String insertQuery) {
-        String message;
+    public boolean insertQuery(String insertQuery) {
         try {
             statement.executeUpdate(insertQuery);
-            message = "Book Added To Database Successfully";
+            return true;
         } catch (SQLException e) {
-            message = "ISBN already present : Failed To Add Book.";
+            e.printStackTrace();
+            return false;
         }
-        return message;
     }
 
-    public String insertBooksToDataBase(String queryString) {
-//        dropTable("books");
+    public void insertBooksToDataBase() {
         String sql = "CREATE TABLE books " +
                 "(isbn VARCHAR not NULL, " +
                 " title VARCHAR(255) not NULL, " +
-                " author VARCHAR(255) not NULL, " +
+                " author1 VARCHAR(255) not NULL, " +
+                "author2 VARCHAR(255)," +
                 " price INTEGER not NULL," +
                 " newbookquantity INTEGER, " +
                 " usedbookquantity INTEGER, " +
                 " PRIMARY KEY ( isbn ))";
         createTable(sql);
-        return insertQuery(queryString);
     }
 
     public void closeConnection() {

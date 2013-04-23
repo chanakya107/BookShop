@@ -16,25 +16,11 @@ public class Main {
 
     private static void initializeRoutes() {
         RouteMap routeMap = RouteMap.create();
-
         DataBase dataBase = new DataBase();
-
-
-        final BookService bookService = new BookServiceImpl();
-        bookService.bindDB(dataBase);
-
-        final AddBookService addBookService = new AddBookServiceImpl();
-        addBookService.bindDB(dataBase);
-
+//        Todo: move service
+        final BookService bookService = new BookServiceImpl(dataBase);
         final OrderService orderService = new OrderServiceImpl();
         orderService.bindDB(dataBase);
-
-        final ViewOrderService viewOrderService = new ViewOrderServiceImpl();
-        viewOrderService.bindDB(dataBase);
-
-        final PlaceOrderService placeOrderService = new PlaceOrderServiceImpl();
-        placeOrderService.bindDB(dataBase);
-
 
         WebRequestHandler getAssets = new WebRequestHandler() {
             @Override
@@ -53,21 +39,21 @@ public class Main {
         WebRequestHandler createOrder = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
-                return new OrderListController(context, orderService).createOrder();
+                return new OrderController(context, orderService).createOrder();
             }
         };
 
         WebRequestHandler viewOrder = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext webContext) {
-                return ViewOrderController.createViewOrderController(webContext, viewOrderService).getOrders();
+                return new OrderController(webContext, orderService).getOrders();
             }
         };
 
         WebRequestHandler addBook = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
-                return AddBookController.createAddBookController(context, addBookService).createBook();
+                return AddBookController.createAddBookController(context, bookService).createBook();
             }
         };
 
@@ -89,7 +75,7 @@ public class Main {
         WebRequestHandler placeOrder = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext webContext) {
-                return new PlaceOrderController(webContext, placeOrderService).placeOrder();
+                return new OrderController(webContext, orderService).placeOrder();
             }
         };
 

@@ -1,37 +1,47 @@
 package controllers;
 
-import services.AddBookService;
+import model.Book;
+import services.BookService;
 import step.web.framework.RequestHandlerResult;
 import step.web.framework.WebContext;
 import views.ViewTemplates;
 
 public class AddBookController {
     private final WebContext context;
-    private final AddBookService addBookService;
+    private final BookService bookService;
 
-    private AddBookController(WebContext context, AddBookService addBookService) {
+    private AddBookController(WebContext context, BookService bookService) {
         this.context = context;
-        this.addBookService = addBookService;
+        this.bookService = bookService;
     }
 
-    public static AddBookController createAddBookController(WebContext context, AddBookService addBookService) {
+    public static AddBookController createAddBookController(WebContext context, BookService bookService) {
         if (context == null)
             throw new IllegalArgumentException("Cannot create addBookController of the context : " + context);
-        if (addBookService == null)
-            throw new IllegalArgumentException("Cannot create addBookController of the addBookService : " + addBookService);
+        if (bookService == null)
+            throw new IllegalArgumentException("Cannot create addBookController of the bookService : " + bookService);
         context.bind("message", "Enter");
-        return new AddBookController(context, addBookService);
+        return new AddBookController(context, bookService);
     }
 
     public RequestHandlerResult createBook() {
         String isbn = context.requestBodyField("isbn");
         String title = context.requestBodyField("title");
-        String author = context.requestBodyField("author");
+        String author1 = context.requestBodyField("author1");
+        String author2 = context.requestBodyField("author2");
         int price = Integer.parseInt(context.requestBodyField("price"));
         int quantity = Integer.parseInt(context.requestBodyField("quantity"));
         String type = context.requestBodyField("bookstatus");
-
-        String message = addBookService.addBook(isbn, title, author, price, quantity, type);
+        Book book;
+        if (type.equals("New"))
+            book = new Book(isbn, title, author1, author2, price, quantity, 0);
+        else
+            book = new Book(isbn, title, author1, author2, price, 0, quantity);
+        String message;
+        if (bookService.addBook(book))
+            message = "Book successfully added to Inventory.";
+        else
+            message = "ISBN Already Exists";
         bind(message);
         return RequestHandlerResult.ok(context.render(ViewTemplates.AddBook));
     }
