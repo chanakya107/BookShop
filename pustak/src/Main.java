@@ -1,7 +1,9 @@
 import controllers.*;
 import model.DataBase;
-import services.*;
-import services.impl.*;
+import services.BookService;
+import services.OrderService;
+import services.impl.BookServiceImpl;
+import services.impl.OrderServiceImpl;
 import step.web.framework.RequestHandlerResult;
 import step.web.framework.RouteMap;
 import step.web.framework.WebContext;
@@ -19,8 +21,7 @@ public class Main {
         DataBase dataBase = new DataBase();
 //        Todo: move service
         final BookService bookService = new BookServiceImpl(dataBase);
-        final OrderService orderService = new OrderServiceImpl();
-        orderService.bindDB(dataBase);
+        final OrderService orderService = new OrderServiceImpl(dataBase);
 
         WebRequestHandler getAssets = new WebRequestHandler() {
             @Override
@@ -57,13 +58,6 @@ public class Main {
             }
         };
 
-        WebRequestHandler UpdateBook = new WebRequestHandler() {
-            @Override
-            public RequestHandlerResult operation(WebContext context) {
-                return new updateBookController(context, bookService).update();
-            }
-        };
-
         WebRequestHandler display = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
@@ -82,7 +76,6 @@ public class Main {
         routeMap.get("/", renderTemplate(ViewTemplates.Index));
         routeMap.get("/admin.html", renderTemplate(ViewTemplates.Admin));
         routeMap.get("/index.html", renderTemplate(ViewTemplates.Index));
-        routeMap.post("/placeOrder", placeOrder);
         routeMap.get("public/css/*", getAssets);
         routeMap.get("/addbook.html", renderTemplate(ViewTemplates.AddBook));
         routeMap.get("/placeOrder.html", renderTemplate(ViewTemplates.placeOrder));
@@ -94,7 +87,6 @@ public class Main {
         routeMap.post("/addOrder", createOrder);
         routeMap.post("/searchBook", searchResult);
         routeMap.post("/display", display);
-        routeMap.post("/UpdateBook", UpdateBook);
     }
 
     private static WebRequestHandler renderTemplate(final ViewTemplates template) {
