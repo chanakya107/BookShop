@@ -76,4 +76,10 @@ public class Book {
         result = 31 * result + price;
         return result;
     }
+
+    public int getQuantity(String bookType) {
+        if (bookType.equals("New"))
+            return newQuantity;
+        return usedQuantity;
+    }
 }
