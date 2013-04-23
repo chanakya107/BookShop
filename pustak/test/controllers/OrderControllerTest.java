@@ -58,13 +58,6 @@ public class OrderControllerTest {
 
 
     @Test
-    public void create_order_will_get_the_book_from_the_database() {
-        when(context.requestBodyField("ISBN")).thenReturn("12345");
-        controller.createOrder();
-        verify(service).fetchBook("12345");
-    }
-
-    @Test
     public void create_order_will_store_the_order_in_database() {
         when(context.requestBodyField("Name")).thenReturn("chethan");
         when(context.requestBodyField("Email")).thenReturn("chethandec22@gmail.com");
@@ -72,22 +65,12 @@ public class OrderControllerTest {
         when(context.requestBodyField("Address")).thenReturn("fasdfasf sdf asddf");
         when(context.requestBodyField("ISBN")).thenReturn("12345");
         when(context.requestBodyField("pinCode")).thenReturn("560023");
-        Book book = mock(Book.class);
-        when(service.fetchBook("12345")).thenReturn(book);
-
-        controller.createOrder();
-        verify(service).storeOrder(new Customer("chethan","chethandec22@gmail.com","0987654316","fasdfasf sdf asddf","560023"), book);
-    }
-
-    @Test
-    public void create_order_will_reduce_the_number_of_quantity_of_the_book_in_the_database() {
-        when(context.requestBodyField("ISBN")).thenReturn("12345");
         when(context.requestBodyField("bookType")).thenReturn("New");
-        Book book = mock(Book.class);
-        when(service.fetchBook("12345")).thenReturn(book);
+
         controller.createOrder();
-        verify(service).reduceCount(book, "New");
+        verify(service).processOrder(new Customer("chethan", "chethandec22@gmail.com", "0987654316", "fasdfasf sdf asddf", "560023"), "12345", "New");
     }
+
 
     @Test
     public void after_creating_order_the_order_successful_page_will_be_displayed() {

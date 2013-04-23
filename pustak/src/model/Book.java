@@ -77,9 +77,15 @@ public class Book {
         return result;
     }
 
-    public int getQuantity(String bookType) {
+    public int getNewBookQuantity(String bookType) {
         if (bookType.equals("New"))
-            return newQuantity;
+            return newQuantity-1;
+        return newQuantity;
+    }
+
+    public int getUsedBookQuantity(String bookType) {
+        if (bookType.equals("Used"))
+            return usedQuantity-1;
         return usedQuantity;
     }
 }
