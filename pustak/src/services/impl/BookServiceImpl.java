@@ -52,7 +52,7 @@ public class BookServiceImpl implements BookService {
                         books.add(new Book(rs.getString(1), title, firstAuthorName,secondAuthorName, rs.getInt(5), rs.getInt(6),0));
                 }
                 return books.toArray(new Book[books.size()]);
-            } catch (SQLException e) {                                                                                        q
+            } catch (SQLException e) {
                 e.printStackTrace();
                 return null;
             }
