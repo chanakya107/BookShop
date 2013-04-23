@@ -2,15 +2,11 @@ package controllers;
 
 import model.Book;
 import model.Customer;
-import model.Order;
 import org.junit.Before;
 import org.junit.Test;
 import services.OrderService;
 import step.web.framework.WebContext;
 import views.ViewTemplates;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.mockito.Mockito.*;
 
@@ -20,7 +16,7 @@ public class OrderControllerTest {
     private OrderService service;
 
     @Before
-    public void setup() {
+    public void setUp() {
         context = mock(WebContext.class);
         service = mock(OrderService.class);
         controller = new OrderController(context, service);
@@ -28,30 +24,35 @@ public class OrderControllerTest {
 
     @Test
     public void createOrder_takes_name_from_the_context() {
+        stub(context.requestBodyField("pinCode")).toReturn("98");
         controller.createOrder();
         verify(context).requestBodyField("Name");
     }
 
     @Test
     public void create_order_takes_email_from_the_context() {
+        stub(context.requestBodyField("pinCode")).toReturn("98");
         controller.createOrder();
         verify(context).requestBodyField("Email");
     }
 
     @Test
     public void create_order_takes_phoneNumber_from_the_context() {
+        stub(context.requestBodyField("pinCode")).toReturn("98");
         controller.createOrder();
         verify(context).requestBodyField("phoneNumber");
     }
 
     @Test
     public void create_order_takes_address_from_the_context() {
+        stub(context.requestBodyField("pinCode")).toReturn("98");
         controller.createOrder();
         verify(context).requestBodyField("Address");
     }
 
     @Test
     public void create_order_will_take_ISBN_from_the_context() {
+        stub(context.requestBodyField("pinCode")).toReturn("98");
         controller.createOrder();
         verify(context).requestBodyField("ISBN");
     }
@@ -59,6 +60,7 @@ public class OrderControllerTest {
 
     @Test
     public void create_order_will_get_the_book_from_the_database() {
+        stub(context.requestBodyField("pinCode")).toReturn("98");
         when(context.requestBodyField("ISBN")).thenReturn("12345");
         controller.createOrder();
         verify(service).fetchBook("12345");
@@ -76,11 +78,12 @@ public class OrderControllerTest {
         when(service.fetchBook("12345")).thenReturn(book);
 
         controller.createOrder();
-        verify(service).storeOrder(new Customer("chethan","chethandec22@gmail.com","0987654316","fasdfasf sdf asddf","560023"), book);
+        verify(service).storeOrder(new Customer("chethan", "chethandec22@gmail.com", "0987654316", "fasdfasf sdf asddf", 560023), book);
     }
 
     @Test
     public void create_order_will_reduce_the_number_of_quantity_of_the_book_in_the_database() {
+        stub(context.requestBodyField("pinCode")).toReturn("98");
         when(context.requestBodyField("ISBN")).thenReturn("12345");
         when(context.requestBodyField("bookType")).thenReturn("New");
         Book book = mock(Book.class);
@@ -91,6 +94,7 @@ public class OrderControllerTest {
 
     @Test
     public void after_creating_order_the_order_successful_page_will_be_displayed() {
+        stub(context.requestBodyField("pinCode")).toReturn("98");
         controller.createOrder();
         verify(context).render(ViewTemplates.orderSuccessful);
     }
@@ -121,13 +125,5 @@ public class OrderControllerTest {
     public void after_place_order_placeOrder_page_is_rendered() {
         controller.placeOrder();
         verify(context).render(ViewTemplates.placeOrder);
-    }
-
-    @Test
-    public void getOrders_binds_the_list_of_orders_to_the_velocity_variable_orders() {
-        List<Order> orders = new ArrayList<Order>();
-        stub(service.getOrders()).toReturn(orders);
-        controller.getOrders();
-        verify(context).bind("orders", orders);
     }
 }
