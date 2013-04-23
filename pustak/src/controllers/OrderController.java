@@ -27,10 +27,7 @@ public class OrderController {
         Customer customer = new Customer(customerName, email, phoneNumber, address, pinCode);
         String bookType = context.requestBodyField("bookType");
         service.connect();
-        Book orderedBook = service.fetchBook(ISBN);
-        service.storeOrder(customer, orderedBook);
-        service.reduceCount(orderedBook, bookType);
-        service.sendInvoice(orderedBook, customer);
+        service.processOrder(customer,ISBN,bookType);
         service.disConnect();
         return RequestHandlerResult.ok(context.render(ViewTemplates.orderSuccessful));
     }
