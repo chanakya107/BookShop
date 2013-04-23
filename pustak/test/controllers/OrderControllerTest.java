@@ -71,7 +71,7 @@ public class OrderControllerTest {
         when(context.requestBodyField("phoneNumber")).thenReturn("0987654316");
         when(context.requestBodyField("Address")).thenReturn("fasdfasf sdf asddf");
         when(context.requestBodyField("ISBN")).thenReturn("12345");
-        Book book = new Book();
+        Book book = mock(Book.class);
         when(service.fetchBook("12345")).thenReturn(book);
 
         controller.createOrder();
@@ -81,7 +81,7 @@ public class OrderControllerTest {
     @Test
     public void create_order_will_reduce_the_number_of_quantity_of_the_book_in_the_database() {
         when(context.requestBodyField("ISBN")).thenReturn("12345");
-        Book book = new Book();
+        Book book = mock(Book.class);
         when(service.fetchBook("12345")).thenReturn(book);
         controller.createOrder();
         verify(service).reduceCount(book);
@@ -108,7 +108,7 @@ public class OrderControllerTest {
 
     @Test
     public void placeOrder_will_bind_the_book_with_the_webpage() {
-        Book book = new Book();
+        Book book = mock(Book.class);
         when(context.requestBodyField("isbn")).thenReturn("12345");
         when(service.fetchBook("12345")).thenReturn(book);
         controller.placeOrder();

@@ -1,12 +1,12 @@
 package services.impl;
 
 import emails.Invoice;
-import mail.Mail;
 import model.Book;
 import model.Customer;
 import model.DataBase;
 import model.Order;
 import services.OrderService;
+import mail.*;
 
 import javax.mail.MessagingException;
 import java.sql.ResultSet;
@@ -82,8 +82,8 @@ public class OrderServiceImpl implements OrderService {
         Book book;
         try {
             while (resultSet.next()) {
-                book = Book.createBook(resultSet.getInt(1), resultSet.getString(2).replace("+", " "), resultSet.getString(3).replace("+", " "), resultSet.getInt(4), resultSet.getInt(5), resultSet.getInt(6));
-                return book;
+//                book = Book.createBook(resultSet.getInt(1), resultSet.getString(2).replace("+", " "), resultSet.getString(3).replace("+", " "), resultSet.getInt(4), resultSet.getInt(5), resultSet.getInt(6));
+//                return book;
             }
 
         } catch (SQLException e) {
@@ -95,8 +95,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void reduceCount(Book book) {
-
-        String query = "UPDATE books SET newbookquantity=" + (book.getQuantity_New() - 1) + " where isbn like '%" + book.getISBN() + "%'";
+        String query = "UPDATE books SET newbookquantity=" + (book.getNewQuantity() - 1) + " where isbn like '%" + book.getISBN() + "%'";
         dataBase.updateQuery(query);
     }
 

@@ -28,7 +28,7 @@ public class Invoice {
 
     private String getBookDetails() {
         return "ISBN : " + orderedBook.getISBN() + "\n" +"Book Title : " + orderedBook.getTitle() + "\n" +
-                "Author Name : " + orderedBook.getAuthor() + "\n" +
+                "Author Name : " + orderedBook.getAuthor1() + "\n" +
                 "Price : " + orderedBook.getPrice() + "\n\n";
     }
 

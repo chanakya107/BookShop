@@ -16,16 +16,10 @@ public class Main {
 
     private static void initializeRoutes() {
         RouteMap routeMap = RouteMap.create();
-
         DataBase dataBase = new DataBase();
-
-
+//        Todo: move service
         final BookService bookService = new BookServiceImpl();
         bookService.bindDB(dataBase);
-
-        final AddBookService addBookService = new AddBookServiceImpl();
-        addBookService.bindDB(dataBase);
-
         final OrderService orderService = new OrderServiceImpl();
         orderService.bindDB(dataBase);
 
@@ -60,7 +54,7 @@ public class Main {
         WebRequestHandler addBook = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
-                return AddBookController.createAddBookController(context, addBookService).createBook();
+                return AddBookController.createAddBookController(context, bookService).createBook();
             }
         };
 
