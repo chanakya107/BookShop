@@ -1,6 +1,7 @@
 package controllers;
 
 import model.Book;
+import model.Customer;
 import org.junit.Before;
 import org.junit.Test;
 import services.OrderService;
@@ -56,7 +57,7 @@ public class OrderControllerTest {
     public void create_order_will_get_the_book_from_the_database() {
         when(context.requestBodyField("ISBN")).thenReturn("12345");
         controller.createOrder();
-        verify(service).getBook("12345");
+        verify(service).fetchBook("12345");
     }
 
     @Test
@@ -67,17 +68,17 @@ public class OrderControllerTest {
         when(context.requestBodyField("Address")).thenReturn("fasdfasf sdf asddf");
         when(context.requestBodyField("ISBN")).thenReturn("12345");
         Book book = new Book();
-        when(service.getBook("12345")).thenReturn(book);
+        when(service.fetchBook("12345")).thenReturn(book);
 
         controller.createOrder();
-        verify(service).storeOrder("chethan", "chethandec22@gmail.com", "0987654316", "fasdfasf sdf asddf", book);
+        verify(service).storeOrder(new Customer("chethan","chethandec22@gmail.com","0987654316","fasdfasf sdf asddf"), book);
     }
 
     @Test
     public void create_order_will_reduce_the_number_of_quantity_of_the_book_in_the_database() {
         when(context.requestBodyField("ISBN")).thenReturn("12345");
         Book book = new Book();
-        when(service.getBook("12345")).thenReturn(book);
+        when(service.fetchBook("12345")).thenReturn(book);
         controller.createOrder();
         verify(service).reduceCount(book);
     }

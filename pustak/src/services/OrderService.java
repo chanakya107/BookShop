@@ -8,7 +8,7 @@ public interface OrderService {
 
     void bindDB(DataBase db);
 
-    Book getBook(String isbn);
+    Book fetchBook(String isbn);
 
     void reduceCount(Book isbn);
 

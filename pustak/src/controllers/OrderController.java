@@ -17,7 +17,6 @@ public class OrderController {
     }
 
     public RequestHandlerResult createOrder() {
-
         String customerName = context.requestBodyField("Name");
         String email = context.requestBodyField("Email");
         String phoneNumber = context.requestBodyField("phoneNumber");
@@ -25,7 +24,7 @@ public class OrderController {
         String ISBN = context.requestBodyField("ISBN");
 
         Customer customer = new Customer(customerName, email, phoneNumber, address);
-        Book orderedBook = service.getBook(ISBN);
+        Book orderedBook = service.fetchBook(ISBN);
         service.storeOrder(customer, orderedBook);
         service.reduceCount(orderedBook);
         service.sendInvoice(orderedBook, customer);
