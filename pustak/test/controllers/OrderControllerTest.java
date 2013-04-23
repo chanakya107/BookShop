@@ -76,7 +76,7 @@ public class OrderControllerTest {
         when(service.fetchBook("12345")).thenReturn(book);
 
         controller.createOrder();
-        verify(service).storeOrder(new Customer("chethan","chethandec22@gmail.com","0987654316","fasdfasf sdf asddf", "560023"), book);
+        verify(service).storeOrder(new Customer("chethan","chethandec22@gmail.com","0987654316","fasdfasf sdf asddf","560023"), book);
     }
 
     @Test

@@ -27,18 +27,22 @@ public class OrderController {
         String ISBN = context.requestBodyField("ISBN");
         String pincode = context.requestBodyField("pinCode");
 
-        Customer customer = new Customer(customerName, email, phoneNumber, address,pincode);
+        Customer customer = new Customer(customerName, email, phoneNumber, address, pincode);
+        service.connect();
         Book orderedBook = service.fetchBook(ISBN);
         service.storeOrder(customer, orderedBook);
         service.reduceCount(orderedBook);
         service.sendInvoice(orderedBook, customer);
+        service.disConnect();
         return RequestHandlerResult.ok(context.render(ViewTemplates.orderSuccessful));
     }
 
     public RequestHandlerResult placeOrder() {
+        service.connect();
         String isbn = context.requestBodyField("isbn");
         Book book = service.fetchBook(isbn);
         context.bind("orderedBook", book);
+        service.disConnect();
         return RequestHandlerResult.ok(context.render(ViewTemplates.placeOrder));
     }
 

@@ -10,6 +10,7 @@ import views.ViewTemplates;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.stub;
+import static org.mockito.Mockito.verify;
 
 public class AddBookControllerTest {
 
@@ -52,6 +53,7 @@ public class AddBookControllerTest {
         stub(context.render(ViewTemplates.AddBook)).toReturn("ok");
 
         RequestHandlerResult result = controller.createBook();
+        verify(context).bind("message","ISBN Already Exists.");
         Assert.assertTrue(result != null);
     }
 }

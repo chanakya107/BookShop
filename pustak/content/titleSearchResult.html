@@ -21,11 +21,7 @@
             <form action="display" method="post">
                 <div class="input-append">
                     <input type="text" name="searchKey" class="search-query input-xxlarge"
-                           placeholder="Enter the Title of the Book" required>
-                    <select name="category">
-                        <option value="New" >New</option>
-                        <option value="Used">Used</option>
-                    </select>
+                           placeholder="Enter the Title of the Book" value =" ">
                     <button type="submit" class="btn btn-info">Search</button>
                 </div>
             </form>
@@ -46,32 +42,50 @@
             </ul>
         </div>
         <div class="span10">
-            #set ($count=0)
-            #foreach($book in $books )
-            #if($count < 12)
-            <div class="span5">
-                <ul class="thumbnails">
-                    <li class="span3">
-                        <div class="thumbnail">
+            <div class="span6">
+                #set ($count=0)
+                <h2>New Books</h2>
+                <table>
+                    <tr>
+                        #foreach($book in $new_books )
+                        <td class="log">
                             <form action="placeOrder" method="post">
-                                <p>
-                                    <input type="hidden" name="isbn" hidden="hidden" value="$book.ISBN">
-                                    Title: $book.title
-                                    <br/>
-                                    Author: $book.Author
-                                    <br/>
-                                    Price: $book.price
-                                    <br/>
-                                    <button class="btn btn-small btn-primary" type="submit">BUY</button>
-                                </p>
+                                <input type="hidden" name="isbn" hidden="hidden" value="$book.ISBN">
+                                Title: $book.title
+                                <br/>
+                                Author: $book.Author
+                                <br/>
+                                Price: $book.price
+                                <br/>
+                                <button class="btn btn-small btn-primary" type="submit">BUY</button>
                             </form>
-                        </div>
-                    </li>
-                </ul>
+                        </td>
+                        #end
+                    </tr>
+                </table>
             </div>
-            #end
-            #set ( $count=$count+1)
-            #end
+            <div class="span6">
+                #set ($count=0)
+                <h2>Used Books</h2>
+                <table>
+                    <tr>
+                        #foreach($book in $used_books )
+                        <td class="log">
+                            <form action="placeOrder" method="post">
+                                <input type="hidden" name="isbn" hidden="hidden" value="$book.ISBN">
+                                Title: $book.title
+                                <br/>
+                                Author: $book.Author
+                                <br/>
+                                Price: $book.price
+                                <br/>
+                                <button class="btn btn-small btn-primary" type="submit">BUY</button>
+                            </form>
+                        </td>
+                        #end
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
     <div class="span2"></div>

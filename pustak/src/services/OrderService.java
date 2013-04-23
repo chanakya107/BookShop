@@ -19,4 +19,8 @@ public interface OrderService {
     List<Order> getOrders();
 
     List<Order> getOrdersWithBookDetails(List<Order> orders);
+
+    void connect();
+
+    void disConnect();
 }

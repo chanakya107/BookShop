@@ -28,11 +28,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void storeOrder(Customer customer, Book orderedBook) {
         time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(Calendar.getInstance().getTime());
-        ResultSet resultSet = dataBase.selectQuery("SELECT * from Orders");
+//        ResultSet resultSet = dataBase.selectQuery("SELECT * from Orders");
 
-        if (resultSet == null)
-            dataBase.createTable("CREATE TABLE Orders (orderId INTEGER Primary key AUTOINCREMENT, customerName text, email text, phoneNumber text,address text,date DATETIME,isbn text,status text)");
-        dataBase.insertQuery("INSERT INTO Orders VALUES(null,'" + customer.getCustomerName() + "','" + customer.getEmail() + "','" + customer.getPhoneNumber() + "','" + customer.getAddress() + "','" + time + "','" + orderedBook.getISBN() + "','Pending')");
+//        if (resultSet == null)
+        dataBase.createTable("CREATE TABLE Orders (orderId INTEGER Primary key AUTOINCREMENT, customerName text, email text, phoneNumber text,address text,pinCode text,date DATETIME,isbn text,status text)");
+        dataBase.insertQuery("INSERT INTO Orders VALUES(null,'" + customer.getCustomerName() + "','" + customer.getEmail() + "','" + customer.getPhoneNumber() + "','" + customer.getAddress() + "','" + customer.getPinCode() + "','" + time + "','" + orderedBook.getISBN() + "','Pending')");
     }
 
     @Override
@@ -50,7 +50,6 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> getOrders() {
         dataBase.connectTo("pustak.db");
         List<Order> ordersInList = getOrdersInList(dataBase.selectQuery("select orderId,customerName,email,phoneNumber,address,date,isbn,status from orders"));
-        dataBase.closeConnection();
         return ordersInList;
     }
 
@@ -68,8 +67,17 @@ public class OrderServiceImpl implements OrderService {
                 e.printStackTrace();
             }
         }
-        dataBase.closeConnection();
         return orders;
+    }
+
+    @Override
+    public void connect() {
+        dataBase.connectTo("pustak.db");
+    }
+
+    @Override
+    public void disConnect() {
+        dataBase.closeConnection();
     }
 
     @Override
@@ -77,14 +85,10 @@ public class OrderServiceImpl implements OrderService {
         String query = "select isbn,title,author1,author2,price,newbookquantity,usedbookquantity from books where isbn like '%" + isbn + "%'";
         ResultSet resultSet = dataBase.selectQuery(query);
         try {
-            while (resultSet.next()) {
-                return new Book(resultSet.getString(1), resultSet.getString(2).replace("+", " "), resultSet.getString(3).replace("+", " "), resultSet.getString(4).replace("+", " "), resultSet.getInt(5), resultSet.getInt(6), resultSet.getInt(7));
-            }
-
+            return new Book(resultSet.getString(1), resultSet.getString(2).replace("+", " "), resultSet.getString(3).replace("+", " "), resultSet.getString(4).replace("+", " "), resultSet.getInt(5), resultSet.getInt(6), resultSet.getInt(7));
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 
