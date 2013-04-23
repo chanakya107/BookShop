@@ -1,4 +1,5 @@
 import controllers.*;
+import summary.Report;
 import model.DataBase;
 import services.*;
 import services.impl.*;
@@ -14,6 +15,11 @@ public class Main {
         initializeRoutes();
     }
 
+    private static void reportDayTransaction(BookService bookService) {
+        Report report = new Report(bookService);
+        report.send();
+    }
+
     private static void initializeRoutes() {
         RouteMap routeMap = RouteMap.create();
 
@@ -22,6 +28,7 @@ public class Main {
 
         final BookService bookService = new BookServiceImpl();
         bookService.bindDB(dataBase);
+        reportDayTransaction(bookService);
 
         final AddBookService addBookService = new AddBookServiceImpl();
         addBookService.bindDB(dataBase);

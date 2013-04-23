@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookServiceImpl implements BookService {
-
     DataBase db;
 
     @Override
@@ -64,4 +63,6 @@ public class BookServiceImpl implements BookService {
         book.setQuantity_new(Quantity);
         return book;
     }
+
+
 }

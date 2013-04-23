@@ -11,4 +11,5 @@ public interface BookService {
     Book createBook(int ISBN, String title, String authorName, int price, int Quantity);
 
     void bindDB(DataBase db);
+
 }
