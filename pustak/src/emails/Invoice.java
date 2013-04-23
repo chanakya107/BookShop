@@ -22,7 +22,7 @@ public class Invoice {
 
     private String getBody() {
         return "Your order for the following book has been placed:\n\n" + getBookDetails() +
-                "Your order is registered on " + time + ".\nYou can except a mail about its dispsatch soon. \n\n\t" + "Thank you for buying. \n\n" + "Regards,\nPustak.com";
+                "Your order is registered on " + time + ".\nYou can except a mail about its dispatch soon. \n\n\t" + "Thank you for buying. \n\n" + "Regards,\nPustak.com";
 
     }
 
