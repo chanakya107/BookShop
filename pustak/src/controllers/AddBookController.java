@@ -20,7 +20,6 @@ public class AddBookController {
             throw new IllegalArgumentException("Cannot create addBookController of the context : " + context);
         if (bookService == null)
             throw new IllegalArgumentException("Cannot create addBookController of the bookService : " + bookService);
-        context.bind("message", "Enter");
         return new AddBookController(context, bookService);
     }
 
@@ -41,12 +40,8 @@ public class AddBookController {
         if (bookService.addBook(book))
             message = "Book successfully added to Inventory.";
         else
-            message = "ISBN Already Exists";
-        bind(message);
-        return RequestHandlerResult.ok(context.render(ViewTemplates.AddBook));
-    }
-
-    private void bind(String message) {
+            message = "ISBN Already Exists.";
         context.bind("message", message);
+        return RequestHandlerResult.ok(context.render(ViewTemplates.AddBook));
     }
 }

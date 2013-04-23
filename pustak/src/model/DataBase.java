@@ -33,7 +33,6 @@ public class DataBase {
             statement.executeUpdate(createTableQuery);
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -48,7 +47,7 @@ public class DataBase {
         }
     }
 
-    public void insertBooksToDataBase() {
+    public void createBooksTable() {
         String sql = "CREATE TABLE books " +
                 "(isbn VARCHAR not NULL, " +
                 " title VARCHAR(255) not NULL, " +
