@@ -51,6 +51,7 @@ public class DataBase {
     }
 
     public String insertBooksToDataBase(String queryString) {
+//        dropTable("books");
         String sql = "CREATE TABLE books " +
                 "(isbn VARCHAR not NULL, " +
                 " title VARCHAR(255) not NULL, " +

@@ -79,7 +79,7 @@ public class Main {
         routeMap.post("/addOrder", createOrder);
         routeMap.post("/searchBook", searchResult);
         routeMap.get("/", renderTemplate(ViewTemplates.Index));
-
+        routeMap.post("/dispatchBook",renderTemplate(ViewTemplates.DispatchedBooks));
         routeMap.post("/display", display);
 
         WebRequestHandler UpdateBook = new WebRequestHandler() {
@@ -89,6 +89,7 @@ public class Main {
             }
         };
         routeMap.post("/UpdateBook", UpdateBook);
+
     }
 
     private static WebRequestHandler renderTemplate(final ViewTemplates template) {
