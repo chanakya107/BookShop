@@ -1,5 +1,8 @@
 package services.impl;
 
+import org.junit.Test;
+import services.BookService;
+
 public class BookServiceImplTest {
 
 
@@ -97,9 +100,9 @@ public class BookServiceImplTest {
 //    }
 //
 //
-//    @Test(expected = IllegalArgumentException.class)
-//    public void binding_null_db_gives_IllegalArgumentException() {
-//        BookService bookService = new BookServiceImpl();
-//        bookService.bindDB(null);
-//    }
+    @Test(expected = IllegalArgumentException.class)
+    public void binding_null_db_gives_IllegalArgumentException() {
+        BookService bookService = new BookServiceImpl();
+        bookService.bindDB(null);
+    }
 }

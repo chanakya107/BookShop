@@ -58,10 +58,10 @@ public class Main {
             }
         };
 
-        WebRequestHandler UpdateBook = new WebRequestHandler() {
+        WebRequestHandler updateBook = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
-                return new updateBookController(context, bookService).update();
+                return UpdateBookController.createController(context, bookService).update();
             }
         };
 
@@ -95,7 +95,7 @@ public class Main {
         routeMap.post("/addOrder", createOrder);
         routeMap.post("/searchBook", searchResult);
         routeMap.post("/display", display);
-        routeMap.post("/UpdateBook", UpdateBook);
+        routeMap.post("/updateBook", updateBook);
     }
 
     private static WebRequestHandler renderTemplate(final ViewTemplates template) {
