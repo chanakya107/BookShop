@@ -21,8 +21,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
         dataBase.connectTo("pustak.db");
         ResultSet resultSet = dataBase.selectQuery(query);
         try {
-            Book book = Book.createBook(resultSet.getInt(1), resultSet.getString(2).replace("+", " "), resultSet.getString(3).replace("+", " "), resultSet.getInt(4), resultSet.getInt(5), resultSet.getInt(6));
-            return book;
+            return Book.createBook(resultSet.getInt(1), resultSet.getString(2).replace("+", " "), resultSet.getString(3).replace("+", " "), resultSet.getInt(4), resultSet.getInt(5), resultSet.getInt(6));
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -1,11 +1,10 @@
 package services;
 
 import model.Book;
+import model.Customer;
 import model.DataBase;
 
 public interface OrderService {
-
-    void storeOrder(String customerName, String email, String phoneNumber, String address, Book ISBN);
 
     void bindDB(DataBase db);
 
@@ -13,5 +12,7 @@ public interface OrderService {
 
     void reduceCount(Book isbn);
 
-    void sendInvoice(Book orderedBook, String customerName, String email, String address);
+    void storeOrder(Customer customer, Book orderedBook);
+
+    void sendInvoice(Book orderedBook, Customer customer);
 }

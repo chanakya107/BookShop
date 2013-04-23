@@ -53,7 +53,7 @@ public class Main {
         WebRequestHandler createOrder = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
-                return new OrderListController(context, orderService).createOrder();
+                return new OrderController(context, orderService).createOrder();
             }
         };
 

@@ -9,8 +9,8 @@ import views.ViewTemplates;
 
 import static org.mockito.Mockito.*;
 
-public class OrderListControllerTest {
-    private OrderListController controller;
+public class OrderControllerTest {
+    private OrderController controller;
     private WebContext context;
     private OrderService service;
 
@@ -18,7 +18,7 @@ public class OrderListControllerTest {
     public void setup() {
         context = mock(WebContext.class);
         service = mock(OrderService.class);
-        controller = new OrderListController(context, service);
+        controller = new OrderController(context, service);
     }
 
     @Test

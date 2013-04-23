@@ -3,6 +3,7 @@ package services.impl;
 import emails.Invoice;
 import mail.Mail;
 import model.Book;
+import model.Customer;
 import model.DataBase;
 import services.OrderService;
 
@@ -18,13 +19,24 @@ public class OrderServiceImpl implements OrderService {
     private String time;
 
     @Override
-    public void storeOrder(String customerName, String email, String phoneNumber, String address, Book book) {
+    public void storeOrder(Customer customer, Book orderedBook) {
         time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(Calendar.getInstance().getTime());
         ResultSet resultSet = dataBase.selectQuery("SELECT * from Orders");
 
         if (resultSet == null)
-            dataBase.createTable("CREATE TABLE orders (orderId INTEGER Primary key AUTOINCREMENT, customerName text, email text, phoneNumber text,address text,date DATETIME,isbn text,status text)");
-        dataBase.insertQuery("INSERT INTO Orders VALUES(null,'" + customerName + "','" + email + "','" + phoneNumber + "','" + address + "','" + time + "','" + book.getISBN() + "','Pending')");
+            dataBase.createTable("CREATE TABLE Orders (orderId INTEGER Primary key AUTOINCREMENT, customerName text, email text, phoneNumber text,address text,date DATETIME,isbn text,status text)");
+        dataBase.insertQuery("INSERT INTO Orders VALUES(null,'" + customer.getCustomerName() + "','" + customer.getEmail() + "','" + customer.getPhoneNumber() + "','" + customer.getAddress() + "','" + time + "','" + orderedBook.getISBN() + "','Pending')");
+    }
+
+    @Override
+    public void sendInvoice(Book orderedBook, Customer customer) {
+        Invoice invoice = new Invoice(orderedBook, customer.getCustomerName(), time);
+        Mail mail = new Mail(invoice.getSubject(), invoice.getContent());
+        try {
+            mail.sendMail(customer.getEmail().replace("%40", "@"));
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -57,17 +69,5 @@ public class OrderServiceImpl implements OrderService {
 
         String query = "UPDATE books SET newbookquantity=" + (book.getQuantity_New() - 1) + " where isbn like '%" + book.getISBN() + "%'";
         dataBase.updateQuery(query);
-    }
-
-    @Override
-    public void sendInvoice(Book orderedBook, String customerName, String email, String address) {
-        Invoice invoice = new Invoice(orderedBook, customerName, time);
-        Mail mail = new Mail(invoice.getSubject(), invoice.getContent());
-        try {
-            email = email.replace("%40", "@");
-            mail.sendMail(email);
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
     }
 }

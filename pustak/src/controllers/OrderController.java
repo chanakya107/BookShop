@@ -1,17 +1,17 @@
 package controllers;
 
 import model.Book;
+import model.Customer;
 import services.OrderService;
 import step.web.framework.RequestHandlerResult;
 import step.web.framework.WebContext;
 import views.ViewTemplates;
 
-public class OrderListController {
+public class OrderController {
     private final WebContext context;
     private final OrderService service;
-    private Book orderedBook;
 
-    public OrderListController(WebContext context, OrderService service) {
+    public OrderController(WebContext context, OrderService service) {
         this.context = context;
         this.service = service;
     }
@@ -24,12 +24,11 @@ public class OrderListController {
         String address = context.requestBodyField("Address");
         String ISBN = context.requestBodyField("ISBN");
 
-
-        orderedBook = service.getBook(ISBN);
-        service.storeOrder(customerName, email, phoneNumber, address, orderedBook);
+        Customer customer = new Customer(customerName, email, phoneNumber, address);
+        Book orderedBook = service.getBook(ISBN);
+        service.storeOrder(customer, orderedBook);
         service.reduceCount(orderedBook);
-
-        service.sendInvoice(orderedBook, customerName, email, address);
+        service.sendInvoice(orderedBook, customer);
         return RequestHandlerResult.ok(context.render(ViewTemplates.orderSuccessful));
     }
 }
