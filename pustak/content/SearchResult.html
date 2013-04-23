@@ -21,7 +21,7 @@
             <form action="SearchBook" class="form-search" method="post">
                 <div class="input-append">
                     <input type="text" name="searchKey" class="search-query input-xxlarge"
-                           placeholder="Enter the Title of the Book" value=" ">
+                           placeholder="Enter the Title of the Book" required>
                     <button type="submit" class="btn btn-info">Search</button>
                 </div>
             </form>
@@ -75,7 +75,7 @@
                         <td>$book.newQuantity</td>
                         <td>New</td>
                         <td>
-                            <button class="offset2 btn btn-small btn-primary" type="submit">UPDATE</button>
+                            <button class="offset2 btn btn-link" type="submit">UPDATE</button>
                         </td>
                     </tr>
                     #end
@@ -89,7 +89,7 @@
                         <td>$book.newQuantity</td>
                         <td>Used</td>
                         <td>
-                            <button class="offset2 btn btn-small btn-primary" type="submit">UPDATE</button>
+                            <button class="offset2 btn btn-link" type="submit">UPDATE</button>
                         </td>
                     </tr>
                     #end

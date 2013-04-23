@@ -6,6 +6,9 @@ import step.web.framework.RequestHandlerResult;
 import step.web.framework.WebContext;
 import views.ViewTemplates;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 public class AddBookController {
     private final WebContext context;
     private final BookService bookService;
@@ -24,10 +27,18 @@ public class AddBookController {
     }
 
     public RequestHandlerResult createBook() {
-        String isbn = context.requestBodyField("isbn");
-        String title = context.requestBodyField("title");
-        String author1 = context.requestBodyField("author1");
-        String author2 = context.requestBodyField("author2");
+        String isbn = null;
+        String title = null;
+        String author1 = null;
+        String author2 = null;
+        try {
+            isbn = URLDecoder.decode(context.requestBodyField("isbn"), "UTF-8");
+            title = URLDecoder.decode(context.requestBodyField("title"), "UTF-8");
+            author1 = URLDecoder.decode(context.requestBodyField("author1"), "UTF-8");
+            author2 = URLDecoder.decode(context.requestBodyField("author2"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         int price = Integer.parseInt(context.requestBodyField("price"));
         int quantity = Integer.parseInt(context.requestBodyField("quantity"));
         String type = context.requestBodyField("bookstatus");
