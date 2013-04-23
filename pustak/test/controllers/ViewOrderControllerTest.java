@@ -3,7 +3,7 @@ package controllers;
 import model.Order;
 import org.junit.Before;
 import org.junit.Test;
-import services.ViewOrderService;
+import services.OrderService;
 import step.web.framework.WebContext;
 
 import java.util.ArrayList;
@@ -13,24 +13,14 @@ import static org.mockito.Mockito.*;
 
 public class ViewOrderControllerTest {
     private WebContext context;
-    private ViewOrderService service;
+    private OrderService service;
     private ViewOrderController controller;
 
     @Before
     public void setUp() {
         context = mock(WebContext.class);
-        service = mock(ViewOrderService.class);
-        controller = ViewOrderController.createViewOrderController(context, service);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void cannot_create_ViewOrderController_of_null_context() {
-        ViewOrderController.createViewOrderController(null, service);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void cannot_create_ViewOrderController_of_null_service() {
-        ViewOrderController.createViewOrderController(context, null);
+        service = mock(OrderService.class);
+        controller = new ViewOrderController(context, service);
     }
 
     @Test
