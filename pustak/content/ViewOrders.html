@@ -109,15 +109,9 @@
                     <td>
                         $order.status
                     </td>
-<!--<<<<<<< HEAD
+                    #if($order.status == "Pending")
                     <td>
-                        <form action="dispatchBook"  method="post">
-                        <button type="submit" class="btn btn-info">Dispatch Order</button>
-                        </form>
-                    </td>
-=======-->          #if($order.status == "Pending")
-                    <td>
-                        <form action="" method="post">
+                        <form action="dispatchedBooks" method="post">
                             <input type="submit" value="Dispatch" class="btn btn-info">
                         </form>
                     </td>

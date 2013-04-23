@@ -49,8 +49,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getOrders() {
         dataBase.connectTo("pustak.db");
-        List<Order> ordersInList = getOrdersInList(dataBase.selectQuery("select orderId,customerName,email,phoneNumber,address,date,isbn,status from orders"));
-        return ordersInList;
+        return getOrdersInList(dataBase.selectQuery("select orderId,customerName,email,phoneNumber,address,date,isbn,status from orders"));
     }
 
     @Override
