@@ -17,7 +17,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
-
+//TODO: database connection is not closed properly.
     private DataBase dataBase;
     private String time;
 

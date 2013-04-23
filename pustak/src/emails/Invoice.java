@@ -7,7 +7,6 @@ public class Invoice {
     private final Book orderedBook;
     private final String time;
     private final String customerName;
-    private final String subject = "Acknowledgement for placed order";
 
     public Invoice(Book orderedBook, String customerName, String time) {
 
@@ -17,7 +16,7 @@ public class Invoice {
     }
 
     public String getContent() {
-        return getSalutation() +  getBody();
+        return getSalutation() + getBody();
     }
 
     private String getBody() {
@@ -27,7 +26,7 @@ public class Invoice {
     }
 
     private String getBookDetails() {
-        return "ISBN : " + orderedBook.getISBN() + "\n" +"Book Title : " + orderedBook.getTitle() + "\n" +
+        return "ISBN : " + orderedBook.getISBN() + "\n" + "Book Title : " + orderedBook.getTitle() + "\n" +
                 "Author Name : " + orderedBook.getAuthor1() + "\n" +
                 "Price : " + orderedBook.getPrice() + "\n\n";
     }
@@ -38,6 +37,6 @@ public class Invoice {
 
 
     public String getSubject() {
-        return subject;
+        return "Acknowledgement for placed order";
     }
 }
