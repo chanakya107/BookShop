@@ -16,10 +16,11 @@ public class ResultController {
     }
 
     public RequestHandlerResult getResult() {
-        String searchkey = context.requestBodyField("searchKey");
-
-        String category=context.requestBodyField("category");
-//        context.bind("books", bookService.searchBookByTitle(searchkey, category));
+        String searchKey = context.requestBodyField("searchKey");
+        if(searchKey.trim().equals("+"))
+            searchKey="" ;
+        context.bind("new_books", bookService.searchBookByTitle(searchKey, "New"));
+        context.bind("used_books", bookService.searchBookByTitle(searchKey, "Used"));
         return RequestHandlerResult.ok(context.render(ViewTemplates.SearchResult));
     }
 }

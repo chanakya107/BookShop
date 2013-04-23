@@ -1,6 +1,7 @@
 package controllers;
 
 import junit.framework.Assert;
+import model.Book;
 import org.junit.Test;
 import services.BookService;
 import step.web.framework.WebContext;
@@ -15,8 +16,8 @@ public class ResultControllerTest {
         BookService service = mock(BookService.class);
 
         stub(context.requestBodyField("searchKey")).toReturn("Prince");
-//        String category="New";
-//        stub(service.searchBookByTitle("Prince", category)).toReturn(new Book[0]);
+        String category="New";
+        stub(service.searchBookByTitle("Prince", "Old")).toReturn(new Book[0]);
 
         ResultController controller = new ResultController(context, service);
 
