@@ -18,7 +18,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
-
+//TODO: database connection is not closed properly.
     private DataBase dataBase;
     private String time;
 
@@ -30,10 +30,9 @@ public class OrderServiceImpl implements OrderService {
     public void storeOrder(Customer customer, Book orderedBook) {
         time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(Calendar.getInstance().getTime());
         ResultSet resultSet = dataBase.selectQuery("SELECT * from Orders");
-
         if (resultSet == null)
-            dataBase.createTable("CREATE TABLE Orders (orderId INTEGER Primary key AUTOINCREMENT, customerName text, email text, phoneNumber text,address text,pinCode text,date DATETIME,isbn text,status text)");
-        dataBase.insertQuery("INSERT INTO Orders VALUES(null,'" + customer.getCustomerName() + "','" + customer.getEmail() + "','" + customer.getPhoneNumber() + "','" + customer.getAddress() + "','" + customer.getPinCode() + "','" + time + "','" + orderedBook.getISBN() + "','Pending')");
+            dataBase.createTable("CREATE TABLE orders (orderid INTEGER Primary key AUTOINCREMENT, customername text, email text, phonenumber text,address text,pincode text,date DATETIME,isbn text,status text)");
+        dataBase.insertQuery("INSERT INTO orders VALUES(null,'" + customer.getCustomerName() + "','" + customer.getEmail() + "','" + customer.getPhoneNumber() + "','" + customer.getAddress() + "','" + customer.getPinCode() + "','" + time + "','" + orderedBook.getISBN() + "','Pending')");
     }
 
     @Override
@@ -112,8 +111,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void reduceCount(Book book) {
-        String query = "UPDATE books SET newbookquantity=" + (book.getNewQuantity() - 1) + " where isbn like '%" + book.getISBN() + "%'";
+    public void reduceCount(Book book, String bookType) {
+        String query = "UPDATE books SET newbookquantity=" + (book.getQuantity(bookType) - 1) + " where isbn like '%" + book.getISBN() + "%'";
         dataBase.updateQuery(query);
     }
 

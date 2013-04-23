@@ -16,6 +16,7 @@ public class ViewOrderController {
         this.context = context;
         this.service = service;
     }
+
     public RequestHandlerResult getOrders() {
         List<Order> orders = service.getOrders();
         context.bind("orders", orders);

@@ -36,25 +36,26 @@ public class BookServiceImpl implements BookService {
         dataBase.closeConnection();
         return books;
     }
+
     public boolean addBook(Book book) {
         dataBase.connectTo("pustak.db");
         String insertQuery = "INSERT INTO books " + "values ('" + book.getISBN() + "','" + book.getTitle() + "','" + book.getAuthor1() + "','" + book.getAuthor2() + "'," + book.getPrice() + "," + book.getNewQuantity() + "," + book.getUsedQuantity() + ")";
         return dataBase.insertQuery(insertQuery);
     }
-    private Book[] buildResultBooks(ResultSet rs) {
-        List<Book> books = new ArrayList<Book>();
-        try {
-            while (rs.next()) {
-                String title = rs.getString(2).replace("+", " ");
-                String firstAuthorName = rs.getString(3).replace("+", " ");
-                String secondAuthorName = rs.getString(4).replace("+", " ");
-                if (rs.getInt(6) != 0)
-                    books.add(new Book(rs.getString(1), title, firstAuthorName,secondAuthorName, rs.getInt(5), rs.getInt(6),0));
+        private Book[] buildResultBooks(ResultSet rs) {
+            List<Book> books = new ArrayList<Book>();
+            try {
+                while (rs.next()) {
+                    String title = rs.getString(2).replace("+", " ");
+                    String firstAuthorName = rs.getString(3).replace("+", " ");
+                    String secondAuthorName = rs.getString(4).replace("+", " ");
+                    if (rs.getInt(6) != 0)
+                        books.add(new Book(rs.getString(1), title, firstAuthorName,secondAuthorName, rs.getInt(5), rs.getInt(6),0));
+                }
+                return books.toArray(new Book[books.size()]);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return null;
             }
-            return books.toArray(new Book[books.size()]);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
         }
-    }
 }

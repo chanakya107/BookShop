@@ -10,6 +10,7 @@ import static org.mockito.Mockito.verify;
 
 public class BookServiceImplTest {
 
+
     @Test
     public void addBook_connects_to_dataBase_and_invokes_insertQuery_to_insert_the_book() {
         DataBase dataBase = mock(DataBase.class);

@@ -22,13 +22,14 @@ public class OrderController {
         String phoneNumber = context.requestBodyField("phoneNumber");
         String address = context.requestBodyField("Address");
         String ISBN = context.requestBodyField("ISBN");
-        int pincode = Integer.parseInt(context.requestBodyField("pinCode"));
 
-        Customer customer = new Customer(customerName, email, phoneNumber, address, pincode);
+        int pinCode = Integer.parseInt(context.requestBodyField("pinCode"));
+        Customer customer = new Customer(customerName, email, phoneNumber, address, pinCode);
+        String bookType = context.requestBodyField("bookType");
         service.connect();
         Book orderedBook = service.fetchBook(ISBN);
         service.storeOrder(customer, orderedBook);
-        service.reduceCount(orderedBook);
+        service.reduceCount(orderedBook, bookType);
         service.sendInvoice(orderedBook, customer);
         service.disConnect();
         return RequestHandlerResult.ok(context.render(ViewTemplates.orderSuccessful));
@@ -42,6 +43,4 @@ public class OrderController {
         service.disConnect();
         return RequestHandlerResult.ok(context.render(ViewTemplates.placeOrder));
     }
-
-
 }

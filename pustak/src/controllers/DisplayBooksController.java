@@ -23,5 +23,4 @@ public class DisplayBooksController {
         context.bind("used_books", bookService.searchBookByTitle(searchKey, "Used"));
         return RequestHandlerResult.ok(context.render(ViewTemplates.TitleSearchResult));
     }
-
 }
