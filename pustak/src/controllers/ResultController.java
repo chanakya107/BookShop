@@ -20,6 +20,7 @@ public class ResultController {
         context.bind("new_books", bookService.displayAllBooks("New", searchKey));
         context.bind("used_books", bookService.displayAllBooks("Used", searchKey));
 
+
         return RequestHandlerResult.ok(context.render(ViewTemplates.SearchResult));
     }
 }

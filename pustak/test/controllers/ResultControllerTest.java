@@ -19,7 +19,6 @@ public class ResultControllerTest {
         String category="New";
         stub(service.displayAllBooks("Prince", "Used")).toReturn(new Book[0]);
 
-
         ResultController controller = new ResultController(context, service);
 
         Assert.assertTrue(controller.getResult() != null);

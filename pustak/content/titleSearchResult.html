@@ -22,6 +22,7 @@
                 <div class="input-append">
                     <input type="text" name="searchKey" class="search-query input-xxlarge"
                            placeholder="Enter the Title of the Book" required>
+
                     <button type="submit" class="btn btn-info">Search</button>
                 </div>
             </form>
@@ -48,10 +49,12 @@
                 <div class=" span5 log">
                     <form action="placeOrder" method="post">
                         <input type="hidden" name="isbn" hidden="hidden" value="$book.ISBN">
+
                         <div class="logDescription" style="font-weight:bold;" title='$book.title'>$book.title</div>
                         <div class="logDescription" title='$book.Author1,$book.Author2'>By $book.Author1,$book.Author2</div>
                         <div class="logDescription" title='$book.prices'><img src="public/images/Indian_Rupee_symbol.svg" alt="Rupee" width="10"/> $book.price</div>
                         <button class="btn btn-link" type="submit">BUY</button>
+
                     </form>
                 </div>
                 #end
@@ -62,10 +65,12 @@
                 <div class=" span5 log">
                     <form action="placeOrder" method="post">
                         <input type="hidden" name="isbn" hidden="hidden" value="$book.ISBN">
+
                         <div class="logDescription" style="font-weight:bold;" title='$book.title'>$book.title</div>
                         <div class="logDescription" title='$book.Author1,$book.Author2'>By $book.Author1,$book.Author2</div>
                         <div class="logDescription" title='$book.prices'><img src="public/images/Indian_Rupee_symbol.svg" alt="Rupee" width="10"/> $book.price</div>
                         <button class=" n btn-link pull-left" type="submit">BUY</button>
+
                     </form>
                 </div>
                 #end
@@ -74,6 +79,5 @@
     </div>
 </div>
 <div class="span2"></div>
-</div>
 </body>
 </html>

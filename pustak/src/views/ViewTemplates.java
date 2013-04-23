@@ -11,7 +11,8 @@ public enum ViewTemplates implements ViewFileTemplate {
     DisplayOrders("content/viewOrders.html"),
     TitleSearchResult("content/titleSearchResult.html"),
     Index("content/index.html"),
-    UpdateBook("content/updateBook.html");
+    UpdateBook("content/updateBook.html"),
+    DispatchedBooks("content/DispatchedBooks.html");
 
     private String path;
 

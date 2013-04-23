@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title></title>
     <link rel="stylesheet" href="public/css/bootstrap-responsive.min.css"/>
     <link rel="stylesheet" href="public/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="public/css/admin.css"/>
-    <title>View Order</title>
 </head>
 <body>
 <div class="row-fluid header">
@@ -15,61 +15,55 @@
     <div class="span2"></div>
 </div>
 <div class="row-fluid">
-    <div></div>
-    <div class="span2 row-fluid">
-        <div class="span7">
+    <div class="span2"></div>
+    <div class="span8">
+        <div class="span2 bs-docs-sidebar">
             <ul class="nav nav-tabs nav-stacked ">
-                <li>
-                    <a href="admin.html">
-                        Home
-                    </a>
-                </li>
                 <li>
                     <a href="addBook.html">
                         Add New Books
                     </a>
                 </li>
-             </ul>
+                <li>
+                    <a href="viewOrders.html">
+                        View Orders
+                    </a>
+                </li>
+            </ul>
         </div>
-        <div class="span6 section">
-            <table class="table row-fluid table-bordered">
+        <div class="span10 row-fluid section">
+            <table class="table table-bordered">
                 <tr>
-                    <th>
+                    <td>
                         OrderId
-                    </th>
-                    <th>
+                    </td>
+                    <td>
                         CustomerName
-                    </th>
-                    <th>
+                    </td>
+                    <td>
                         Email
-                    </th>
-                    <th>
+                    </td>
+                    <td>
                         PhoneNumber
-                    </th>
-                    <th>
+                    </td>
+                    <td>
                         Address
-                    </th>
-                    <th>
+                    </td>
+                    <td>
                         DateOfOrder
-                    </th>
-                    <th>
+                    </td>
+                    <td>
                         ISBN
-                    </th>
-                    <th>
-                        TitleOfTheBook
-                    </th>
-                    <th>
-                        Author1
-                    </th>
-                    <th>
-                        Author2
-                    </th>
-                    <th>
+                    </td>
+                    <td>
+                        Title
+                    </td>
+                    <td>
+                        Author
+                    </td>
+                    <td>
                         Price
-                    </th>
-                    <th>
-                        Status
-                    </th>
+                    </td>
                 </tr>
                 #foreach($order in $orders)
                 <tr>
@@ -98,10 +92,7 @@
                         $order.title
                     </td>
                     <td>
-                        $order.author1
-                    </td>
-                    <td>
-                        $order.author2
+                        $order.author
                     </td>
                     <td>
                         $order.price
@@ -109,25 +100,18 @@
                     <td>
                         $order.status
                     </td>
-<!--<<<<<<< HEAD
                     <td>
-                        <form action="dispatchBook"  method="post">
-                        <button type="submit" class="btn btn-info">Dispatch Order</button>
+                        <form action="dispatchBook" method="post">
+                            <button type="submit" class="btn btn-info">Dispatch Order</button>
                         </form>
                     </td>
-=======-->          #if($order.status == "Pending")
-                    <td>
-                        <form action="" method="post">
-                            <input type="submit" value="Dispatch" class="btn btn-info">
-                        </form>
-                    </td>
-                    #end
                 </tr>
                 #end
-
             </table>
         </div>
     </div>
+    <div class="span2"></div>
 </div>
+
 </body>
 </html>

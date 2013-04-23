@@ -23,6 +23,7 @@ public class Main {
         final BookService bookService = new BookServiceImpl(dataBase);
         final OrderService orderService = new OrderServiceImpl(dataBase);
 
+
         WebRequestHandler getAssets = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
@@ -90,12 +91,14 @@ public class Main {
         routeMap.get("/index.html",displayPurchaserPage);
         routeMap.get("/addbook.html", renderTemplate(ViewTemplates.AddBook));
         routeMap.get("/placeOrder.html", renderTemplate(ViewTemplates.placeOrder));
-        routeMap.get("/ViewOrders.html", renderTemplate(ViewTemplates.DisplayOrders));
+        routeMap.get("/viewOrders.html", renderTemplate(ViewTemplates.DisplayOrders));
         routeMap.post("/placeOrder", placeOrder);
         routeMap.post("/addbook", addBook);
         routeMap.post("/viewOrder", viewOrder);
         routeMap.post("/addOrder", createOrder);
         routeMap.post("/searchBook", searchResult);
+        routeMap.get("/", renderTemplate(ViewTemplates.Index));
+        routeMap.post("/dispatchBook", renderTemplate(ViewTemplates.DispatchedBooks));
         routeMap.post("/display", display);
         routeMap.get("public/css/*", getAssets);
         routeMap.get("public/images/*", getAssets);
