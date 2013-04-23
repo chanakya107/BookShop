@@ -47,4 +47,33 @@ public class Book {
         return price;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Book book = (Book) o;
+
+        if (newQuantity != book.newQuantity) return false;
+        if (price != book.price) return false;
+        if (usedQuantity != book.usedQuantity) return false;
+        if (!ISBN.equals(book.ISBN)) return false;
+        if (!author1.equals(book.author1)) return false;
+        if (!author2.equals(book.author2)) return false;
+        if (!title.equals(book.title)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = ISBN.hashCode();
+        result = 31 * result + title.hashCode();
+        result = 31 * result + author1.hashCode();
+        result = 31 * result + author2.hashCode();
+        result = 31 * result + newQuantity;
+        result = 31 * result + usedQuantity;
+        result = 31 * result + price;
+        return result;
+    }
 }

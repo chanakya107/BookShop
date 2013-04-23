@@ -18,8 +18,7 @@ public class Main {
         RouteMap routeMap = RouteMap.create();
         DataBase dataBase = new DataBase();
 //        Todo: move service
-        final BookService bookService = new BookServiceImpl();
-        bookService.bindDB(dataBase);
+        final BookService bookService = new BookServiceImpl(dataBase);
         final OrderService orderService = new OrderServiceImpl();
         orderService.bindDB(dataBase);
 

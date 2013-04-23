@@ -33,7 +33,7 @@ public class AddBookController {
         int quantity = Integer.parseInt(context.requestBodyField("quantity"));
         String type = context.requestBodyField("bookstatus");
         Book book;
-        if (type == "New")
+        if (type.equals("New"))
             book = new Book(isbn, title, author1, author2, price, quantity, 0);
         else
             book = new Book(isbn, title, author1, author2, price, 0, quantity);
