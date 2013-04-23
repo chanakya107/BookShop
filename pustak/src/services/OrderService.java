@@ -1,5 +1,26 @@
 package services;
 
+import model.Book;
+import model.Customer;
+import model.Order;
+
+import java.util.List;
+
 public interface OrderService {
-    void storeOrder(String customerName, String email, String phoneNumber, String address);
+
+    Book fetchBook(String isbn);
+
+    void reduceCount(Book isbn);
+
+    void storeOrder(Customer customer, Book orderedBook);
+
+    void sendInvoice(Book orderedBook, Customer customer);
+
+    List<Order> getOrders();
+
+    List<Order> getOrdersWithBookDetails(List<Order> orders);
+
+    void connect();
+
+    void disConnect();
 }

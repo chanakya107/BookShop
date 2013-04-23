@@ -7,11 +7,24 @@
     text-align: center;
     margin-top: 15px;
 }
-.section{
-    border:#005580 1px groove;
-<<<<<<< HEAD
-    height: 400px;
-=======
-    height: 200px;
->>>>>>> 9245fbdea8480c11b8da6db981aa890535c9d67d
+
+.log
+{
+width:350px;
+text-align:justify;
+font-size:20px;
+line-height:25px;
+margin-top:10px;
+text-overflow:ellipsis;
+}
+.logDescription
+{
+white-space:nowrap;
+width:12em;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+.bodySection
+{
+    margin-top:75px;
 }

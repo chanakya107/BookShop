@@ -6,10 +6,10 @@ public class DataBase {
     private Connection connection;
     private Statement statement;
 
-    public boolean connectTo(String dbPath) {
+    public boolean connectTo(String dbName) {
         try {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
+            connection = DriverManager.getConnection("jdbc:sqlite:content/public/db/" + dbName);
             statement = connection.createStatement();
             return true;
         } catch (ClassNotFoundException e) {
@@ -24,7 +24,6 @@ public class DataBase {
         try {
             return statement.executeQuery(selectQuery);
         } catch (SQLException e) {
-            e.printStackTrace();
             return null;
         }
     }
@@ -48,22 +47,20 @@ public class DataBase {
         }
     }
 
-    public void insertBooksToDataBase(String queryString) {
-        DatabaseMetaData meta = null;
+    public void createBooksTable() {
         String sql = "CREATE TABLE books " +
                 "(isbn VARCHAR not NULL, " +
                 " title VARCHAR(255) not NULL, " +
-                " author VARCHAR(255) not NULL, " +
+                " author1 VARCHAR(255) not NULL, " +
+                "author2 VARCHAR(255)," +
                 " price INTEGER not NULL," +
-                " NewBookQuantity INTEGER, " +
-                " UsedBookQuantity INTEGER, " +
+                " newbookquantity INTEGER, " +
+                " usedbookquantity INTEGER, " +
                 " PRIMARY KEY ( isbn ))";
         createTable(sql);
-        insertQuery(queryString);
-        closeConnection();
     }
 
-    private void closeConnection() {
+    public void closeConnection() {
         try {
             connection.close();
             statement.close();
@@ -72,5 +69,39 @@ public class DataBase {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        DataBase dataBase = (DataBase) o;
+
+        if (connection != null ? !connection.equals(dataBase.connection) : dataBase.connection != null) return false;
+        if (statement != null ? !statement.equals(dataBase.statement) : dataBase.statement != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = connection != null ? connection.hashCode() : 0;
+        result = 31 * result + (statement != null ? statement.hashCode() : 0);
+        return result;
+    }
+
+    public void dropTable(String tableName) {
+        try {
+            statement.executeUpdate("DROP table " + tableName);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateQuery(String query) {
+        try {
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

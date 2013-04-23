@@ -1,5 +1,8 @@
 import controllers.*;
-import services.*;
+import model.DataBase;
+import services.BookService;
+import services.OrderService;
+import services.impl.BookServiceImpl;
 import services.impl.OrderServiceImpl;
 import step.web.framework.RequestHandlerResult;
 import step.web.framework.RouteMap;
@@ -8,15 +11,18 @@ import step.web.framework.WebRequestHandler;
 import views.ViewTemplates;
 
 public class Main {
+
     public static void main(String[] args) {
         initializeRoutes();
     }
 
     private static void initializeRoutes() {
         RouteMap routeMap = RouteMap.create();
-        final BookService bookService = new BookServiceImpl();
-        final AddBookService addBookService = new AddBookServiceImpl();
-        final OrderService service = new OrderServiceImpl();
+        DataBase dataBase = new DataBase();
+//        Todo: move service
+        final BookService bookService = new BookServiceImpl(dataBase);
+        final OrderService orderService = new OrderServiceImpl(dataBase);
+
         WebRequestHandler getAssets = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
@@ -30,35 +36,57 @@ public class Main {
                 return new ResultController(context, bookService).getResult();
             }
         };
+
         WebRequestHandler createOrder = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
-                return new OrderListController(context, service).createOrder();
+                return new OrderController(context, orderService).createOrder();
+            }
+        };
+
+        WebRequestHandler viewOrder = new WebRequestHandler() {
+            @Override
+            public RequestHandlerResult operation(WebContext webContext) {
+                return new OrderController(webContext, orderService).getOrders();
             }
         };
 
         WebRequestHandler addBook = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
-                return new AddBookController(context, addBookService).createBook();
+                return AddBookController.createAddBookController(context, bookService).createBook();
             }
         };
 
         WebRequestHandler display = new WebRequestHandler() {
             @Override
-            public RequestHandlerResult operation(WebContext context){
+            public RequestHandlerResult operation(WebContext context) {
                 return new DisplayBooksController(context, bookService).list();
             }
         };
-        routeMap.get("/Admin.html", renderTemplate(ViewTemplates.Admin));
-        routeMap.get("/placeOrder.html", renderTemplate(ViewTemplates.placeOrder));
+
+
+        WebRequestHandler placeOrder = new WebRequestHandler() {
+            @Override
+            public RequestHandlerResult operation(WebContext webContext) {
+                return new OrderController(webContext, orderService).placeOrder();
+            }
+        };
+
+        routeMap.get("/", renderTemplate(ViewTemplates.Index));
+        routeMap.get("/admin.html", renderTemplate(ViewTemplates.Admin));
+        routeMap.get("/index.html", renderTemplate(ViewTemplates.Index));
         routeMap.get("public/css/*", getAssets);
         routeMap.get("/addbook.html", renderTemplate(ViewTemplates.AddBook));
+        routeMap.get("/placeOrder.html", renderTemplate(ViewTemplates.placeOrder));
+        routeMap.get("/ViewOrders.html", renderTemplate(ViewTemplates.DisplayOrders));
+        routeMap.post("/placeOrder", placeOrder);
+        routeMap.get("public/css/*", getAssets);
         routeMap.post("/addbook", addBook);
+        routeMap.post("/viewOrder", viewOrder);
         routeMap.post("/addOrder", createOrder);
-        routeMap.post("/SearchBook", searchResult);
-        routeMap.get("/", display);
-
+        routeMap.post("/searchBook", searchResult);
+        routeMap.post("/display", display);
     }
 
     private static WebRequestHandler renderTemplate(final ViewTemplates template) {

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="public/css/bootstrap-responsive.min.css"/>
+    <link rel="stylesheet" href="public/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="public/css/admin.css"/>
+    <title></title>
+</head>
+<body>
+<div class="row-fluid header">
+    <div class="span2"></div>
+    <div class="span8">
+        <h1>Pustak.com</h1>
+    </div>
+    <div class="span2"></div>
+</div>
+<div class="row-fluid">
+    <div class="span2"></div>
+    <div class="span8">
+        <div class="search-bar">
+            <form action="display" method="post">
+                <div class="input-append">
+                    <input type="text" name="searchKey" class="search-query input-xxlarge"
+<<<<<<< HEAD
+                           placeholder="Enter the Title of the Book" value=" ">
+=======
+                           placeholder="Enter the Title of the Book" value =" ">
+>>>>>>> 38369e849403f8699fd41b6b946a68989ec5ce4d
+                    <button type="submit" class="btn btn-info">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="span8"></div>
+</div>
+<div class="row-fluid">
+    <div class="span2"></div>
+    <div class="span8">
+        <div class="span2 bs-docs-sidebar">
+            <ul class="nav nav-tabs nav-stacked ">
+                <li>
+                    <a href="index.html">
+                        Home
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="span10">
+            <div class="span6">
+                <h2>New Books</h2>
+                #foreach($book in $new_books)
+                <div class=" span5 log">
+                    <form action="placeOrder" method="post">
+                        <input type="hidden" name="isbn" hidden="hidden" value="$book.ISBN">
+                        <div class="logDescription" title='$book.title'>Title: $book.title</div>
+                        <div class="logDescription" title='$book.Author1'>Author1: $book.Author1</div>
+                        <div class="logDescription" title='$book.Author2'>Author2: $book.Author2</div>
+                        <div class="logDescription" title='$book.prices'>Price: $book.price</div>
+                        <button class="btn btn-small btn-primary" type="submit">BUY</button>
+                    </form>
+                </div>
+                #end
+            </div>
+            <div class="span6">
+                <h2>Used Books</h2>
+                #foreach($book in $used_books )
+                <div class=" span5 log">
+                    <form action="placeOrder" method="post">
+                        <input type="hidden" name="isbn" hidden="hidden" value="$book.ISBN">
+                        <div class="logDescription" title='$book.title'>Title: $book.title</div>
+                        <div class="logDescription" title='$book.Author1'>Author1: $book.Author1</div>
+                        <div class="logDescription" title='$book.Author2'>Author2: $book.Author2</div>
+                        <div class="logDescription" title='$book.prices'>Price: $book.price</div>
+                        <button class="btn btn-small btn-primary" type="submit">BUY</button>
+                    </form>
+                </div>
+                #end
+            </div>
+        </div>
+    </div>
+</div>
+<div class="span2"></div>
+</div>
+</body>
+</html>
