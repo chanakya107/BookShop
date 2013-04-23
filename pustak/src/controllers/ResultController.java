@@ -21,6 +21,7 @@ public class ResultController {
             searchKey="" ;
         context.bind("new_books", bookService.searchBookByTitle(searchKey, "New"));
         context.bind("used_books", bookService.searchBookByTitle(searchKey, "Used"));
+
         return RequestHandlerResult.ok(context.render(ViewTemplates.SearchResult));
     }
 }

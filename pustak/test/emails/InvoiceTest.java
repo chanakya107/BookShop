@@ -13,9 +13,8 @@ public class InvoiceTest {
                 "Your order is registered on " + "2013-04-22 10:41:23" + ".\nYou can except a mail about its dispsatch soon. \n\n\t" +
                 "Thank you for buying. \n\n" + "Regards,\nPustak.com";
 
-        Book book = Book.createBook(123456, "Ignited Minds", "chanu", 500, 10, 0);
+        Book book = new Book("123456", "Ignited Minds", "chanu", "abhi", 500, 10, 0);
         Invoice invoice = new Invoice(book, "Abhi", "2013-04-22 10:41:23");
-
         Assert.assertEquals(expectedMailContent, invoice.getContent());
     }
 }

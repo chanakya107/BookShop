@@ -2,13 +2,9 @@ package services;
 
 
 import model.Book;
-import model.DataBase;
 
 public interface BookService {
 
     Book[] searchBookByTitle(String searchkey, String type);
-
-    Book createBook(int ISBN, String title, String authorName, int price, int Quantity);
-
-    void bindDB(DataBase db);
+    boolean addBook(Book book);
 }
