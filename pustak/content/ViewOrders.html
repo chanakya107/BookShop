@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <link rel="stylesheet" href="public/css/bootstrap-responsive.min.css"/>
+    <link rel="stylesheet" href="public/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="public/css/admin.css"/>
+    <title>View Order</title>
 </head>
 <body>
 <div class="row-fluid header">
@@ -12,9 +15,9 @@
     <div class="span2"></div>
 </div>
 <div class="row-fluid">
-    <div class="span2"></div>
-    <div class="span8">
-        <div class="span2 bs-docs-sidebar">
+    <div></div>
+    <div class="span2 row-fluid">
+        <div class="span7">
             <ul class="nav nav-tabs nav-stacked ">
                 <li>
                     <a href="admin.html">
@@ -28,42 +31,45 @@
                 </li>
              </ul>
         </div>
-        <div class="span10 row-fluid section">
-            <table class="table table-bordered">
+        <div class="span6 section">
+            <table class="table row-fluid table-bordered">
                 <tr>
-                    <td>
+                    <th>
                         OrderId
-                    </td>
-                    <td>
+                    </th>
+                    <th>
                         CustomerName
-                    </td>
-                    <td>
+                    </th>
+                    <th>
                         Email
-                    </td>
-                    <td>
+                    </th>
+                    <th>
                         PhoneNumber
-                    </td>
-                    <td>
+                    </th>
+                    <th>
                         Address
-                    </td>
-                    <td>
+                    </th>
+                    <th>
                         DateOfOrder
-                    </td>
-                    <td>
+                    </th>
+                    <th>
                         ISBN
-                    </td>
-                    <td>
-                        Title
-                    </td>
-                    <td>
-                        Author
-                    </td>
-                    <td>
+                    </th>
+                    <th>
+                        TitleOfTheBook
+                    </th>
+                    <th>
+                        Author1
+                    </th>
+                    <th>
+                        Author2
+                    </th>
+                    <th>
                         Price
-                    </td>
-                    <td>
+                    </th>
+                    <th>
                         Status
-                    </td>
+                    </th>
                 </tr>
                 #foreach($order in $orders)
                 <tr>
@@ -92,7 +98,10 @@
                         $order.title
                     </td>
                     <td>
-                        $order.author
+                        $order.author1
+                    </td>
+                    <td>
+                        $order.author2
                     </td>
                     <td>
                         $order.price
@@ -100,27 +109,25 @@
                     <td>
                         $order.status
                     </td>
-<<<<<<< HEAD
+<!--<<<<<<< HEAD
                     <td>
                         <form action="dispatchBook"  method="post">
                         <button type="submit" class="btn btn-info">Dispatch Order</button>
                         </form>
                     </td>
-=======
-                    #if($order.status == "Pending")
+=======-->          #if($order.status == "Pending")
                     <td>
                         <form action="" method="post">
-                            <input type="submit" value="Dispatch">
+                            <input type="submit" value="Dispatch" class="btn btn-info">
                         </form>
                     </td>
                     #end
->>>>>>> 29b37190782bb48b3076fe0510d32c43a0323186
                 </tr>
                 #end
+
             </table>
         </div>
     </div>
-    <div class="span2"></div>
 </div>
 </body>
 </html>

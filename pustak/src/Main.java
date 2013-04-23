@@ -100,7 +100,7 @@ public class Main {
         routeMap.get("public/css/*", getAssets);
         routeMap.get("/addbook.html", renderTemplate(ViewTemplates.AddBook));
         routeMap.get("/placeOrder.html", renderTemplate(ViewTemplates.placeOrder));
-        routeMap.get("/ViewOrders.html", renderTemplate(ViewTemplates.DisplayOrders));
+        routeMap.get("/viewOrders.html", renderTemplate(ViewTemplates.DisplayOrders));
         routeMap.post("/placeOrder", placeOrder);
         routeMap.get("public/css/*", getAssets);
         routeMap.post("/addbook", addBook);
