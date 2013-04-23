@@ -22,13 +22,6 @@ public class Main {
         final OrderService orderService = new OrderServiceImpl();
         orderService.bindDB(dataBase);
 
-        final ViewOrderService viewOrderService = new ViewOrderServiceImpl();
-        viewOrderService.bindDB(dataBase);
-
-        final PlaceOrderService placeOrderService = new PlaceOrderServiceImpl();
-        placeOrderService.bindDB(dataBase);
-
-
         WebRequestHandler getAssets = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
@@ -46,14 +39,14 @@ public class Main {
         WebRequestHandler createOrder = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
-                return new OrderListController(context, orderService).createOrder();
+                return new OrderController(context, orderService).createOrder();
             }
         };
 
         WebRequestHandler viewOrder = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext webContext) {
-                return ViewOrderController.createViewOrderController(webContext, viewOrderService).getOrders();
+                return new OrderController(webContext, orderService).getOrders();
             }
         };
 
@@ -82,7 +75,7 @@ public class Main {
         WebRequestHandler placeOrder = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext webContext) {
-                return new PlaceOrderController(webContext, placeOrderService).placeOrder();
+                return new OrderController(webContext, orderService).placeOrder();
             }
         };
 

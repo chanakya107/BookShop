@@ -15,7 +15,6 @@ public class InvoiceTest {
 
         Book book = new Book("123456", "Ignited Minds", "chanu", "abhi", 500, 10, 0);
         Invoice invoice = new Invoice(book, "Abhi", "2013-04-22 10:41:23");
-
         Assert.assertEquals(expectedMailContent, invoice.getContent());
     }
 }
