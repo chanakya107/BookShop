@@ -38,18 +38,16 @@ public class DataBase {
         }
     }
 
-    public String insertQuery(String insertQuery) {
-        String message;
+    public boolean insertQuery(String insertQuery) {
         try {
             statement.executeUpdate(insertQuery);
-            message = "Book Added To Database Successfully";
+            return true;
         } catch (SQLException e) {
-            message = "ISBN already present : Failed To Add Book.";
+            return false;
         }
-        return message;
     }
 
-    public String insertBooksToDataBase(String queryString) {
+    public void insertBooksToDataBase(String queryString) {
         String sql = "CREATE TABLE books " +
                 "(isbn VARCHAR not NULL, " +
                 " title VARCHAR(255) not NULL, " +
@@ -59,7 +57,6 @@ public class DataBase {
                 " usedbookquantity INTEGER, " +
                 " PRIMARY KEY ( isbn ))";
         createTable(sql);
-        return insertQuery(queryString);
     }
 
     public void closeConnection() {
