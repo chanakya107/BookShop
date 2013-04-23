@@ -3,8 +3,8 @@ package controllers;
 import model.Order;
 import org.junit.Before;
 import org.junit.Test;
+import services.ViewOrderService;
 import step.web.framework.WebContext;
-import views.ViewOrderService;
 
 import java.util.ArrayList;
 import java.util.List;

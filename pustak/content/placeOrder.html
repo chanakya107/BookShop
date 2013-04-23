@@ -5,53 +5,69 @@
     <link rel="Stylesheet" href="./public/css/bootstrap-responsive.min.css">
     <link rel="stylesheet" href="./public/css/bootstrap.min.css">
     <link rel="script" href="./public/js/orderDetails.js">
+    <link rel="stylesheet" href="public/css/admin.css"/>
 </head>
+
 <body>
-<form class="form-horizontal" name="order" method="post" action="addOrder">
-    <input type="hidden" value="$orderedBook.ISBN" name="ISBN">
 
-    <div class="control-group">
-        <label class="control-label">Name</label>
 
-        <div class="controls">
-            <input type="text" class="input-medium" name="Name" placeholder="Name" required>
+<div class="row-fluid header">
+    <div class="span2"></div>
+    <div class="span8">
+        <h1>Pustak.com</h1>
+    </div>
+    <div class="span2"></div>
+</div>
+<div class="row-fluid bodySection">
+    <div class="span2"></div>
+    <div class="span8">
+        <div class="span2 bs-docs-sidebar">
+            <ul class="nav nav-tabs nav-stacked">
+                <li>
+                    <a href="Index.html">
+                        Home
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="span10 row-fluid section">
+            <h2>Shipping Details</h2>
+
+            <form class="form-horizontal" name="order" method="post" action="addOrder">
+                <table>
+                    <tr>
+                        <td>Name</td>
+                        <td><input type="text" class="input-medium" name="Name" placeholder="Name" required
+                                   maxlength="20"></td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td><input type="email" class="input-medium" name="Email" placeholder="Email" required
+                                   maxlength="30"></td>
+                    </tr>
+                    <tr>
+                        <td>Phone Number</td>
+                        <td><input type="tel" class="input-medium" placeholder="9898989898" name="phoneNumber"
+                                   pattern="[0-9]{10}"
+                                   maxlength="10" required></td>
+                    </tr>
+                    <tr>
+                        <td>Shipment Address</td>
+                        <td><textarea rows="8" maxlength="200" placeholder="Should not exceed more than 200 characters"
+                                      name="Address" required></textarea></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <a href="Index.html"><input type="button" class="btn btn-danger" value="Cancel"></a>
+
+                            <input class="btn btn-success" type="submit" value="proceed">
+                        </td>
+                    </tr>
+                </table>
+                <input type="hidden" value="$orderedBook.ISBN" name="ISBN">
+            </form>
         </div>
     </div>
-
-    <div class="control-group">
-        <label class="control-label">Email</label>
-
-        <div class="controls">
-            <input type="email" class="input-medium" name="Email" placeholder="Email" required>
-        </div>
-    </div>
-
-    <div class="control-group">
-        <label class="control-label">Phone Number</label>
-
-        <div class="controls">
-            <input type="tel" class="input-medium" placeholder="9898989898" name="phoneNumber" pattern="[0-9]{10}"
-                   maxlength="10" required>
-        </div>
-    </div>
-
-    <div class="control">
-        <label>Shipment Address</label>
-    </div>
-    <div class="controls">
-        <textarea rows="8" maxlength="200" placeholder="Should not exceed more than 200 characters"
-                  name="Address" required></textarea>
-    </div>
-    <br>
-
-    <div class="controls">
-        <form method="get" action="/">
-            <input class="btn btn-warning" type="submit" value="cancel">
-        </form>
-        <input class="btn btn-success" type="submit" value="proceed">
-    </div>
-
-</form>
-
+</div>
 </body>
 </html>

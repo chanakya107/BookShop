@@ -3,6 +3,7 @@ package views;
 
 import model.DataBase;
 import model.Order;
+import services.ViewOrderService;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,6 +22,11 @@ public class ViewOrderServiceImpl implements ViewOrderService {
     @Override
     public void bindDB(DataBase db) {
         this.db = db;
+    }
+
+    @Override
+    public List<Order> getOrdersWithBookDetails(List<Order> orders) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     private List<Order> getOrdersInList(ResultSet resultSet) {

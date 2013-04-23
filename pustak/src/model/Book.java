@@ -87,7 +87,6 @@ public class Book {
     }
 
     public int getPrice() {
-
         return price;
     }
 
@@ -95,7 +94,7 @@ public class Book {
         this.price = price;
     }
 
-    public static Book createBook(int ISBN, String title, String author, int quantity_New, int quantity_used, int price) {
+    public static Book createBook(int ISBN, String title, String author, int price, int quantity_New, int quantity_used) {
         Book book = new Book();
         book.setISBN(ISBN);
         book.setTitle(title);

@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <link rel="stylesheet" href="public/css/bootstrap-responsive.min.css"/>
     <link rel="stylesheet" href="public/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="public/css/admin.css"/>
     <title></title>
     <script type="text/javascript">
-        function submit()
-        {
-            document.submit();
+        function submit() {
+        document.submit();
         }
     </script>
 </head>
+
 <body>
+
 <div class="row-fluid header">
     <div class="span2"></div>
     <div class="span8">
@@ -20,24 +22,37 @@
     </div>
     <div class="span2"></div>
 </div>
+
 <div class="row-fluid">
     <div class="span2"></div>
+
     <div class="span8">
         <form method="post" action="SearchBook">
             <div class="search-bar">
                 <div class="input-append">
                     <input type="text" name="searchKey" class="search-query input-xxlarge"
                            placeholder="Enter the Title of the Book" required>
+                    <select name="category">
+                        <option value="New">New</option>
+                        <option value="Used">Used</option>
+                    </select>
                     <button type="submit" class="btn btn-info">Search</button>
                 </div>
             </div>
+
         </form>
     </div>
+
     <div class="span2"></div>
+
 </div>
+
 <div class="row-fluid">
+
     <div class="span2"></div>
+
     <div class="span8">
+
         <div class="span2 bs-docs-sidebar">
             <ul class="nav nav-tabs nav-stacked ">
                 <li>
@@ -51,19 +66,29 @@
                     </a>
                 </li>
                 <li>
+                    <<<<<<< HEAD
                     <form action="viewOrders.html" method="post">
                         <a href="" onclick="submit()">View Orders</a>
                         <!--<button type="submit">-->
-                            <!--View Orders-->
+                        <!--View Orders-->
                         <!--</button>-->
-                    </form>
+                        =======
+                        <form action="viewOrder" method="post">
+                            <button type="submit">
+                                View Orders
+                            </button>
+                            >>>>>>> 29b37190782bb48b3076fe0510d32c43a0323186
+                        </form>
                 </li>
             </ul>
         </div>
-        <div class="span10 row-fluid section">
-        </div>
+
+        <div class="span10 row-fluid section"></div>
     </div>
+
     <div class="span2"></div>
 </div>
+
 </body>
+
 </html>

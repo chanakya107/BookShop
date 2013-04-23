@@ -9,7 +9,9 @@
         Add
     </title>
 </head>
+
 <body>
+
 <div class="row-fluid header">
     <div class="span2"></div>
     <div class="span8">
@@ -17,6 +19,7 @@
     </div>
     <div class="span2"></div>
 </div>
+
 <div class="row-fluid bodySection">
     <div class="span2"></div>
     <div class="span8">
@@ -44,14 +47,17 @@
 
             <div style="margin-left: 50px;">
                 <form method="post" action="addbook">
+
                     <table>
                         <tr>
                             <td>ISBN:</td>
-                            <td><input type="text" name="isbn" required placeholder="Enter ISBN of the Book"/></td>
+                            <td><input type="text" name="isbn" required placeholder="Enter ISBN of the Book"
+                                       maxlength="12"/></td>
                         </tr>
                         <tr>
                             <td>Title:</td>
-                            <td><input type="text" name="title" required placeholder="Enter Title of the Book"/></td>
+                            <td><input type="text" name="title" required placeholder="Enter Title of the Book"/>
+                            </td>
                         </tr>
                         <tr>
                             <td>Author:</td>
@@ -80,7 +86,6 @@
                         </tr>
                     </table>
 
-
                 </form>
             </div>
             <div class="row-fluid">
@@ -95,5 +100,7 @@
     </div>
     <div class="span2"></div>
 </div>
+
 </body>
+
 </html>

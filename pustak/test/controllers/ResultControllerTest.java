@@ -16,7 +16,8 @@ public class ResultControllerTest {
         BookService service = mock(BookService.class);
 
         stub(context.requestBodyField("searchKey")).toReturn("Prince");
-        stub(service.searchBookByTitle("Prince")).toReturn(new Book[0]);
+        String category = "New";
+        stub(service.searchBookByTitle("Prince", category)).toReturn(new Book[0]);
 
         ResultController controller = new ResultController(context, service);
 

@@ -21,13 +21,12 @@ public class DataBase {
     }
 
     public ResultSet selectQuery(String selectQuery) {
-        ResultSet rs = null;
         try {
-            rs = statement.executeQuery(selectQuery);
+            return statement.executeQuery(selectQuery);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return rs;
+        return null;
     }
 
     public boolean createTable(String createTableQuery) {
