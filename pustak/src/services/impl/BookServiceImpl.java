@@ -20,22 +20,23 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book[] searchBookByTitle(String searchkey, String category) {
+    public Book[] searchBookByTitle(String searchKey, String type) {
         Book[] books;
         db.connectTo("pustak.db");
-        if (searchkey == null || searchkey.equals("")) {
-            books = buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity,usedbookquantity from books"));
-            db.closeConnection();
-            return books;
-        }
-        if (category.equals("New")) {
-
-            books = buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity from books where title like '%" + searchkey + "%'"));
-            return books;
+        if (type.equals("New")) {
+            if (searchKey == null || searchKey.equals(""))
+                books = buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity from books"));
+            else
+                books = buildResultBooks(db.selectQuery("select isbn,title,author,price,newbookquantity from books where title like '%" + searchKey + "%'"));
         } else {
-            books = buildResultBooks(db.selectQuery("select isbn,title,author,price,usedbookquantity from books  where title like '%" + searchkey + "%'"));
-            return books;
+            if (searchKey == null || searchKey.equals(""))
+                books = buildResultBooks(db.selectQuery("select isbn,title,author,price/2,usedbookquantity from books"));
+            else
+                books = buildResultBooks(db.selectQuery("select isbn,title,author,price/2,usedbookquantity from books  where title like '%" + searchKey + "%'"));
         }
+
+        db.closeConnection();
+        return books;
     }
 
     private Book[] buildResultBooks(ResultSet rs) {

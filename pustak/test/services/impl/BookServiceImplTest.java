@@ -78,7 +78,7 @@ public class BookServiceImplTest {
         db.connectTo("pustak.db");
 
         String category = "New";
-        Book[] foundBooks = bookService.searchBookByTitle("", category);
+        Book[] foundBooks = bookService.searchBookByTitle("", "Old");
 
         Assert.assertEquals(new Book[0], foundBooks);
     }
@@ -93,7 +93,7 @@ public class BookServiceImplTest {
         db.connectTo("pustak.db");
 
         String category = "New";
-        Book[] foundBooks = bookService.searchBookByTitle(null, category);
+        Book[] foundBooks = bookService.searchBookByTitle(null, "Old");
 
         Assert.assertEquals(new Book[0], foundBooks);
     }

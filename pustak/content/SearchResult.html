@@ -21,11 +21,7 @@
             <form action="SearchBook" class="form-search" method="post">
                 <div class="input-append">
                     <input type="text" name="searchKey" class="search-query input-xxlarge"
-                           placeholder="Enter the Title of the Book" required>
-                    <select name="category">
-                        <option value="New">New</option>
-                        <option value="Used">Used</option>
-                    </select>
+                           placeholder="Enter the Title of the Book" value=" ">
                     <button type="submit" class="btn btn-info">Search</button>
                 </div>
             </form>
@@ -68,7 +64,20 @@
                         <th>New copy count</th>
                         <th>Used copy count</th>
                     </tr>
-                    #foreach( $book in $books )
+                    #foreach( $book in $used_books )
+                    <tr>
+                        <td>$book.ISBN</td>
+                        <td>$book.title</td>
+                        <td>$book.Author</td>
+                        <td>$book.price</td>
+                        <td>$book.quantity_New</td>
+                        <td>$book.quantity_used</td>
+                        <td>
+                            <button class="offset2 btn btn-small btn-primary" type="submit">UPDATE</button>
+                        </td>
+                    </tr>
+                    #end
+                    #foreach( $book in $new_books )
                     <tr>
                         <td>$book.ISBN</td>
                         <td>$book.title</td>

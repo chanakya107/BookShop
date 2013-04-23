@@ -12,6 +12,15 @@
     /*height: 400px;*/
 
 }
+.log
+{
+width:350px;
+border:1px solid wheat;
+text-align:center;
+font-size:20px;
+line-height:25px;
+height:150px;
+}
 .bodySection
 {
     margin-top:75px;

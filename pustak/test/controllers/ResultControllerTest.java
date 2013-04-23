@@ -17,7 +17,7 @@ public class ResultControllerTest {
 
         stub(context.requestBodyField("searchKey")).toReturn("Prince");
         String category="New";
-        stub(service.searchBookByTitle("Prince", category)).toReturn(new Book[0]);
+        stub(service.searchBookByTitle("Prince", "Old")).toReturn(new Book[0]);
 
         ResultController controller = new ResultController(context, service);
 
