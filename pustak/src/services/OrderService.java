@@ -3,6 +3,9 @@ package services;
 import model.Book;
 import model.Customer;
 import model.DataBase;
+import model.Order;
+
+import java.util.List;
 
 public interface OrderService {
 
@@ -15,4 +18,8 @@ public interface OrderService {
     void storeOrder(Customer customer, Book orderedBook);
 
     void sendInvoice(Book orderedBook, Customer customer);
+
+    List<Order> getOrders();
+
+    List<Order> getOrdersWithBookDetails(List<Order> orders);
 }

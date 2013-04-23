@@ -29,9 +29,6 @@ public class Main {
         final OrderService orderService = new OrderServiceImpl();
         orderService.bindDB(dataBase);
 
-        final ViewOrderService viewOrderService = new ViewOrderServiceImpl();
-        viewOrderService.bindDB(dataBase);
-
         WebRequestHandler getAssets = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
@@ -56,7 +53,7 @@ public class Main {
         WebRequestHandler viewOrder = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext webContext) {
-                return ViewOrderController.createViewOrderController(webContext, viewOrderService).getOrders();
+                return new OrderController(webContext, orderService).getOrders();
             }
         };
 

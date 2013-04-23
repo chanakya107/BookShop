@@ -5,13 +5,16 @@ import mail.Mail;
 import model.Book;
 import model.Customer;
 import model.DataBase;
+import model.Order;
 import services.OrderService;
 
 import javax.mail.MessagingException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
 
@@ -37,6 +40,32 @@ public class OrderServiceImpl implements OrderService {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public List<Order> getOrders() {
+        dataBase.connectTo("pustak.db");
+        List<Order> ordersInList = getOrdersInList(dataBase.selectQuery("select orderId,customerName,email,phoneNumber,address,date,isbn,status from orders"));
+        dataBase.closeConnection();
+        return ordersInList;
+    }
+
+    @Override
+    public List<Order> getOrdersWithBookDetails(List<Order> orders) {
+        ResultSet resultSet1;
+        dataBase.connectTo("pustak.db");
+        for (Order order : orders) {
+            resultSet1 = dataBase.selectQuery("select title,author,price from books where isbn like '%" + order.getIsbn() + "%'");
+            try {
+                order.setTitle(resultSet1.getString(1).replace("+", " "));
+                order.setAuthor(resultSet1.getString(2).replace("+", " "));
+                order.setPrice(resultSet1.getInt(3));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        dataBase.closeConnection();
+        return orders;
     }
 
     @Override
@@ -69,5 +98,22 @@ public class OrderServiceImpl implements OrderService {
 
         String query = "UPDATE books SET newbookquantity=" + (book.getQuantity_New() - 1) + " where isbn like '%" + book.getISBN() + "%'";
         dataBase.updateQuery(query);
+    }
+
+    private List<Order> getOrdersInList(ResultSet resultSet) {
+
+        List<Order> orders = new ArrayList<Order>();
+        try {
+            while (resultSet.next()) {
+                orders.add(createOrder(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3).replaceAll("%40", "@"), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getString(7), resultSet.getString(8)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return orders;
+    }
+
+    private Order createOrder(int orderId, String customerName, String email, String phoneNumber, String address, String date, String isbn, String status) {
+        return new Order(orderId, customerName, email, phoneNumber, address, date, isbn, status);
     }
 }

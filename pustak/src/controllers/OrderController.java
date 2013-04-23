@@ -2,10 +2,13 @@ package controllers;
 
 import model.Book;
 import model.Customer;
+import model.Order;
 import services.OrderService;
 import step.web.framework.RequestHandlerResult;
 import step.web.framework.WebContext;
 import views.ViewTemplates;
+
+import java.util.List;
 
 public class OrderController {
     private final WebContext context;
@@ -36,5 +39,11 @@ public class OrderController {
         Book book = service.fetchBook(isbn);
         context.bind("orderedBook", book);
         return RequestHandlerResult.ok(context.render(ViewTemplates.placeOrder));
+    }
+
+    public RequestHandlerResult getOrders() {
+        List<Order> orders = service.getOrders();
+        context.bind("orders", service.getOrdersWithBookDetails(orders));
+        return RequestHandlerResult.ok(context.render(ViewTemplates.DisplayOrders));
     }
 }
