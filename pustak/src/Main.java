@@ -20,7 +20,6 @@ public class Main {
         WebRequestHandler getAssets = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
-
                 return AssetController.createAssetController(context).serve();
             }
         };
