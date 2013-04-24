@@ -1,16 +1,15 @@
 package model;
 
-import java.sql.Date;
 
 public class Order {
 
     private final int orderId;
-    private final Date date;
+    private final String date;
     private final String status;
     private final Customer customer;
     private final Book book;
 
-    public Order(int orderId, Date date, String status, Customer customer, Book book) {
+    public Order(int orderId, String date, String status, Customer customer, Book book) {
 
         this.orderId = orderId;
         this.date = date;
@@ -23,7 +22,7 @@ public class Order {
         return orderId;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 

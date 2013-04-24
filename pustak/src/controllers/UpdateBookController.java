@@ -5,6 +5,8 @@ import step.web.framework.RequestHandlerResult;
 import step.web.framework.WebContext;
 import views.ViewTemplates;
 
+import java.math.BigInteger;
+
 public class UpdateBookController {
     private final WebContext context;
     private final BookService bookService;
@@ -24,7 +26,7 @@ public class UpdateBookController {
 
     public RequestHandlerResult update() {
         String isbn = context.requestBodyField("isbn");
-        int additionalCopies = Integer.parseInt(context.requestBodyField("AdditionalCopies"));
+        int additionalCopies = Integer.parseInt((context.requestBodyField("AdditionalCopies")));
         String type = context.requestBodyField("bookstatus");
         bookService.updateStock(additionalCopies, isbn, type);
         context.bind("isbn", isbn);

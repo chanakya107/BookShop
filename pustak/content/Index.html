@@ -22,7 +22,7 @@
                 <div class="input-append">
                     <input type="text" name="searchKey" class="search-query input-xxlarge"
                     placeholder="Enter the Title of the Book" required>
-                    <button type="submit" class="btn btn-info">Search</button>
+                    <button type="submit" class="btn">Search</button>
                 </div>
             </form>
         </div>
@@ -51,7 +51,7 @@
                         <input type="hidden" name="type" hidden="hidden" value="New">
                         <div class="logDescription" title='$book.title'><Strong>$book.title</Strong></div>
                         <div class="logDescription" title='$book.Author1,$book.Author2'>By $book.Author1
-                            #if($book.Author2==$null)
+                            #if($book.Author2!=" ")
                             ,$book.Author2
                             #end
                         </div>
@@ -60,22 +60,21 @@
                         <button class="btn btn-link" type="submit">BUY</button>
                         #else
                        <Strong>Out of Stock</Strong>
-
-                        #end
+                       #end
                     </form>
                 </div>
                 #end
             </div>
             <div class="span6">
                 <h2>Used Books</h2>
-                #foreach($book in $used_books )
+                #foreach($book in $used_books)
                 <div class=" span5 log">
                     <form action="placeOrder" method="post">
                         <input type="hidden" name="isbn" hidden="hidden" value="$book.ISBN">
                         <input type="hidden" name="type" hidden="hidden" value="Used">
                         <div class="logDescription" title='$book.title'><Strong>$book.title</Strong></div>
                         <div class="logDescription" title='$book.Author1,$book.Author2'>By $book.Author1
-                            #if($book.Author2!=$null)
+                            #if($book.Author2!=" ")
                             ,$book.Author2
                             #end
                         </div>

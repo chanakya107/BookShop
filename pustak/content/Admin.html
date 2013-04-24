@@ -45,9 +45,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="viewOrders.html">
-                        View Orders
-                    </a>
+                    <form action="viewOrders" method="get">
+                        <input type="submit" value="ViewOrders" class="btn-link">
+                    </form>
                 </li>
             </ul>
         </div>
@@ -59,8 +59,7 @@
                     <tr>
                         <th>ISBN</th>
                         <th>Title</th>
-                        <th>Author1</th>
-                        <th>Author2</th>
+                        <th>Authors</th>
                         <th>Price</th>
                         <th>Total Copies</th>
                         <th>Type</th>
@@ -71,8 +70,11 @@
                         <input type="hidden" name="isbn"  value="$book.ISBN">
                         <td>$book.ISBN</td>
                         <td>$book.title</td>
-                        <td>$book.Author1</td>
-                        <td>$book.Author2</td>
+                        <td>$book.Author1
+                            #if($book.Author2!=" ")
+                            ,$book.Author2
+                            #end
+                        </td>
                         <td>$book.price</td>
                         <td>$book.newQuantity</td>
                         <td>New</td>
@@ -88,8 +90,11 @@
                         <input type="hidden" name="isbn"  value="$book.ISBN">
                         <td>$book.ISBN</td>
                         <td>$book.title</td>
-                        <td>$book.Author1</td>
-                        <td>$book.Author2</td>
+                        <td>$book.Author1
+                                #if($book.Author2!=" ")
+                                ,$book.Author2
+                                #end
+                        </td>
                         <td>$book.price</td>
                         <td>$book.newQuantity</td>
                         <td>Used</td>
