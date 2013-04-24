@@ -11,7 +11,7 @@
 <div class="row-fluid header">
     <div class="span2"></div>
     <div class="span8">
-        <h1 style="color:White" >Pustak.com</h1>
+        <h1 style="color:White">Pustak.com</h1>
     </div>
     <div class="span2"></div>
 </div>
@@ -79,48 +79,51 @@
                 #set($book = $order.getBook())
                 <tr>
                     <form action="dispatchBook" method="post">
-                    <td>
                         <input type="hidden" name="orderId" value="$order.orderId">
-
-                        $order.orderId
-                    </td>
-                    <td>
-                        $customer.customerName
-                    </td>
-                    <td>
-                        $customer.email
-                    </td>
-                    <td>
-                        $customer.phoneNumber
-                    </td>
-                    <td>
-                        $customer.address
-                    </td>
-                    <td>
-                        $order.date
-                    </td>
-                    <td>
-                        $book.ISBN
-                    </td>
-                    <td>
-                        $book.title
-                    </td>
-                    <td>
-                        $book.author1
-                        #if (!$book.author2 )
+                        <input type="hidden" name="customerName" value="$customer.customerName">
+                        <input type="hidden" name="email" value="$customer.email">
+                        <input type="hidden" name="address" value="$customer.address">
+                        <input type="hidden" name="isbn" value="$book.ISBN">
+                            <td>
+                            $order.orderId
+                        </td>
+                        <td>
+                            $customer.customerName
+                        </td>
+                        <td>
+                            $customer.email
+                        </td>
+                        <td>
+                            $customer.phoneNumber
+                        </td>
+                        <td>
+                            $customer.address
+                        </td>
+                        <td>
+                            $order.date
+                        </td>
+                        <td>
+                            $book.ISBN
+                        </td>
+                        <td>
+                            $book.title
+                        </td>
+                        <td>
+                            $book.author1
+                            #if (!$book.author2 )
                             ,$book.author2
-                        #end
-                    </td>
+                            #end
+                        </td>
 
-                    <td>
-                        $book.price
-                    </td>
-                    <td>
-                        $order.status
-                    </td>
-                    <td>
-                      <input type="submit" value="Dispatch" class="btn btn-info">
-                    </td>
+                        <td>
+                            $book.price
+                        </td>
+                        <td>
+                            $order.status
+                        </td>
+                        <td>
+                            <input type="submit" value="Dispatch" class="btn btn-info">
+                        </td>
                     </form>
                 </tr>
                 #end
