@@ -101,7 +101,10 @@
                         $book.title
                     </td>
                     <td>
-                        $book.author1,$book.author2
+                        $book.author1
+                        #if (!$book.author2 )
+                            ,$book.author2
+                        #end
                     </td>
 
                     <td>

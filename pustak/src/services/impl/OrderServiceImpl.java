@@ -117,8 +117,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private void reduceCount(String isbn, String bookType) {
-        Book book = fetchBook(isbn);
-        String query = "UPDATE books SET newbookquantity=" + book.getNewBookQuantity(bookType) + ", usedbookquantity=" + book.getUsedBookQuantity(bookType) + " where isbn like '%" + isbn + "%'";
+        String field = bookType.equals("New")?"newbookquantity":"usedbookquantity";
+        String query = "UPDATE books SET "+ field + "= " + field + "-1 where isbn = " + isbn;
         dataBase.updateQuery(query);
     }
 

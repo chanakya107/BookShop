@@ -49,12 +49,12 @@
                 <div class=" span5 log">
                     <form action="placeOrder" method="post">
                         <input type="hidden" name="isbn" hidden="hidden" value="$book.ISBN">
-
                         <div class="logDescription" style="font-weight:bold;" title='$book.title'>$book.title</div>
                         <div class="logDescription" title='$book.Author1,$book.Author2'>By $book.Author1,$book.Author2</div>
                         <div class="logDescription" title='$book.prices'><img src="public/images/Indian_Rupee_symbol.svg" alt="Rupee" width="10"/> $book.price</div>
+                        #if($book.newQuantity > 0)
                         <button class="btn btn-link" type="submit">BUY</button>
-
+                        #end
                     </form>
                 </div>
                 #end
@@ -69,7 +69,9 @@
                         <div class="logDescription" style="font-weight:bold;" title='$book.title'>$book.title</div>
                         <div class="logDescription" title='$book.Author1,$book.Author2'>By $book.Author1,$book.Author2</div>
                         <div class="logDescription" title='$book.prices'><img src="public/images/Indian_Rupee_symbol.svg" alt="Rupee" width="10"/> $book.price</div>
+                        #if($book.usedQuantity > 0)
                         <button class=" n btn-link pull-left" type="submit">BUY</button>
+                        #end
 
                     </form>
                 </div>
