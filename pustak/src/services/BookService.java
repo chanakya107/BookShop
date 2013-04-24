@@ -3,6 +3,8 @@ package services;
 
 import model.Book;
 
+import java.math.BigInteger;
+
 public interface BookService {
 
     Book[] displayAllBooks(String type, String searchKey);
