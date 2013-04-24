@@ -1,0 +1,70 @@
+<project name="Communicator" default="jar">
+
+    <property name="jarName" value="jar/Communicator.jar"/>
+    <property name="sourceOutput" value="out/src"/>
+    <property name="testOutput" value="out/test"/>
+    <property name="reportsDir" value="./reports"/>
+    <property name="Junit4" value="lib/junit-4.7.jar"/>
+
+
+    <target name="clean">
+        <delete dir="out"/>
+        <delete dir="jar"/>
+    </target>
+
+    <target name="compileSrc" depends="clean">
+        <mkdir dir="${sourceOutput}"/>
+        <copy todir="${sourceOutput}/SampleData">
+            <fileset dir="SampleData"/>
+        </copy>
+        <javac srcdir="src" destdir="${sourceOutput}" includeantruntime="yes" classpath="lib/mail.jar"/>
+
+    </target>
+
+    <target name="jar" depends="compileSrc">
+        <copy todir="jar/SampleData">
+            <fileset dir="SampleData"/>
+        </copy>
+        <copy todir="jar">
+            <fileset dir="lib"/>
+        </copy>
+        <jar destfile="${jarName}" basedir="${sourceOutput}">
+            <zipgroupfileset dir="lib" includes="lib/*.jar"/>
+            <manifest>
+                <attribute name="Main-Class" value="Main"/>
+                <attribute name="Class-Path" value="mail.jar"/>
+            </manifest>
+
+        </jar>
+    </target>
+
+    <target name="compileTest" depends="jar">
+        <mkdir dir="${testOutput}"/>
+        <javac srcdir="test" destdir="${testOutput}" classpath="${sourceOutput}:lib/junit-4.0.jar"
+               includeantruntime="yes"/>
+
+    </target>
+
+
+    <target name="run">
+        <java jar="${jarName}" fork="true"/>
+    </target>
+
+    <target name="runTest" depends="compileTest">
+        <junit printsummary="yes" haltonfailure="yes" showoutput="yes" fork="yes">
+
+            <classpath>
+                <pathelement path="${Junit4}:${jarName}:${testOutput}"/>
+            </classpath>
+
+            <batchtest fork="yes" haltonfailure="yes">
+                <formatter type="plain"/>
+                <fileset dir="${testOutput}">
+                    <include name="**/*Test*.class"/>
+                </fileset>
+            </batchtest>
+
+        </junit>
+    </target>
+
+</project>
