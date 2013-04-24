@@ -1,0 +1,38 @@
+<html>
+<body>
+<h2>DailyReport</h2>
+#if($transactions.size()!=0)
+<table>
+    <tr>
+        <th>ISBN</th>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+    </tr>
+    #set($grandTotal = 0)
+	#foreach($transaction in $transactions)
+        <tr>
+            <td style="text-align: center;padding-top: 10px;">$transaction.isbn</td>
+            <td style="text-align: center;padding-top: 10px;">$transaction.title</td>
+            <td style="text-align: center;padding-top: 10px;">$transaction.price</td>
+            <td style="text-align: center;padding-top: 10px;">$transaction.quantity</td>
+            <td style="text-align: center;padding-top: 10px;">$transaction.total</td>
+            #set ($grandTotal = $grandTotal + $transaction.total)
+
+        </tr>
+	#end
+    <tr>
+        <td colspan="4" style="text-align: right">
+          <h3>Grand Total</h3>
+        </td>
+        <td>$grandTotal</td>
+    </tr>
+</table>
+
+
+#else
+    <h3>No transaction for today</h3>
+#end
+</body>
+</html>

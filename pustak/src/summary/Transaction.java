@@ -7,7 +7,7 @@ public class Transaction {
     private final int quantity;
     private final int total;
 
-    public Transaction(String isbn, String title, int price, int quantity, int total) {
+    public Transaction(String isbn, String title, int quantity,int price, int total) {
 
         this.isbn = isbn;
         this.title = title;

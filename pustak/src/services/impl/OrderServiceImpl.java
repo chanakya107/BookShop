@@ -137,6 +137,7 @@ public class OrderServiceImpl implements OrderService {
 
     private List<Transaction> createTransaction(ResultSet resultSet) {
         List<Transaction> transactions = new ArrayList<Transaction>();
+        if (resultSet == null) return transactions;
         try {
             while (resultSet.next()) {
                 transactions.add(new Transaction(resultSet.getString(1), resultSet.getString(2), resultSet.getInt(3), resultSet.getInt(4), resultSet.getInt(5)));
