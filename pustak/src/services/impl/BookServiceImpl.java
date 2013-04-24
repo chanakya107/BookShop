@@ -33,6 +33,7 @@ public class BookServiceImpl implements BookService {
 
     public boolean addBook(Book book) {
         dataBase.connectTo("pustak.db");
+        dataBase.createBooksTable();
         String insertQuery = "INSERT INTO books " + "values ('" + book.getISBN() + "','" + book.getTitle() + "','" + book.getAuthor1() + "','" + book.getAuthor2() + "'," + book.getPrice() + "," + book.getNewQuantity() + "," + book.getUsedQuantity() + ")";
         Boolean isInserted = dataBase.insertQuery(insertQuery);
         dataBase.closeConnection();
