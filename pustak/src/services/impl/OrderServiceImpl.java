@@ -7,6 +7,7 @@ import model.Customer;
 import model.DataBase;
 import model.Order;
 import services.OrderService;
+import summary.Transaction;
 
 import javax.mail.MessagingException;
 import java.sql.Date;
@@ -20,6 +21,7 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
     //TODO: database connection is not closed properly.
     private DataBase dataBase;
+
     private String time;
 
     public OrderServiceImpl(DataBase dataBase) {
@@ -30,7 +32,7 @@ public class OrderServiceImpl implements OrderService {
         time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(Calendar.getInstance().getTime());
         ResultSet resultSet = dataBase.selectQuery("SELECT * from Orders");
         if (resultSet == null)
-            dataBase.createTable("CREATE TABLE orders (orderid INTEGER Primary key AUTOINCREMENT, customername text, email text, phonenumber text,address text,pincode text,date DATETIME,isbn text,status text)");
+            dataBase.createTable("CREATE TABLE orders (orderid INTEGER Primary key AUTOINCREMENT, customername text, email text, phonenumber text,address text,pincode text,date DATETIME,isbn text FOREIGN KEY REFERENCES books(isbn),status text)");
         dataBase.insertQuery("INSERT INTO orders VALUES(null,'" + customer.getCustomerName() + "','" + customer.getEmail() + "','" + customer.getPhoneNumber() + "','" + customer.getAddress() + "','" + customer.getPinCode() + "','" + time + "','" + isbn + "','Pending')");
     }
 
@@ -123,29 +125,11 @@ public class OrderServiceImpl implements OrderService {
         dataBase.updateQuery(query);
     }
 
-
-//    private List<Order> getOrdersInList(ResultSet resultSet) {
-//
-//        List<Order> orders = new ArrayList<Order>();
-//        try {
-//            while (resultSet.next()) {
-//                orders.add(createOrder(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3).replaceAll("%40", "@"), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6), resultSet.getString(7), resultSet.getString(8)));
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return orders;
-//    }
-//
-//
-//
-//    @Override
-//    public List<Order> getTodayOrders() {
-//        dataBase.connectTo("pustak.db");
-//        String time1 = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
-//        List<Order> ordersInList = getOrdersInList(dataBase.selectQuery("select orderid,customername,email,phonenumber,address,date,isbn,status from orders where date like'%" + time1 + "%'"));
-//        return ordersInList;
-//
-//    }
-
+    @Override
+    public List<Transaction> getTodaySales() {
+        String todayDate = new SimpleDateFormat("yyyy-MM-dd ").format(Calendar.getInstance().getTime());
+        ResultSet resultSet = dataBase.selectQuery("select b.isbn,b.title,temp.quantity,b.price,(b.price*temp.quantity) as GrandTotal from books b," +
+                "(select isbn,count(*) as quantity from orders where date like '%" + todayDate + "%' group by isbn) temp where temp.isbn==b.isbn;");
+        return null;
+    }
 }
