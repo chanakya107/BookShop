@@ -135,9 +135,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void changeStatus(String isbn) {
+    public void changeStatus(int orderId) {
 
-        String query = "update orders set status='dispatched' where isbn='"+isbn+"'";
+        String query = "update orders set status='dispatched' where orderId='"+orderId+"'";
         dataBase.updateQuery(query);
 
     }

@@ -81,6 +81,7 @@
                 <tr>
                     <form action="dispatchBook" method="post">
                         <td>
+                            <input type="hidden" name="orderId" value="$order.orderId">
                             $order.orderId
                         </td>
                         <td>
@@ -99,7 +100,7 @@
                             $order.date
                         </td>
                         <td>
-                            <input type="hidden" name="isbn" value="$book.ISBN">
+
                             $book.ISBN
                         </td>
                         <td>

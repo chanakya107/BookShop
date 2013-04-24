@@ -28,14 +28,14 @@ public class DispatchControllerTest {
          controller.dispatch();
          verify(context).requestBodyField("isbn");
     }
-
-    @Test
-    public void status_internally_takes_isbn_and_returns_null_when_not_found() {
-
-        stub(context.requestBodyField("status")).toReturn("dispatched");
-        controller.dispatch();
-        verify(service).changeStatus(null);
-    }
+//
+//    @Test
+//    public void status_internally_takes_isbn_and_returns_null_when_not_found() {
+//
+//        stub(context.requestBodyField("status")).toReturn("dispatched");
+//        controller.dispatch();
+//        verify(service).changeStatus(null);
+//    }
 
 
 
