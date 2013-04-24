@@ -102,7 +102,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void processOrder(Customer customer, String isbn, String bookType) {
-        storeOrder(customer, bookType,isbn);
+        storeOrder(customer, bookType, isbn);
         reduceCount(isbn, bookType);
         sendInvoice(isbn, customer);
     }
@@ -120,16 +120,30 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private void reduceCount(String isbn, String bookType) {
-        String field = bookType.equals("New")?"newbookquantity":"usedbookquantity";
-        String query = "UPDATE books SET "+ field + "= " + field + "-1 where isbn = " + isbn;
+        String field = bookType.equals("New") ? "newbookquantity" : "usedbookquantity";
+        String query = "UPDATE books SET " + field + "= " + field + "-1 where isbn = " + isbn;
         dataBase.updateQuery(query);
     }
 
     @Override
     public List<Transaction> getTodaySales() {
+        dataBase.connectTo("pustak.db");
         String todayDate = new SimpleDateFormat("yyyy-MM-dd ").format(Calendar.getInstance().getTime());
         ResultSet resultSet = dataBase.selectQuery("select b.isbn,b.title,temp.quantity,b.price,(b.price*temp.quantity) as GrandTotal from books b," +
                 "(select isbn,count(*) as quantity from orders where date like '%" + todayDate + "%' group by isbn) temp where temp.isbn==b.isbn;");
-        return null;
+        return createTransaction(resultSet);
+
+    }
+
+    private List<Transaction> createTransaction(ResultSet resultSet) {
+        List<Transaction> transactions = new ArrayList<Transaction>();
+        try {
+            while (resultSet.next()) {
+                transactions.add(new Transaction(resultSet.getString(1), resultSet.getString(2), resultSet.getInt(3), resultSet.getInt(4), resultSet.getInt(5)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return transactions;
     }
 }
