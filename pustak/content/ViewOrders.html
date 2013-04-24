@@ -11,7 +11,7 @@
 <div class="row-fluid header">
     <div class="span2"></div>
     <div class="span8">
-        <h1>Pustak.com</h1>
+        <h1 style="color:White" >Pustak.com</h1>
     </div>
     <div class="span2"></div>
 </div>
@@ -28,7 +28,7 @@
                 </li>
                 <li>
                     <a href="addBook.html">
-                        Add New Books
+                        Add Books
                     </a>
                 </li>
             </ul>
@@ -62,11 +62,9 @@
                         TitleOfTheBook
                     </th>
                     <th>
-                        Author1
+                        Authors
                     </th>
-                    <th>
-                        Author2
-                    </th>
+
                     <th>
                         Price
                     </th>
@@ -107,10 +105,11 @@
                     </td>
                     <td>
                         $book.author1
-                        #if($book.author2 != "null")
-                        $book.author2
+                        #if (!$book.author2 )
+                            ,$book.author2
                         #end
                     </td>
+
                     <td>
                         $book.price
                     </td>

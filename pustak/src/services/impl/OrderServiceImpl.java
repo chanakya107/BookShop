@@ -7,6 +7,7 @@ import model.Customer;
 import model.DataBase;
 import model.Order;
 import services.OrderService;
+import summary.Transaction;
 
 import javax.mail.MessagingException;
 import java.sql.Date;
@@ -20,18 +21,19 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
     //TODO: database connection is not closed properly.
     private DataBase dataBase;
+
     private String time;
 
     public OrderServiceImpl(DataBase dataBase) {
         this.dataBase = dataBase;
     }
 
-    private void storeOrder(Customer customer, String isbn) {
+    private void storeOrder(Customer customer, String bookType, String isbn) {
         time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(Calendar.getInstance().getTime());
-        ResultSet resultSet = dataBase.selectQuery("SELECT * from Orders");
+        ResultSet resultSet = dataBase.selectQuery("SELECT * from orders");
         if (resultSet == null)
-            dataBase.createTable("CREATE TABLE orders (orderid INTEGER Primary key AUTOINCREMENT, customername text, email text, phonenumber text,address text,pincode text,date DATETIME,isbn text,status text)");
-        dataBase.insertQuery("INSERT INTO orders VALUES(null,'" + customer.getCustomerName() + "','" + customer.getEmail() + "','" + customer.getPhoneNumber() + "','" + customer.getAddress() + "','" + customer.getPinCode() + "','" + time + "','" + isbn + "','Pending')");
+            dataBase.createTable("CREATE TABLE orders (orderid INTEGER Primary key AUTOINCREMENT, customername text, email text, phonenumber text,address text,pincode text,date DATETIME,isbn text,status text,booktype text, FOREIGN KEY(isbn) REFERENCES books(isbn))");
+        dataBase.insertQuery("INSERT INTO orders VALUES(null,'" + customer.getCustomerName() + "','" + customer.getEmail() + "','" + customer.getPhoneNumber() + "','" + customer.getAddress() + "','" + customer.getPinCode() + "','" + time + "','" + isbn + "','Pending','" + bookType + "')");
     }
 
     private void sendInvoice(String isbn, Customer customer) {
@@ -48,6 +50,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getOrders() {
         dataBase.connectTo("pustak.db");
+
         List<Book> books = getBooks();
         ResultSet resultSet = dataBase.selectQuery("select * from orders where status like 'Pending'");
         List<Order> orders = new ArrayList<Order>();
@@ -126,7 +129,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void processOrder(Customer customer, String isbn, String bookType) {
-        storeOrder(customer, isbn);
+        storeOrder(customer, bookType,isbn);
         reduceCount(isbn, bookType);
         sendInvoice(isbn, customer);
     }
@@ -152,9 +155,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private void reduceCount(String isbn, String bookType) {
-        Book book = fetchBook(isbn);
-        String query = "UPDATE books SET newbookquantity=" + book.getNewBookQuantity(bookType) + ", usedbookquantity=" + book.getUsedBookQuantity(bookType) + " where isbn like '%" + isbn + "%'";
+        String field = bookType.equals("New")?"newbookquantity":"usedbookquantity";
+        String query = "UPDATE books SET "+ field + "= " + field + "-1 where isbn = " + isbn;
         dataBase.updateQuery(query);
     }
 
+    @Override
+    public List<Transaction> getTodaySales() {
+        String todayDate = new SimpleDateFormat("yyyy-MM-dd ").format(Calendar.getInstance().getTime());
+        ResultSet resultSet = dataBase.selectQuery("select b.isbn,b.title,temp.quantity,b.price,(b.price*temp.quantity) as GrandTotal from books b," +
+                "(select isbn,count(*) as quantity from orders where date like '%" + todayDate + "%' group by isbn) temp where temp.isbn==b.isbn;");
+        return null;
+    }
 }

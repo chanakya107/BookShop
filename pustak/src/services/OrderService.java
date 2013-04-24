@@ -3,6 +3,7 @@ package services;
 import model.Book;
 import model.Customer;
 import model.Order;
+import summary.Transaction;
 
 import java.util.List;
 
@@ -16,8 +17,11 @@ public interface OrderService {
 
     void disConnect();
 
+
     void processOrder(Customer customer, String isbn, String bookType);
 
 
     void changeStatus(String isbn);
+    List<Transaction> getTodaySales();
+
 }
