@@ -19,8 +19,8 @@ public class DispatchBookController {
 
     public RequestHandlerResult dispatch() {
         service.connect();
-        String isbn = context.requestBodyField("isbn");
-        service.changeStatus(isbn);
+        int order = Integer.parseInt(context.requestBodyField("orderId"));
+        service.changeStatus(order);
         List<Order> orders = service.getOrders();
         service.disConnect();
         context.bind("orders",orders);
