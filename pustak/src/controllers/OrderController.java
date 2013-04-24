@@ -7,6 +7,9 @@ import step.web.framework.RequestHandlerResult;
 import step.web.framework.WebContext;
 import views.ViewTemplates;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 public class OrderController {
     private final WebContext context;
     private final OrderService service;
@@ -17,24 +20,45 @@ public class OrderController {
     }
 
     public RequestHandlerResult createOrder() {
-        String customerName = context.requestBodyField("Name");
-        String email = context.requestBodyField("Email");
-        String phoneNumber = context.requestBodyField("phoneNumber");
-        String address = context.requestBodyField("Address");
-        String ISBN = context.requestBodyField("ISBN");
-        String bookType = context.requestBodyField("bookType");
+        String customerName = null;
+        String address = null;
+        String ISBN = null;
+        String bookType = null;
+        String phoneNumber = null;
+        String email = null;
+        try {
+            customerName = URLDecoder.decode(context.requestBodyField("Name"), "UTF-8");
+            email = URLDecoder.decode(context.requestBodyField("Email"), "UTF-8");
+            phoneNumber = URLDecoder.decode(context.requestBodyField("phoneNumber"), "UTF-8");
+            address = URLDecoder.decode(context.requestBodyField("Address"), "UTF-8");
+            ISBN = URLDecoder.decode(context.requestBodyField("ISBN"), "UTF-8");
+            bookType = URLDecoder.decode(context.requestBodyField("bookType"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
         int pinCode = Integer.parseInt(context.requestBodyField("pinCode"));
         Customer customer = new Customer(customerName, email, phoneNumber, address, pinCode);
-        service.processOrder(customer,ISBN,bookType);
+        service.connect();
+        service.processOrder(customer, ISBN, bookType);
+        service.disConnect();
         return RequestHandlerResult.ok(context.render(ViewTemplates.orderSuccessful));
     }
 
     public RequestHandlerResult placeOrder() {
         service.connect();
-        String bookType = context.requestBodyField("bookType");
-        String isbn = context.requestBodyField("isbn");
+        String bookType = null;
+        String isbn = null;
+
+        try {
+            bookType = URLDecoder.decode(context.requestBodyField("bookType"), "UTF-8");
+            isbn = URLDecoder.decode(context.requestBodyField("isbn"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
         Book book = service.fetchBook(isbn);
-        context.bind("bookType",bookType);
+        context.bind("bookType", bookType);
         context.bind("orderedBook", book);
         service.disConnect();
         return RequestHandlerResult.ok(context.render(ViewTemplates.placeOrder));

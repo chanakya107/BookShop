@@ -99,24 +99,20 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void processOrder(Customer customer, String isbn, String bookType) {
-        dataBase.connectTo("pustak.db");
         storeOrder(customer, isbn);
         reduceCount(isbn, bookType);
         sendInvoice(isbn, customer);
-        dataBase.closeConnection();
     }
 
     @Override
     public Book fetchBook(String isbn) {
         String query = "select isbn,title,author1,author2,price,newbookquantity,usedbookquantity from books where isbn like '%" + isbn + "%'";
-        dataBase.connectTo("pustak.db");
         ResultSet resultSet = dataBase.selectQuery(query);
         try {
             return new Book(resultSet.getString(1), resultSet.getString(2).replace("+", " "), resultSet.getString(3).replace("+", " "), resultSet.getString(4).replace("+", " "), resultSet.getInt(5), resultSet.getInt(6), resultSet.getInt(7));
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        dataBase.closeConnection();
         return null;
     }
 
