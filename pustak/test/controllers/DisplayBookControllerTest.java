@@ -1,11 +1,14 @@
 package controllers;
 
+import model.Book;
 import model.DataBase;
 import org.junit.Test;
 import services.impl.BookServiceImpl;
 import step.web.framework.WebContext;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class DisplayBookControllerTest {
     @Test(expected = IllegalArgumentException.class)
@@ -21,4 +24,20 @@ public class DisplayBookControllerTest {
   }
 
 
+    @Test
+    public void fetchBook_gives_a_book() {
+        WebContext context = mock(WebContext.class);
+        BookServiceImpl bookService = mock(BookServiceImpl.class);
+        Book book = mock(Book.class);
+        String keyisbn = "123";
+
+        DisplayBookController controller = DisplayBookController.createController(context, bookService);
+        when(context.requestBodyField("isbn")).thenReturn(keyisbn);
+        when(bookService.searchBookByIsbn(keyisbn)).thenReturn(book);
+
+        controller.fetchBook();
+
+        verify(context).bind("book", book);
+    }
 }
+
