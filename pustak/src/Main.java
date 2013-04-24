@@ -25,6 +25,7 @@ public class Main {
         final BookService bookService = new BookServiceImpl(dataBase);
         final OrderService orderService = new OrderServiceImpl(dataBase);
 
+
         WebRequestHandler getAssets = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
@@ -49,7 +50,7 @@ public class Main {
         WebRequestHandler viewOrder = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext webContext) {
-                return new OrderController(webContext, orderService).getOrders();
+                return new ViewOrderController(webContext, orderService).getOrders();
             }
         };
 
@@ -81,13 +82,14 @@ public class Main {
         routeMap.get("public/css/*", getAssets);
         routeMap.get("/addbook.html", renderTemplate(ViewTemplates.AddBook));
         routeMap.get("/placeOrder.html", renderTemplate(ViewTemplates.placeOrder));
-        routeMap.get("/ViewOrders.html", renderTemplate(ViewTemplates.DisplayOrders));
         routeMap.post("/placeOrder", placeOrder);
         routeMap.get("public/css/*", getAssets);
         routeMap.post("/addbook", addBook);
-        routeMap.post("/viewOrder", viewOrder);
+        routeMap.post("/viewOrders", viewOrder);
         routeMap.post("/addOrder", createOrder);
         routeMap.post("/searchBook", searchResult);
+        routeMap.get("/", renderTemplate(ViewTemplates.Index));
+        routeMap.post("/dispatchBook", renderTemplate(ViewTemplates.DispatchedBooks));
         routeMap.post("/display", display);
     }
 

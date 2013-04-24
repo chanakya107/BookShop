@@ -7,7 +7,6 @@ public class Invoice {
     private final Book orderedBook;
     private final String time;
     private final String customerName;
-    private final String subject = "Acknowledgement for placed order";
 
     public Invoice(Book orderedBook, String customerName, String time) {
 
@@ -38,6 +37,6 @@ public class Invoice {
 
 
     public String getSubject() {
-        return subject;
+        return "Acknowledgement for placed order";
     }
 }

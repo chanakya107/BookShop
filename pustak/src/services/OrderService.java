@@ -10,19 +10,12 @@ public interface OrderService {
 
     Book fetchBook(String isbn);
 
-    void reduceCount(Book isbn);
-
-    void storeOrder(Customer customer, Book orderedBook);
-
-    void sendInvoice(Book orderedBook, Customer customer);
-
     List<Order> getOrders();
-
-    List<Order> getOrdersWithBookDetails(List<Order> orders);
 
     void connect();
 
     void disConnect();
 
     List<Order> getTodayOrders();
+    void processOrder(Customer customer, String isbn, String bookType);
 }

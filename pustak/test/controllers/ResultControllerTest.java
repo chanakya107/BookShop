@@ -19,7 +19,6 @@ public class ResultControllerTest {
         String category="New";
         stub(service.searchBookByTitle("Prince", "Old")).toReturn(new Book[0]);
 
-
         ResultController controller = new ResultController(context, service);
 
         Assert.assertTrue(controller.getResult() != null);
