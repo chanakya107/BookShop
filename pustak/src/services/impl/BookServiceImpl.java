@@ -35,7 +35,44 @@ public class BookServiceImpl implements BookService {
         dataBase.connectTo("pustak.db");
         dataBase.createBooksTable();
         String insertQuery = "INSERT INTO books " + "values ('" + book.getISBN() + "','" + book.getTitle() + "','" + book.getAuthor1() + "','" + book.getAuthor2() + "'," + book.getPrice() + "," + book.getNewQuantity() + "," + book.getUsedQuantity() + ")";
-        return dataBase.insertQuery(insertQuery);
+        Boolean isInserted = dataBase.insertQuery(insertQuery);
+        dataBase.closeConnection();
+        return isInserted;
+    }
+
+    @Override
+    public Book searchBookByIsbn(String isbn) {
+        dataBase.connectTo("pustak.db");
+        String searchQuery = "Select * from books where isbn like '%" + isbn + "%'";
+        Book book = makeBook(dataBase.selectQuery(searchQuery));
+        dataBase.closeConnection();
+        return book;
+    }
+
+    @Override
+    public void updateStock(int additionalCopies, String isbn, String type) {
+        dataBase.connectTo("pustak.db");
+        String updateQuery;
+        if(type.equals("New")){
+            updateQuery = "Update books set newbookquantity = newbookquantity +" + additionalCopies + " where isbn like '%" + isbn + "%'";
+        }
+
+        else{
+            updateQuery = "Update books set usedbookquantity = usedbookquantity +" + additionalCopies + " where isbn like '%" + isbn + "%'";
+        }
+
+        dataBase.updateQuery(updateQuery);
+        dataBase.closeConnection();
+    }
+
+    private Book makeBook(ResultSet resultSet) {
+        Book foundBook = null;
+        try {
+            foundBook = new Book(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3), resultSet.getString(4), resultSet.getInt(5), resultSet.getInt(6), resultSet.getInt(7));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return foundBook;
     }
 
     private Book[] buildResultBooks(ResultSet rs, String searchKey) {

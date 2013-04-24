@@ -59,6 +59,13 @@ public class Main {
             }
         };
 
+        WebRequestHandler fetchbook = new WebRequestHandler() {
+            @Override
+            public RequestHandlerResult operation(WebContext context) {
+                return DisplayBookController.createController(context, bookService).fetchBook();
+            }
+        };
+
         WebRequestHandler display = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
@@ -66,6 +73,12 @@ public class Main {
             }
         };
 
+        WebRequestHandler updatebook = new WebRequestHandler() {
+            @Override
+            public RequestHandlerResult operation(WebContext context) {
+                return UpdateBookController.createUpdateBookController(context,bookService).update();
+            }
+        };
 
         WebRequestHandler placeOrder = new WebRequestHandler() {
             @Override
@@ -99,6 +112,9 @@ public class Main {
         routeMap.get("/", renderTemplate(ViewTemplates.Index));
         routeMap.post("/dispatchBook", renderTemplate(ViewTemplates.DispatchedBooks));
         routeMap.post("/display", display);
+        routeMap.post("/fetchbook", fetchbook);
+        routeMap.post("/updatebook", updatebook);
+
         routeMap.get("public/css/*", getAssets);
         routeMap.get("public/images/*", getAssets);
 
