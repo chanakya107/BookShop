@@ -106,7 +106,7 @@ public class Main {
         routeMap.get("/placeOrder.html", renderTemplate(ViewTemplates.placeOrder));
         routeMap.post("/placeOrder", placeOrder);
         routeMap.post("/addbook", addBook);
-        routeMap.post("/viewOrders", viewOrder);
+        routeMap.get("/viewOrders", viewOrder);
         routeMap.post("/addOrder", createOrder);
         routeMap.post("/searchBook", searchResult);
         routeMap.get("/", renderTemplate(ViewTemplates.Index));
