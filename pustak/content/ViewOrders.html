@@ -31,6 +31,7 @@
                         Add Books
                     </a>
                 </li>
+
             </ul>
         </div>
 
@@ -72,11 +73,15 @@
                         Status
                     </th>
                 </tr>
+
                 #foreach($order in $orders)
                 #set($customer = $order.getCustomer())
                 #set($book = $order.getBook())
                 <tr>
+                    <form action="dispatchBook" method="post">
                     <td>
+                        <input type="hidden" name="orderId" value="$order.orderId">
+
                         $order.orderId
                     </td>
                     <td>
@@ -114,11 +119,9 @@
                         $order.status
                     </td>
                     <td>
-                        <form action="" method="post">
-                            <input type="submit" value="Dispatch" class="btn">
-                        </form>
+                      <input type="submit" value="Dispatch" class="btn btn-info">
                     </td>
-
+                    </form>
                 </tr>
                 #end
 

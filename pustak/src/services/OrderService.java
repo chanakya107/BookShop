@@ -20,5 +20,8 @@ public interface OrderService {
 
     void processOrder(Customer customer, String isbn, String bookType);
 
+
+    void changeStatus(int orderId);
     List<Transaction> getTodaySales();
+
 }
