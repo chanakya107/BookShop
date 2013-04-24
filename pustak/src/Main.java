@@ -76,7 +76,7 @@ public class Main {
         WebRequestHandler dispatchBook = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext webContext) {
-                return new DispatchBookController(webContext,orderService).status();
+                return new DispatchBookController(webContext,orderService).dispatch();
             }
         };
 

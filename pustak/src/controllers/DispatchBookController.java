@@ -17,7 +17,7 @@ public class DispatchBookController {
         this.service = service;
     }
 
-    public RequestHandlerResult status() {
+    public RequestHandlerResult dispatch() {
         service.connect();
         String isbn = context.requestBodyField("isbn");
         service.changeStatus(isbn);

@@ -25,7 +25,7 @@ public class DispatchControllerTest {
     @Test
     public void status_internally_takes_isbn_from_service(){
         stub(context.requestBodyField("isbn")).toReturn("983740837");
-         controller.status();
+         controller.dispatch();
          verify(context).requestBodyField("isbn");
     }
 
@@ -33,7 +33,7 @@ public class DispatchControllerTest {
     public void status_internally_takes_isbn_and_returns_null_when_not_found() {
 
         stub(context.requestBodyField("status")).toReturn("dispatched");
-        controller.status();
+        controller.dispatch();
         verify(service).changeStatus(null);
     }
 
