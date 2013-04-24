@@ -16,9 +16,13 @@ public class Main {
         initializeRoutes();
     }
 
+
     private static void initializeRoutes() {
         RouteMap routeMap = RouteMap.create();
         DataBase dataBase = new DataBase();
+
+
+//        Todo: move service
 
         final BookService bookService = new BookServiceImpl(dataBase);
         final OrderService orderService = new OrderServiceImpl(dataBase);
