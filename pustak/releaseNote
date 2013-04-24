@@ -1,4 +1,48 @@
+<<<<<<< HEAD
+22-04-13
+
+Done:
+    FrontEnd:
+          1.  Search by title.
+          2. Buy Books
+
+    BackEnd:
+            1. Search by title.
+            2. Add new books
+
+
+Todo:
+        1. Reports
+        2. Update details of existing book
+        3. Dispatching of books.
+        4. Invoice
+
+23-04-13
+
+Done:
+
+    Bugs fixed:
+        1. Constructor  instead of createBook.
+        2.  Book Service having CRUD
+        3. Delivery Address instead of Shipment address.
+        4. Book service should not have create book.
+        5. Capturing of 2 author names.
+        6. ISBN should not be int.
+       7. Order service should have placeOrder, Book,customer.
+
+Todo:
+        1. Reports
+        2. Update details of existing book
+        3. Dispatching of books.
+        4 Order service should use foreign key.
+        5. Independent Database.
+        6. Better displaying of date and time.
+        7. Display of data to view order table.
+        8.Pin code  is to be added to the address.
+        9.View Order
+=======
 Back Office:
     1)SearchBy Title
 Front Office:
     2)SearchBY Title
+>>>>>>> 4fbd814bee9e27b31ac60eccf7dd1d103c7ed468
