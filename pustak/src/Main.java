@@ -21,7 +21,9 @@ public class Main {
         RouteMap routeMap = RouteMap.create();
         DataBase dataBase = new DataBase();
 
+
 //        Todo: move service
+
         final BookService bookService = new BookServiceImpl(dataBase);
         final OrderService orderService = new OrderServiceImpl(dataBase);
 
@@ -61,6 +63,13 @@ public class Main {
             }
         };
 
+        WebRequestHandler fetchbook = new WebRequestHandler() {
+            @Override
+            public RequestHandlerResult operation(WebContext context) {
+                return DisplayBookController.createController(context, bookService).fetchBook();
+            }
+        };
+
         WebRequestHandler display = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext context) {
@@ -68,6 +77,12 @@ public class Main {
             }
         };
 
+        WebRequestHandler updatebook = new WebRequestHandler() {
+            @Override
+            public RequestHandlerResult operation(WebContext context) {
+                return UpdateBookController.createUpdateBookController(context,bookService).update();
+            }
+        };
 
         WebRequestHandler placeOrder = new WebRequestHandler() {
             @Override
@@ -76,21 +91,37 @@ public class Main {
             }
         };
 
-        routeMap.get("/", renderTemplate(ViewTemplates.Index));
-        routeMap.get("/admin.html", renderTemplate(ViewTemplates.Admin));
-        routeMap.get("/index.html", renderTemplate(ViewTemplates.Index));
-        routeMap.get("public/css/*", getAssets);
+        WebRequestHandler displayPurchaserPage=new WebRequestHandler() {
+            @Override
+            public RequestHandlerResult operation(WebContext webContext) {
+                return new PurchaserPageController(webContext,bookService).display();
+            }
+        };
+        WebRequestHandler displayAdminPage=new WebRequestHandler() {
+            @Override
+            public RequestHandlerResult operation(WebContext webContext) {
+                return new AdminPageController(webContext,bookService).display();
+            }
+        };
+        routeMap.get("/", displayPurchaserPage);
+        routeMap.get("/admin.html",displayAdminPage);
+        routeMap.get("/index.html",displayPurchaserPage);
         routeMap.get("/addbook.html", renderTemplate(ViewTemplates.AddBook));
         routeMap.get("/placeOrder.html", renderTemplate(ViewTemplates.placeOrder));
         routeMap.post("/placeOrder", placeOrder);
-        routeMap.get("public/css/*", getAssets);
         routeMap.post("/addbook", addBook);
-        routeMap.post("/viewOrders", viewOrder);
+        routeMap.get("/viewOrders", viewOrder);
         routeMap.post("/addOrder", createOrder);
         routeMap.post("/searchBook", searchResult);
         routeMap.get("/", renderTemplate(ViewTemplates.Index));
         routeMap.post("/dispatchBook", renderTemplate(ViewTemplates.DispatchedBooks));
         routeMap.post("/display", display);
+        routeMap.post("/fetchbook", fetchbook);
+        routeMap.post("/updatebook", updatebook);
+
+        routeMap.get("public/css/*", getAssets);
+        routeMap.get("public/images/*", getAssets);
+
     }
 
     private static WebRequestHandler renderTemplate(final ViewTemplates template) {
