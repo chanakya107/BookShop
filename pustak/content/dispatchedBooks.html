@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="public/css/bootstrap-responsive.min.css"/>
+    <link rel="stylesheet" href="public/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="public/css/admin.css"/>
+</head>
+<body>
+<div class="row-fluid header">
+    <div class="span2"></div>
+    <div class="span8">
+        <h1 style="color:white">Pustak.com</h1>
+    </div>
+    <div class="span2"></div>
+</div>
+<div class="row-fluid">
+    <div class="span2"></div>
+    <div class="span8">
+        <div class="span2 bs-docs-sidebar">
+            <ul class="nav nav-tabs nav-stacked ">
+                <li>
+                    <a href="addBook.html">
+                        Add Books
+                    </a>
+                </li>
+                <li>
+                    <a href="viewOrders.html">
+                        View Orders
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="span10 row-fluid section">
+            <table class="table table-bordered">
+                <tr>
+                    <td>
+                        OrderId
+                    </td>
+                    <td>
+                        CustomerName
+                    </td>
+                    <td>
+                        Email
+                    </td>
+                    <td>
+                        PhoneNumber
+                    </td>
+                    <td>
+                        Address
+                    </td>
+                    <td>
+                        DateOfOrder
+                    </td>
+                    <td>
+                        ISBN
+                    </td>
+                    <td>
+                        Title
+                    </td>
+                    <td>
+                        Author
+                    </td>
+                    <td>
+                        Price
+                    </td>
+                </tr>
+                #foreach($order in $orders)
+                <tr>
+                    <td>
+                        $order.orderId
+                    </td>
+                    <td>
+                        $order.customerName
+                    </td>
+                    <td>
+                        $order.email
+                    </td>
+                    <td>
+                        $order.phoneNumber
+                    </td>
+                    <td>
+                        $order.address
+                    </td>
+                    <td>
+                        $order.date
+                    </td>
+                    <td>
+                        $order.isbn
+                    </td>
+                    <td>
+                        $order.title
+                    </td>
+                    <td>
+                        $order.author
+                    </td>
+                    <td>
+                        $order.price
+                    </td>
+                    <td>
+                        $order.status
+                    </td>
+                    <td>
+                        <form action="dispatchBook" method="post">
+                            <button type="submit" class="btn btn-info">Dispatch Order</button>
+                        </form>
+                    </td>
+                </tr>
+                #end
+            </table>
+        </div>
+    </div>
+    <div class="span2"></div>
+</div>
+
+</body>
+</html>

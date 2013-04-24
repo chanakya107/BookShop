@@ -26,6 +26,6 @@ public class DisplayBooksController {
         String searchKey=context.requestBodyField("searchKey");
         context.bind("new_books", bookService.displayAllBooks("New",searchKey));
         context.bind("used_books", bookService.displayAllBooks("Used", searchKey));
-        return RequestHandlerResult.ok(context.render(ViewTemplates.TitleSearchResult));
+        return RequestHandlerResult.ok(context.render(ViewTemplates.Index));
     }
 }
