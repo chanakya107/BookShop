@@ -21,8 +21,7 @@ public class Report {
         if (todaySales.size() == 0) {
             return "No transaction for today";
         }
-        String date = "Date:" +new SimpleDateFormat("yyyy-MM-dd ").format(Calendar.getInstance().getTime());
-        String content = date+"\n"+"Isbn\tTitle\tPrice\tQuantity\tTotal\n";
+        String content = "Isbn\tTitle\tPrice\tQuantity\tTotal\n";
         for (Transaction todaySale : todaySales) {
             content += todaySale.getIsbn() + "\t" + todaySale.getTitle() + "\t" + todaySale.getPrice() + "\t" + todaySale.getQuantity() + "\t" + todaySale.getTotal() + "\n";
         }
