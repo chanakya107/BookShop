@@ -8,7 +8,7 @@ public enum ViewTemplates implements ViewFileTemplate {
     placeOrder("content/placeOrder.html"),
     orderSuccessful("content/orderSuccessful.html"),
     SearchResult("content/searchResult.html"),
-    DisplayOrders("content/viewOrders.html"),
+    DisplayOrders("content/ViewOrders.html"),
     TitleSearchResult("content/titleSearchResult.html"),
     Index("content/index.html"),
     DispatchedBooks("content/dispatchAcknowledgement.html"),

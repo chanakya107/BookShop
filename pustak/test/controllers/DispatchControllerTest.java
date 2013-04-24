@@ -1,14 +1,15 @@
 package controllers;
 
 
+import model.Order;
 import org.junit.Before;
 import org.junit.Test;
 import services.OrderService;
 import step.web.framework.WebContext;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.stub;
-import static org.mockito.Mockito.verify;
+import java.util.ArrayList;
+
+import static org.mockito.Mockito.*;
 
 public class DispatchControllerTest {
     private DispatchBookController controller;
@@ -23,20 +24,21 @@ public class DispatchControllerTest {
     }
 
     @Test
-    public void status_internally_takes_isbn_from_service(){
-        stub(context.requestBodyField("isbn")).toReturn("983740837");
-         controller.dispatch();
-         verify(context).requestBodyField("isbn");
+    public void status_internally_takes_isbn_from_service() {
+        stub(context.requestBodyField("orderId")).toReturn("1");
+        controller.dispatch();
+        verify(context).requestBodyField("orderId");
     }
-//
-//    @Test
-//    public void status_internally_takes_isbn_and_returns_null_when_not_found() {
-//
-//        stub(context.requestBodyField("status")).toReturn("dispatched");
-//        controller.dispatch();
-//        verify(service).changeStatus(null);
-//    }
 
-
-
+    @Test
+    public void status_internally_takes_orderId_and_returns() {
+        stub(context.requestBodyField("orderId")).toReturn("1");
+        ArrayList<Order> orders = new ArrayList<Order>();
+        stub(service.getOrders()).toReturn(orders);
+        controller.dispatch();
+        verify(service).changeStatus(1);
+        verify(service).getOrders();
+        verify(service).disConnect();
+        verify(context).bind("orders",orders);
+    }
 }
