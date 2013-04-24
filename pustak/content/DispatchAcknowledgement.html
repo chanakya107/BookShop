@@ -17,7 +17,7 @@
 </div>
 
 <div class="row-fluid">
-    <div></div>
+
     <div class="span2 row-fluid">
         <div class="span7">
             <ul class="nav nav-tabs nav-stacked ">
@@ -31,102 +31,22 @@
                         Add Books
                     </a>
                 </li>
+                <li>
+                    <form action="viewOrders" method="get">
+                        <input type="submit" value="ViewOrders" class="btn-link">
+                    </form>
+                </li>
             </ul>
         </div>
+    </div>
+    <div class="span6 row-fluid section">
+        <p class="lead">
 
-        <div class="span6 section">
-            <table class="table row-fluid table-bordered">
-                <tr>
-                    <th>
-                        OrderId
-                    </th>
-                    <th>
-                        CustomerName
-                    </th>
-                    <th>
-                        Email
-                    </th>
-                    <th>
-                        PhoneNumber
-                    </th>
-                    <th>
-                        Address
-                    </th>
-                    <th>
-                        DateOfOrder
-                    </th>
-                    <th>
-                        ISBN
-                    </th>
-                    <th>
-                        TitleOfTheBook
-                    </th>
-                    <th>
-                        Author1
-                    </th>
-                    <th>
-                        Author2
-                    </th>
-                    <th>
-                        Price
-                    </th>
-                    <th>
-                        Status
-                    </th>
-                </tr>
-
-                #foreach($order in $orders)
-                #set($customer = $order.getCustomer())
-                #set($book = $order.getBook())
-                <tr>
-                    <form action="dispatchBook" method="post">
-                        <td>
-                            <input type="hidden" name="orderId" value="$order.orderId">
-                            $order.orderId
-                        </td>
-                        <td>
-                            $customer.customerName
-                        </td>
-                        <td>
-                            $customer.email
-                        </td>
-                        <td>
-                            $customer.phoneNumber
-                        </td>
-                        <td>
-                            $customer.address
-                        </td>
-                        <td>
-                            $order.date
-                        </td>
-                        <td>
-
-                            $book.ISBN
-                        </td>
-                        <td>
-                            $book.title
-                        </td>
-                        <td>
-                            $book.author1
-                            #if($book.author2 != "null")
-                            $book.author2
-                            #end
-                        </td>
-                        <td>
-                            $book.price
-                        </td>
-                        <td>
-                            $order.status
-                        </td>
-                        <td>
-                            <input type="submit" value="Dispatch" class="btn btn-info">
-                        </td>
-                    </form>
-                </tr>
-                #end
-
-            </table>
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4> Order was Successfully Dispatched!!!!</h4>
         </div>
+        </p>
     </div>
 </div>
 </body>
