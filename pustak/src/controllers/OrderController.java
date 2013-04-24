@@ -51,7 +51,7 @@ public class OrderController {
         String isbn = null;
 
         try {
-            bookType = URLDecoder.decode(context.requestBodyField("bookType"), "UTF-8");
+            bookType = URLDecoder.decode(context.requestBodyField("type"), "UTF-8");
             isbn = URLDecoder.decode(context.requestBodyField("isbn"), "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

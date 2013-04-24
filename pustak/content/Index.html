@@ -48,6 +48,7 @@
                 <div class=" span5 log">
                     <form action="placeOrder" method="post">
                         <input type="hidden" name="isbn" hidden="hidden" value="$book.ISBN">
+                        <input type="hidden" name="type" hidden="hidden" value="New">
                         <div class="logDescription" style="font-weight:bold;" title='$book.title'>$book.title</div>
                         <div class="logDescription" title='$book.Author1,$book.Author2'>By $book.Author1,$book.Author2</div>
                         <div class="logDescription" title='$book.prices'><img src="public/images/Indian_Rupee_symbol.svg" alt="Rupee" width="10"/> $book.price</div>
@@ -62,6 +63,7 @@
                 <div class=" span5 log">
                     <form action="placeOrder" method="post">
                         <input type="hidden" name="isbn" hidden="hidden" value="$book.ISBN">
+                        <input type="hidden" name="type" hidden="hidden" value="Used">
                         <div class="logDescription" style="font-weight:bold;" title='$book.title'>$book.title</div>
                         <div class="logDescription" title='$book.Author1,$book.Author2'>By $book.Author1,$book.Author2</div>
                         <div class="logDescription" title='$book.prices'><img src="public/images/Indian_Rupee_symbol.svg" alt="Rupee" width="10"/> $book.price</div>

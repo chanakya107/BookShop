@@ -29,6 +29,7 @@ public class OrderControllerTest {
         when(context.requestBodyField("pinCode")).thenReturn("560023");
         when(context.requestBodyField("isbn")).thenReturn("12345");
         when(context.requestBodyField("bookType")).thenReturn("New");
+        when(context.requestBodyField("type")).thenReturn("New");
     }
 
     @Test
