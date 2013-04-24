@@ -6,7 +6,7 @@ public enum ViewTemplates implements ViewFileTemplate {
     AddBook("content/addBook.html"),
     placeOrder("content/placeOrder.html"),
     orderSuccessful("content/orderSuccessful.html"),
-    SearchResult("content/searchResult.html"),
+    Admin("content/Admin.html"),
     DisplayOrders("content/viewOrders.html"),
     Index("content/Index.html"),
     DispatchedBooks("content/dispatchAcknowledgement.html"),

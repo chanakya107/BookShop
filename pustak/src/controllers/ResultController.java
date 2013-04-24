@@ -21,6 +21,6 @@ public class ResultController {
         context.bind("used_books", bookService.displayAllBooks("Used", searchKey));
 
 
-        return RequestHandlerResult.ok(context.render(ViewTemplates.SearchResult));
+        return RequestHandlerResult.ok(context.render(ViewTemplates.Admin));
     }
 }
