@@ -17,10 +17,10 @@ public class ResultController {
 
     public RequestHandlerResult getResult() {
         String searchKey = context.requestBodyField("searchKey");
-        if(searchKey.trim().equals("+"))
-            searchKey="" ;
-        context.bind("new_books", bookService.searchBookByTitle(searchKey, "New"));
-        context.bind("used_books", bookService.searchBookByTitle(searchKey, "Used"));
+        context.bind("new_books", bookService.displayAllBooks("New", searchKey));
+        context.bind("used_books", bookService.displayAllBooks("Used", searchKey));
+
+
         return RequestHandlerResult.ok(context.render(ViewTemplates.SearchResult));
     }
 }

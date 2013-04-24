@@ -49,7 +49,7 @@ public class WebContextImpl implements WebContext {
     Dictionary<String, String> mimeTypes = createMimeTypes();
 
     private static Dictionary<String, String> createMimeTypes() {
-        String supportedMimeTypes = "js:application/javascript,css:text/css,png:image/png,jpg:image/jpeg,gif:image/gif,txt:text/plain,html:text/html,ico:image/x-icon";
+        String supportedMimeTypes = "js:application/javascript,css:text/css,png:image/png,jpg:image/jpeg,gif:image/gif,txt:text/plain,html:text/html,ico:image/x-icon,svg:image/svg+xml";
         Hashtable<String, String> hashtable = new Hashtable<String, String>();
         String[] items = supportedMimeTypes.split(",");
         for (int i = 0; i < items.length; i++) {
