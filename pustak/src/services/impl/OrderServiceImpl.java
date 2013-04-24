@@ -73,6 +73,33 @@ public class OrderServiceImpl implements OrderService {
         return orders;
     }
 
+
+   /* @Override
+    public List<Order> updateStatus() {
+        dataBase.connectTo("pustak.db");
+
+        List<Book> books = getBooks();
+        ResultSet resultSet = dataBase.selectQuery("Update Orders SET status='Dispatched'");
+        List<Order> orders = new ArrayList<Order>();
+        try {
+            while (resultSet.next()) {
+                Customer customer = new Customer(resultSet.getString(2).replace("+", " "), resultSet.getString(3).replaceAll("%40", "@"), resultSet.getString(4), resultSet.getString(5), resultSet.getInt(6));
+                String isbn = resultSet.getString(8);
+                int orderId = resultSet.getInt(1);
+                Date date = resultSet.getDate(7);
+                String status = resultSet.getString(9);
+                for (Book book : books) {
+                    if (book.getISBN().equals(isbn))
+                        orders.add(createOrder(orderId, date, status, customer, book));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        dataBase.closeConnection();
+        return orders;
+    }
+*/
     private List<Book> getBooks() {
         List<Book> books = new ArrayList<Book>();
         ResultSet resultSet1 = dataBase.selectQuery("select * from books");
@@ -105,6 +132,14 @@ public class OrderServiceImpl implements OrderService {
         storeOrder(customer, bookType, isbn);
         reduceCount(isbn, bookType);
         sendInvoice(isbn, customer);
+    }
+
+    @Override
+    public void changeStatus(String isbn) {
+
+        String query = "update orders set status='dispatched' where isbn='"+isbn+"'";
+        dataBase.updateQuery(query);
+
     }
 
     @Override
