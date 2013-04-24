@@ -22,7 +22,7 @@ public class UpdateBookController {
         return new UpdateBookController(context, bookService);
     }
 
-    public RequestHandlerResult update(){
+    public RequestHandlerResult update() {
         String isbn = context.requestBodyField("isbn");
         int additionalCopies = Integer.parseInt(context.requestBodyField("AdditionalCopies"));
         String type = context.requestBodyField("bookstatus");
