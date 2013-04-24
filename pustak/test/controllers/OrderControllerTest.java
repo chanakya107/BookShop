@@ -20,60 +20,56 @@ public class OrderControllerTest {
         context = mock(WebContext.class);
         service = mock(OrderService.class);
         controller = new OrderController(context, service);
-    }
 
-    @Test
-    public void createOrder_takes_name_from_the_context() {
-        stub(context.requestBodyField("pinCode")).toReturn("98");
-        controller.createOrder();
-        verify(context).requestBodyField("Name");
-    }
-
-    @Test
-    public void create_order_takes_email_from_the_context() {
-        stub(context.requestBodyField("pinCode")).toReturn("98");
-        controller.createOrder();
-        verify(context).requestBodyField("Email");
-    }
-
-    @Test
-    public void create_order_takes_phoneNumber_from_the_context() {
-        stub(context.requestBodyField("pinCode")).toReturn("98");
-        controller.createOrder();
-        verify(context).requestBodyField("phoneNumber");
-    }
-
-    @Test
-    public void create_order_takes_address_from_the_context() {
-        stub(context.requestBodyField("pinCode")).toReturn("98");
-        controller.createOrder();
-        verify(context).requestBodyField("Address");
-    }
-
-    @Test
-    public void create_order_will_take_ISBN_from_the_context() {
-        stub(context.requestBodyField("pinCode")).toReturn("98");
-        controller.createOrder();
-        verify(context).requestBodyField("ISBN");
-    }
-
-    @Test
-    public void create_order_will_store_the_order_in_database() {
         when(context.requestBodyField("Name")).thenReturn("chethan");
         when(context.requestBodyField("Email")).thenReturn("chethandec22@gmail.com");
         when(context.requestBodyField("phoneNumber")).thenReturn("0987654316");
         when(context.requestBodyField("Address")).thenReturn("fasdfasf sdf asddf");
         when(context.requestBodyField("ISBN")).thenReturn("12345");
         when(context.requestBodyField("pinCode")).thenReturn("560023");
+        when(context.requestBodyField("isbn")).thenReturn("12345");
         when(context.requestBodyField("bookType")).thenReturn("New");
+    }
 
+    @Test
+    public void createOrder_takes_name_from_the_context() {
+        when(context.requestBodyField("Name")).thenReturn("chethan");
+        controller.createOrder();
+        verify(context).requestBodyField("Name");
+    }
+
+    @Test
+    public void create_order_takes_email_from_the_context() {
+        controller.createOrder();
+        verify(context).requestBodyField("Email");
+    }
+
+    @Test
+    public void create_order_takes_phoneNumber_from_the_context() {
+        controller.createOrder();
+        verify(context).requestBodyField("phoneNumber");
+    }
+
+    @Test
+    public void create_order_takes_address_from_the_context() {
+        controller.createOrder();
+        verify(context).requestBodyField("Address");
+    }
+
+    @Test
+    public void create_order_will_take_ISBN_from_the_context() {
+        controller.createOrder();
+        verify(context).requestBodyField("ISBN");
+    }
+
+    @Test
+    public void create_order_will_store_the_order_in_database() {
         controller.createOrder();
         verify(service).processOrder(new Customer("chethan", "chethandec22@gmail.com", "0987654316", "fasdfasf sdf asddf", 560023), "12345", "New");
     }
 
     @Test
     public void after_creating_order_the_order_successful_page_will_be_displayed() {
-        stub(context.requestBodyField("pinCode")).toReturn("98");
         controller.createOrder();
         verify(context).render(ViewTemplates.orderSuccessful);
     }
