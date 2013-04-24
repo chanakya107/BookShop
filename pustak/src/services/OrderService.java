@@ -17,4 +17,7 @@ public interface OrderService {
     void disConnect();
 
     void processOrder(Customer customer, String isbn, String bookType);
+
+
+    Book changeStatus(String isbn);
 }

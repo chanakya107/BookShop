@@ -12,7 +12,7 @@ public enum ViewTemplates implements ViewFileTemplate {
     TitleSearchResult("content/titleSearchResult.html"),
     Index("content/index.html"),
     UpdateBook("content/updateBook.html"),
-    DispatchedBooks("content/DispatchedBooks.html");
+    DispatchedBooks("content/viewOrders.html");
 
     private String path;
 

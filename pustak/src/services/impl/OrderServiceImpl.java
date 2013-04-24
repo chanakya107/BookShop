@@ -48,7 +48,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getOrders() {
         dataBase.connectTo("pustak.db");
-
         List<Book> books = getBooks();
         ResultSet resultSet = dataBase.selectQuery("select * from orders where status like 'Pending'");
         List<Order> orders = new ArrayList<Order>();
@@ -71,6 +70,33 @@ public class OrderServiceImpl implements OrderService {
         return orders;
     }
 
+
+   /* @Override
+    public List<Order> updateStatus() {
+        dataBase.connectTo("pustak.db");
+
+        List<Book> books = getBooks();
+        ResultSet resultSet = dataBase.selectQuery("Update Orders SET status='Dispatched'");
+        List<Order> orders = new ArrayList<Order>();
+        try {
+            while (resultSet.next()) {
+                Customer customer = new Customer(resultSet.getString(2).replace("+", " "), resultSet.getString(3).replaceAll("%40", "@"), resultSet.getString(4), resultSet.getString(5), resultSet.getInt(6));
+                String isbn = resultSet.getString(8);
+                int orderId = resultSet.getInt(1);
+                Date date = resultSet.getDate(7);
+                String status = resultSet.getString(9);
+                for (Book book : books) {
+                    if (book.getISBN().equals(isbn))
+                        orders.add(createOrder(orderId, date, status, customer, book));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        dataBase.closeConnection();
+        return orders;
+    }
+*/
     private List<Book> getBooks() {
         List<Book> books = new ArrayList<Book>();
         ResultSet resultSet1 = dataBase.selectQuery("select * from books");
@@ -103,6 +129,18 @@ public class OrderServiceImpl implements OrderService {
         storeOrder(customer, isbn);
         reduceCount(isbn, bookType);
         sendInvoice(isbn, customer);
+    }
+
+    @Override
+    public Book changeStatus(String isbn) {
+        String query = "update orders set status='dispatched' where isbn='"+isbn+"'";
+        ResultSet resultSet = dataBase.selectQuery(query);
+        try {
+           return new Book(resultSet.getString(1), resultSet.getString(2).replace("+", " "), resultSet.getString(3).replace("+", " "), resultSet.getString(4).replace("+", " "), resultSet.getInt(5), resultSet.getInt(6), resultSet.getInt(7));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override

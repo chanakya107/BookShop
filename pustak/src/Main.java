@@ -93,8 +93,7 @@ public class Main {
         routeMap.post("/addOrder", createOrder);
         routeMap.post("/searchBook", searchResult);
         routeMap.get("/", renderTemplate(ViewTemplates.Index));
-        routeMap.get("/dispatchedBooks.html", renderTemplate(ViewTemplates.DispatchedBooks));
-        routeMap.post("/dispatchedBooks", dispatchedBooks);
+        routeMap.post("/dispatchBook", dispatchedBooks);
         routeMap.post("/display", display);
     }
 
