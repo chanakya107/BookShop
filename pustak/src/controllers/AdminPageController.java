@@ -25,6 +25,6 @@ public class AdminPageController {
     public RequestHandlerResult display() {
         webContext.bind("new_books", bookService.displayAllBooks("New", ""));
         webContext.bind("used_books", bookService.displayAllBooks("Used", ""));
-        return RequestHandlerResult.ok(webContext.render(ViewTemplates.SearchResult));
+        return RequestHandlerResult.ok(webContext.render(ViewTemplates.Admin));
     }
 }
