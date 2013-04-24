@@ -19,5 +19,5 @@ public interface OrderService {
     void processOrder(Customer customer, String isbn, String bookType);
 
 
-    Book changeStatus(String isbn);
+    void changeStatus(String isbn);
 }

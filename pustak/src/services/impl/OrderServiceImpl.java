@@ -132,15 +132,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Book changeStatus(String isbn) {
+    public void changeStatus(String isbn) {
+
         String query = "update orders set status='dispatched' where isbn='"+isbn+"'";
-        ResultSet resultSet = dataBase.selectQuery(query);
-        try {
-           return new Book(resultSet.getString(1), resultSet.getString(2).replace("+", " "), resultSet.getString(3).replace("+", " "), resultSet.getString(4).replace("+", " "), resultSet.getInt(5), resultSet.getInt(6), resultSet.getInt(7));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
+        dataBase.updateQuery(query);
+
     }
 
     @Override

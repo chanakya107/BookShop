@@ -31,6 +31,7 @@ public class DispatchControllerTest {
 
     @Test
     public void status_internally_takes_isbn_and_returns_null_when_not_found() {
+
         stub(context.requestBodyField("status")).toReturn("dispatched");
         controller.status();
         verify(service).changeStatus(null);

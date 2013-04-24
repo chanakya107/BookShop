@@ -1,10 +1,12 @@
 package controllers;
 
-import model.Book;
+import model.Order;
 import services.OrderService;
 import step.web.framework.RequestHandlerResult;
 import step.web.framework.WebContext;
 import views.ViewTemplates;
+
+import java.util.List;
 
 public class DispatchBookController {
     private final WebContext context;
@@ -18,9 +20,10 @@ public class DispatchBookController {
     public RequestHandlerResult status() {
         service.connect();
         String isbn = context.requestBodyField("isbn");
-        Book book = service.changeStatus(isbn);
-        context.bind("dispatchedBook",book);
+        service.changeStatus(isbn);
+        List<Order> orders = service.getOrders();
         service.disConnect();
+        context.bind("orders",orders);
         return RequestHandlerResult.ok(context.render(ViewTemplates.DispatchedBooks));
     }
 
