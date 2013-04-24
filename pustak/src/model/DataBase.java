@@ -42,7 +42,6 @@ public class DataBase {
             statement.executeUpdate(insertQuery);
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
     }
