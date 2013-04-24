@@ -19,9 +19,10 @@ public class Main {
     private static void initializeRoutes() {
         RouteMap routeMap = RouteMap.create();
         DataBase dataBase = new DataBase();
-//        Todo: move service
+
         final BookService bookService = new BookServiceImpl(dataBase);
         final OrderService orderService = new OrderServiceImpl(dataBase);
+
 
         WebRequestHandler getAssets = new WebRequestHandler() {
             @Override
@@ -47,7 +48,7 @@ public class Main {
         WebRequestHandler viewOrder = new WebRequestHandler() {
             @Override
             public RequestHandlerResult operation(WebContext webContext) {
-                return new OrderController(webContext, orderService).getOrders();
+                return new ViewOrderController(webContext, orderService).getOrders();
             }
         };
 
@@ -86,17 +87,26 @@ public class Main {
             }
         };
 
-        routeMap.get("/", renderTemplate(ViewTemplates.Index));
-        routeMap.get("/admin.html", renderTemplate(ViewTemplates.Admin));
-        routeMap.get("/index.html", renderTemplate(ViewTemplates.Index));
-        routeMap.get("public/css/*", getAssets);
+        WebRequestHandler displayPurchaserPage=new WebRequestHandler() {
+            @Override
+            public RequestHandlerResult operation(WebContext webContext) {
+                return new PurchaserPageController(webContext,bookService).display();
+            }
+        };
+        WebRequestHandler displayAdminPage=new WebRequestHandler() {
+            @Override
+            public RequestHandlerResult operation(WebContext webContext) {
+                return new AdminPageController(webContext,bookService).display();
+            }
+        };
+        routeMap.get("/", displayPurchaserPage);
+        routeMap.get("/admin.html",displayAdminPage);
+        routeMap.get("/index.html",displayPurchaserPage);
         routeMap.get("/addbook.html", renderTemplate(ViewTemplates.AddBook));
         routeMap.get("/placeOrder.html", renderTemplate(ViewTemplates.placeOrder));
-        routeMap.get("/viewOrders.html", renderTemplate(ViewTemplates.DisplayOrders));
         routeMap.post("/placeOrder", placeOrder);
-        routeMap.get("public/css/*", getAssets);
         routeMap.post("/addbook", addBook);
-        routeMap.post("/viewOrder", viewOrder);
+        routeMap.post("/viewOrders", viewOrder);
         routeMap.post("/addOrder", createOrder);
         routeMap.post("/searchBook", searchResult);
         routeMap.get("/", renderTemplate(ViewTemplates.Index));
@@ -104,6 +114,10 @@ public class Main {
         routeMap.post("/display", display);
         routeMap.post("/fetchbook", fetchbook);
         routeMap.post("/updatebook", updatebook);
+
+        routeMap.get("public/css/*", getAssets);
+        routeMap.get("public/images/*", getAssets);
+
     }
 
     private static WebRequestHandler renderTemplate(final ViewTemplates template) {

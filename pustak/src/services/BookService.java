@@ -5,7 +5,7 @@ import model.Book;
 
 public interface BookService {
 
-    Book[] searchBookByTitle(String searchkey, String type);
+    Book[] displayAllBooks(String type, String searchKey);
 
     boolean addBook(Book book);
 

@@ -5,9 +5,9 @@ public class Customer {
     private final String email;
     private final String phoneNumber;
     private final String address;
-    private final String pinCode;
+    private final int pinCode;
 
-    public Customer(String customerName, String email, String phoneNumber, String address, String pinCode) {
+    public Customer(String customerName, String email, String phoneNumber, String address, int pinCode) {
 
         this.customerName = customerName;
         this.email = email;
@@ -52,7 +52,7 @@ public class Customer {
         return address;
     }
 
-    public String getPinCode() {
+    public int getPinCode() {
         return pinCode;
     }
 }

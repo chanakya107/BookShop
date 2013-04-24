@@ -2,13 +2,10 @@ package controllers;
 
 import model.Book;
 import model.Customer;
-import model.Order;
 import services.OrderService;
 import step.web.framework.RequestHandlerResult;
 import step.web.framework.WebContext;
 import views.ViewTemplates;
-
-import java.util.List;
 
 public class OrderController {
     private final WebContext context;
@@ -25,14 +22,12 @@ public class OrderController {
         String phoneNumber = context.requestBodyField("phoneNumber");
         String address = context.requestBodyField("Address");
         String ISBN = context.requestBodyField("ISBN");
-        String pincode = context.requestBodyField("pinCode");
 
-        Customer customer = new Customer(customerName, email, phoneNumber, address, pincode);
+        int pinCode = Integer.parseInt(context.requestBodyField("pinCode"));
+        Customer customer = new Customer(customerName, email, phoneNumber, address, pinCode);
+        String bookType = context.requestBodyField("bookType");
         service.connect();
-        Book orderedBook = service.fetchBook(ISBN);
-        service.storeOrder(customer, orderedBook);
-        service.reduceCount(orderedBook);
-        service.sendInvoice(orderedBook, customer);
+        service.processOrder(customer,ISBN,bookType);
         service.disConnect();
         return RequestHandlerResult.ok(context.render(ViewTemplates.orderSuccessful));
     }
@@ -44,11 +39,5 @@ public class OrderController {
         context.bind("orderedBook", book);
         service.disConnect();
         return RequestHandlerResult.ok(context.render(ViewTemplates.placeOrder));
-    }
-
-    public RequestHandlerResult getOrders() {
-        List<Order> orders = service.getOrders();
-        context.bind("orders", service.getOrdersWithBookDetails(orders));
-        return RequestHandlerResult.ok(context.render(ViewTemplates.DisplayOrders));
     }
 }
