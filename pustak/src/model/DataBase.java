@@ -24,6 +24,7 @@ public class DataBase {
         try {
             return statement.executeQuery(selectQuery);
         } catch (SQLException e) {
+            e.printStackTrace();
             return null;
         }
     }

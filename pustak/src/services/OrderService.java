@@ -24,4 +24,5 @@ public interface OrderService {
     void changeStatus(int orderId);
     List<Transaction> getTodaySales();
 
+    void sendDispatchMessage(int orderId, String customerName, String eMail, String bookTitle, String address);
 }

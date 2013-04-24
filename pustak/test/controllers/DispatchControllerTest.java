@@ -26,6 +26,10 @@ public class DispatchControllerTest {
     @Test
     public void status_internally_takes_isbn_from_service() {
         stub(context.requestBodyField("orderId")).toReturn("1");
+        stub(context.requestBodyField("customerName")).toReturn("1");
+        stub(context.requestBodyField("email")).toReturn("1");
+        stub(context.requestBodyField("isbn")).toReturn("1");
+        stub(context.requestBodyField("address")).toReturn("1");
         controller.dispatch();
         verify(context).requestBodyField("orderId");
     }
@@ -33,12 +37,16 @@ public class DispatchControllerTest {
     @Test
     public void status_internally_takes_orderId_and_returns() {
         stub(context.requestBodyField("orderId")).toReturn("1");
+        stub(context.requestBodyField("customerName")).toReturn("1");
+        stub(context.requestBodyField("email")).toReturn("1");
+        stub(context.requestBodyField("isbn")).toReturn("1");
+        stub(context.requestBodyField("address")).toReturn("1");
         ArrayList<Order> orders = new ArrayList<Order>();
         stub(service.getOrders()).toReturn(orders);
         controller.dispatch();
         verify(service).changeStatus(1);
         verify(service).getOrders();
         verify(service).disConnect();
-        verify(context).bind("orders",orders);
+        verify(context).bind("orders", orders);
     }
 }

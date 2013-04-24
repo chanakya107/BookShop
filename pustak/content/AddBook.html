@@ -70,12 +70,12 @@
                         </tr>
                         <tr>
                             <td>Price:</td>
-                            <td><input type="tel" name="price" required placeholder="Enter Price of the Book"
-                                       pattern="\d+(\d{2})?"/></td>
+                            <td><input type="tel" name="price" required placeholder="Should not exceed 10 digit"
+                                       pattern="\d+(\d{2})?" maxlength="10"/></td>
                         </tr>
                         <tr>
                             <td>Quantity:</td>
-                            <td><input type="tel" name="quantity" required placeholder="Enter Quantity"
+                            <td><input type="tel" maxlength="10" name="quantity" required placeholder="Should not exceed 10 digits"
                                        pattern="\d+(\d{2})?"/></td>
                         </tr>
                         <tr>
