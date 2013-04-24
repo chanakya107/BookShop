@@ -77,11 +77,4 @@ public class Book {
         return result;
     }
 
-    public int getNewBookQuantity() {
-        return newQuantity;
-    }
-
-    public int getUsedBookQuantity() {
-        return usedQuantity;
-    }
 }
