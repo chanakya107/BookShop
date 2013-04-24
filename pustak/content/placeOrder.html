@@ -57,6 +57,12 @@
                                       name="Address" required></textarea></td>
                     </tr>
                     <tr>
+                        <td>Pin code</td>
+                        <td><input type="tel" class="input-medium" placeholder="560023" name="pinCode"
+                                   pattern="[0-9]{6}"
+                                   maxlength="6" required></td>
+                    </tr>
+                    <tr>
                         <td colspan="2">
                             <a href="Index.html"><input type="button" class="btn btn-danger" value="Cancel"></a>
 
@@ -65,6 +71,7 @@
                     </tr>
                 </table>
                 <input type="hidden" value="$orderedBook.ISBN" name="ISBN">
+                <input type="hidden" value="$bookType" name="bookType">
             </form>
         </div>
     </div>

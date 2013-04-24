@@ -22,20 +22,19 @@ public class OrderController {
         String phoneNumber = context.requestBodyField("phoneNumber");
         String address = context.requestBodyField("Address");
         String ISBN = context.requestBodyField("ISBN");
-
+        String bookType = context.requestBodyField("bookType");
         int pinCode = Integer.parseInt(context.requestBodyField("pinCode"));
         Customer customer = new Customer(customerName, email, phoneNumber, address, pinCode);
-        String bookType = context.requestBodyField("bookType");
-        service.connect();
         service.processOrder(customer,ISBN,bookType);
-        service.disConnect();
         return RequestHandlerResult.ok(context.render(ViewTemplates.orderSuccessful));
     }
 
     public RequestHandlerResult placeOrder() {
         service.connect();
+        String bookType = context.requestBodyField("bookType");
         String isbn = context.requestBodyField("isbn");
         Book book = service.fetchBook(isbn);
+        context.bind("bookType",bookType);
         context.bind("orderedBook", book);
         service.disConnect();
         return RequestHandlerResult.ok(context.render(ViewTemplates.placeOrder));
