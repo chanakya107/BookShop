@@ -90,6 +90,7 @@ public class BookServiceImpl implements BookService {
     private String getCategory(String type) {
         if (type.equals("New"))
             return "price,newbookquantity";
+        else
         return "price/2,usedbookquantity";
     }
 
