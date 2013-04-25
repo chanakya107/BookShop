@@ -8,6 +8,18 @@
     <property name="jars" value="step.web/lib"/>
     <property name="archiveDir" value="//blrfs02/STEP/PustakArchives"/>
 
+    <target name="sendReport" depends="jar">
+        <java classname="ReportMain" fork="true">
+            <classpath>
+                <pathelement location="jar/Pustak.jar"/>
+                <pathelement location="lib/mail.jar"/>
+                <pathelement location="lib/velocity-1.7.jar"/>
+                <pathelement location="lib/velocity-1.7-dep.jar"/>
+                <pathelement location="lib/sqlite.jar"/>
+            </classpath>
+        </java>
+    </target>
+
     <target name="ci-setup">
         <sound>
             <success source="sounds\sword_swipe.wav"/>

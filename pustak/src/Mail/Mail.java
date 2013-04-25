@@ -12,19 +12,24 @@ public class Mail {
     private final String messageBody;
     private Session session;
     private Properties props;
+    private Message message;
+    private String messagetype;
+
     //todo: test not written for this class
     public Mail(String subject, String messageBody) {
         this.subject = subject;
         this.messageBody = messageBody;
+        this.messagetype="";
         createProperties();
     }
 
     private void createProperties() {
         props = new Properties();
         props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.port", "465");
 
     }
 
@@ -35,15 +40,21 @@ public class Mail {
                         return new PasswordAuthentication(USERNAME, PASSWORD);
                     }
                 });
+
     }
 
     public void sendMail(String recipientMailId) throws MessagingException {
         createSession();
-        Message message = new MimeMessage(session);
+        message = new MimeMessage(session);
+        message.setContent(messageBody,messagetype);
         message.setFrom(new InternetAddress(USERNAME));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientMailId));
         message.setSubject(subject);
-        message.setText(messageBody);
+//        message.setText(messageBody);
         Transport.send(message);
+    }
+
+    public void setContentType(String type) {
+        this.messagetype=type;
     }
 }

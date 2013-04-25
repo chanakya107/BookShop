@@ -1,8 +1,7 @@
-package summary;
-
 import mail.Mail;
 import model.DataBase;
 import services.impl.OrderServiceImpl;
+import summary.Report;
 
 import javax.mail.MessagingException;
 import java.text.SimpleDateFormat;
@@ -14,6 +13,8 @@ public class ReportMain {
         String content = report.getReport();
         String date = "Date:" + new SimpleDateFormat("yyyy-MM-dd ").format(Calendar.getInstance().getTime());
         Mail mail = new Mail("Transaction details on " + date, content);
-        mail.sendMail("abhilashfeb30@gmail.com");
+        mail.setContentType("text/html");
+        mail.sendMail("abhilasv@thoughtworks.com");
+//      mail.sendMail("srinaray@thoughtworks.com");
     }
 }
