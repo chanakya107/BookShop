@@ -29,9 +29,6 @@ public class OrderServiceImpl implements OrderService {
 
     private void storeOrder(Customer customer, String bookType, String isbn) {
         time = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").format(Calendar.getInstance().getTime());
-        ResultSet resultSet = dataBase.selectQuery("SELECT * from orders");
-        if (resultSet == null)
-            dataBase.createTable("CREATE TABLE orders (orderid INTEGER Primary key AUTOINCREMENT, customername text, email text, phonenumber text,address text,pincode text,date DATETIME,isbn text,status text,booktype text, FOREIGN KEY(isbn) REFERENCES books(isbn))");
         dataBase.insertQuery("INSERT INTO orders VALUES(null,'" + customer.getCustomerName() + "','" + customer.getEmail() + "','" + customer.getPhoneNumber() + "','" + customer.getAddress() + "','" + customer.getPinCode() + "','" + time + "','" + isbn + "','Pending','" + bookType + "')");
     }
 

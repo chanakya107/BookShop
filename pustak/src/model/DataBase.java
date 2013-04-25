@@ -47,19 +47,6 @@ public class DataBase {
         }
     }
 
-    public void createBooksTable() {
-        String sql = "CREATE TABLE books " +
-                "(isbn VARCHAR not NULL, " +
-                " title VARCHAR(255) not NULL, " +
-                " author1 VARCHAR(255) not NULL, " +
-                "author2 VARCHAR(255)," +
-                " price INTEGER not NULL," +
-                " newbookquantity INTEGER, " +
-                " usedbookquantity INTEGER, " +
-                " PRIMARY KEY ( isbn ))";
-        createTable(sql);
-    }
-
     public void closeConnection() {
         try {
             connection.close();
