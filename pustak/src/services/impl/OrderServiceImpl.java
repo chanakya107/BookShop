@@ -51,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void sendDispatchMessage(int orderId, String customerName, String eMail, String isbn, String address) {
         Book orderedBook = fetchBook(isbn);
-        time = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+        time = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
         DispatchMail dispatchMail = new DispatchMail(orderedBook, customerName, address, time);
         Mail mail = new Mail(dispatchMail.getSubject(), dispatchMail.getContent());
         try {
@@ -147,7 +147,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Transaction> getTodaySales() {
         dataBase.connectTo("pustak.db");
-        String todayDate = new SimpleDateFormat("yyyy-MM-dd ").format(Calendar.getInstance().getTime());
+        String todayDate = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
         ResultSet resultSet = dataBase.selectQuery("select b.isbn,b.title,temp.quantity,b.price,(b.price*temp.quantity) as GrandTotal from books b," +
                 "(select isbn,count(*) as quantity from orders where date like '%" + todayDate + "%' group by isbn) temp where temp.isbn==b.isbn;");
         return createTransaction(resultSet);

@@ -26,7 +26,7 @@ public class DispatchMail {
 
     private String getBody() {
         return "Your order for the book:\n\n" + getBookDetails() +
-                "has been dispatched "+
+                "\nHas been dispatched " +
                 "to:\n" + address + "\non " + time + ".\n" + "\n\nThank you for buying. \n\n" + "Regards,\nPustak.com";
     }
 

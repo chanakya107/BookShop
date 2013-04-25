@@ -13,7 +13,7 @@ import static org.mockito.Mockito.*;
 public class OrderServiceImplTest {
     @Test
     public void getDailySales_invokes_database_selectQuery() {
-        String todayDate = new SimpleDateFormat("yyyy-MM-dd ").format(Calendar.getInstance().getTime());
+        String todayDate = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
         ResultSet set = null;
         DataBase dataBase = mock(DataBase.class);
         OrderServiceImpl orderService = new OrderServiceImpl(dataBase);
