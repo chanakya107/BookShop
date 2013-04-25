@@ -3,16 +3,14 @@ package views;
 import step.web.framework.ViewFileTemplate;
 
 public enum ViewTemplates implements ViewFileTemplate {
-    Admin("content/admin.html"),
     AddBook("content/addBook.html"),
     placeOrder("content/placeOrder.html"),
     orderSuccessful("content/orderSuccessful.html"),
-    SearchResult("content/searchResult.html"),
+    Admin("content/Admin.html"),
     DisplayOrders("content/viewOrders.html"),
-    TitleSearchResult("content/titleSearchResult.html"),
-    Index("content/index.html"),
+    Index("content/Index.html"),
+    DispatchedBooks("content/dispatchAcknowledgement.html"),
     FetchBook("content/updateStock.html"),
-    DispatchedBooks("content/DispatchedBooks.html"),
     UpdateAcknowledgement("content/updateSuccessfull.html");
 
     private String path;

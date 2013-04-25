@@ -18,7 +18,10 @@ public class ViewOrderController {
     }
 
     public RequestHandlerResult getOrders() {
+        service.connect();
         List<Order> orders = service.getOrders();
+        service.disConnect();
+
         context.bind("orders", orders);
         return RequestHandlerResult.ok(context.render(ViewTemplates.DisplayOrders));
     }

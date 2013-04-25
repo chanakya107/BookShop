@@ -6,13 +6,11 @@ import org.junit.Test;
 import services.BookService;
 import step.web.framework.WebContext;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 public class DisplayBooksControllerTest {
     WebContext context;
     BookService bookServices;
-    Book book;
     Book[] books;
     DisplayBooksController displayBooksController;
 
@@ -25,7 +23,10 @@ public class DisplayBooksControllerTest {
 
     @Test
     public void when_displayController_is_called_list_is_invoked() {
+        books = new Book[5];
+        when(context.requestBodyField("searchKey")).thenReturn("a");
+        when(bookServices.displayAllBooks("New", "a")).thenReturn(books);
         displayBooksController.list();
-//        verify(context).bind("books", book);
+        verify(bookServices).displayAllBooks("New", "a");
     }
 }

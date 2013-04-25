@@ -90,6 +90,12 @@ public class Main {
                 return new OrderController(webContext, orderService).placeOrder();
             }
         };
+        WebRequestHandler dispatchBook = new WebRequestHandler() {
+            @Override
+            public RequestHandlerResult operation(WebContext webContext) {
+                return new DispatchBookController(webContext,orderService).dispatch();
+            }
+        };
 
         WebRequestHandler displayPurchaserPage=new WebRequestHandler() {
             @Override
@@ -114,7 +120,7 @@ public class Main {
         routeMap.post("/addOrder", createOrder);
         routeMap.post("/searchBook", searchResult);
         routeMap.get("/", renderTemplate(ViewTemplates.Index));
-        routeMap.post("/dispatchBook", renderTemplate(ViewTemplates.DispatchedBooks));
+        routeMap.post("/dispatchBook", dispatchBook);
         routeMap.post("/display", display);
         routeMap.post("/fetchbook", fetchbook);
         routeMap.post("/updatebook", updatebook);

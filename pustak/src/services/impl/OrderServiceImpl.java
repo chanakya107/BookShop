@@ -1,5 +1,6 @@
 package services.impl;
 
+import emails.DispatchMail;
 import emails.Invoice;
 import mail.Mail;
 import model.Book;
@@ -10,7 +11,6 @@ import services.OrderService;
 import summary.Transaction;
 
 import javax.mail.MessagingException;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -19,8 +19,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
-    //TODO: database connection is not closed properly.
-    private DataBase dataBase;
+    private final DataBase dataBase;
 
     private String time;
 
@@ -29,7 +28,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private void storeOrder(Customer customer, String bookType, String isbn) {
-        time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(Calendar.getInstance().getTime());
+        time = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").format(Calendar.getInstance().getTime());
+        System.out.println(time);
         ResultSet resultSet = dataBase.selectQuery("SELECT * from orders");
         if (resultSet == null)
             dataBase.createTable("CREATE TABLE orders (orderid INTEGER Primary key AUTOINCREMENT, customername text, email text, phonenumber text,address text,pincode text,date DATETIME,isbn text,status text,booktype text, FOREIGN KEY(isbn) REFERENCES books(isbn))");
@@ -47,10 +47,22 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+
+    @Override
+    public void sendDispatchMessage(int orderId, String customerName, String eMail, String isbn, String address) {
+        Book orderedBook = fetchBook(isbn);
+        time = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+        DispatchMail dispatchMail = new DispatchMail(orderedBook, customerName, address, time);
+        Mail mail = new Mail(dispatchMail.getSubject(), dispatchMail.getContent());
+        try {
+            mail.sendMail(eMail);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public List<Order> getOrders() {
-        dataBase.connectTo("pustak.db");
-
         List<Book> books = getBooks();
         ResultSet resultSet = dataBase.selectQuery("select * from orders where status like 'Pending'");
         List<Order> orders = new ArrayList<Order>();
@@ -59,7 +71,7 @@ public class OrderServiceImpl implements OrderService {
                 Customer customer = new Customer(resultSet.getString(2).replace("+", " "), resultSet.getString(3).replaceAll("%40", "@"), resultSet.getString(4), resultSet.getString(5), resultSet.getInt(6));
                 String isbn = resultSet.getString(8);
                 int orderId = resultSet.getInt(1);
-                Date date = resultSet.getDate(7);
+                String date = resultSet.getString(7);
                 String status = resultSet.getString(9);
                 for (Book book : books) {
                     if (book.getISBN().equals(isbn))
@@ -69,7 +81,6 @@ public class OrderServiceImpl implements OrderService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        dataBase.closeConnection();
         return orders;
     }
 
@@ -86,7 +97,7 @@ public class OrderServiceImpl implements OrderService {
         return books;
     }
 
-    private Order createOrder(int orderId, Date date, String status, Customer customer, Book book) {
+    private Order createOrder(int orderId, String date, String status, Customer customer, Book book) {
         return new Order(orderId, date, status, customer, book);
     }
 
@@ -108,8 +119,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public void changeStatus(int orderId) {
+
+        String query = "update orders set status='dispatched' where orderId='" + orderId + "'";
+        dataBase.updateQuery(query);
+
+    }
+
+    @Override
     public Book fetchBook(String isbn) {
-        String query = "select isbn,title,author1,author2,price,newbookquantity,usedbookquantity from books where isbn like '%" + isbn + "%'";
+        String query = "select * from books where isbn='" + isbn + "'";
         ResultSet resultSet = dataBase.selectQuery(query);
         try {
             return new Book(resultSet.getString(1), resultSet.getString(2).replace("+", " "), resultSet.getString(3).replace("+", " "), resultSet.getString(4).replace("+", " "), resultSet.getInt(5), resultSet.getInt(6), resultSet.getInt(7));
@@ -134,6 +153,7 @@ public class OrderServiceImpl implements OrderService {
         return createTransaction(resultSet);
 
     }
+
 
     private List<Transaction> createTransaction(ResultSet resultSet) {
         List<Transaction> transactions = new ArrayList<Transaction>();

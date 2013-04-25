@@ -7,14 +7,14 @@
     <title></title>
 </head>
 <body>
-<div class="row-fluid header">
+<div class="row-fluid header" style="border:3px solid;">
     <div class="span2"></div>
     <div class="span8">
-        <h1>Pustak.com</h1>
+        <h1 style="color:white">Pustak.com</h1>
     </div>
     <div class="span2"></div>
 </div>
-<div class="row-fluid">
+<div class="row-fluid ">
     <div class="span2"></div>
     <div class="span8">
         <div class="search-bar">
@@ -22,14 +22,14 @@
                 <div class="input-append">
                     <input type="text" name="searchKey" class="search-query input-xxlarge"
                     placeholder="Enter the Title of the Book" required>
-                    <button type="submit" class="btn btn-info">Search</button>
+                    <button type="submit" class="btn">Search</button>
                 </div>
             </form>
         </div>
     </div>
     <div class="span8"></div>
 </div>
-<div class="row-fluid">
+<div class="row-fluid bodySection">
     <div class="span2"></div>
     <div class="span8">
         <div class="span2 bs-docs-sidebar">
@@ -42,45 +42,60 @@
             </ul>
         </div>
         <div class="span10">
+
             <div class="span6">
                 <h2>New Books</h2>
+                <h3>$status</h3>
                 #foreach($book in $new_books)
                 <div class=" span5 log">
                     <form action="placeOrder" method="post">
                         <input type="hidden" name="isbn" hidden="hidden" value="$book.ISBN">
                         <input type="hidden" name="type" hidden="hidden" value="New">
-                        <div class="logDescription" style="font-weight;" title='$book.title'>$book.title</div>
-                        <div class="logDescription" title='$book.Author1,$book.Author2'>By $book.Author1,$book.Author2</div>
-                        <div class="logDescription" title='$book.prices'><img src="public/images/Indian_Rupee_symbol.svg" alt="Rupee" width="10"/> $book.price</div>
+                        <div class="logDescription" title='$book.title'><Strong>$book.title</Strong></div>
+                        <div class="logDescription" title='$book.Author1,$book.Author2'>By $book.Author1
+                            #if($book.Author2!=" ")
+                            ,$book.Author2
+                            #end
+                        </div>
+                        <div class="logDescription">
+                            <img src="public/images/Indian_Rupee_symbol.svg" alt="Rupee" width="10"/> $book.price</div>
                         #if($book.newQuantity > 0)
                         <button class="btn btn-link" type="submit">BUY</button>
                         #else
                        <Strong>Out of Stock</Strong>
-
-                        #end
+                       #end
                     </form>
                 </div>
                 #end
             </div>
+
+
             <div class="span6">
                 <h2>Used Books</h2>
-                #foreach($book in $used_books )
+                <h3>$status</h3>
+                #foreach($book in $used_books)
                 <div class=" span5 log">
                     <form action="placeOrder" method="post">
                         <input type="hidden" name="isbn" hidden="hidden" value="$book.ISBN">
                         <input type="hidden" name="type" hidden="hidden" value="Used">
-                        <div class="logDescription" style="font-weight:bold;" title='$book.title'>$book.title</div>
-                        <div class="logDescription" title='$book.Author1,$book.Author2'>By $book.Author1,$book.Author2</div>
-                        <div class="logDescription" title='$book.prices'><img src="public/images/Indian_Rupee_symbol.svg" alt="Rupee" width="10"/> $book.price</div>
+                        <div class="logDescription" title='$book.title'><Strong>$book.title</Strong></div>
+                        <div class="logDescription" title='$book.Author1,$book.Author2'>By $book.Author1
+                            #if($book.Author2!=" ")
+                            ,$book.Author2
+                            #end
+                        </div>
+                        <div class="logDescription">
+                            <img src="public/images/Indian_Rupee_symbol.svg" width="10"/> $book.price</div>
                         #if($book.usedQuantity > 0)
                         <button class="btn btn-link pull-left" type="submit">BUY</button>
                         #else
-                            <b>Out of Stock</b>
+                        <Strong>Out of Stock</Strong>
                         #end
                     </form>
                 </div>
                 #end
             </div>
+
         </div>
     </div>
 </div>

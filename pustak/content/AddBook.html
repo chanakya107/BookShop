@@ -12,10 +12,10 @@
 
 <body>
 
-<div class="row-fluid header">
+<div class="row-fluid header" style="border:3px solid;">
     <div class="span2"></div>
     <div class="span8">
-        <h1>Pustak.com</h1>
+        <h1 style="color:white">Pustak.com</h1>
     </div>
     <div class="span2"></div>
 </div>
@@ -32,7 +32,7 @@
                 </li>
                 <li>
                     <a href="addBook.html">
-                        Add New Books
+                        Add Books
                     </a>
                 </li>
                 <li>
@@ -70,12 +70,12 @@
                         </tr>
                         <tr>
                             <td>Price:</td>
-                            <td><input type="tel" name="price" required placeholder="Enter Price of the Book"
-                                       pattern="\d+(\d{2})?"/></td>
+                            <td><input type="tel" name="price" required placeholder="Should not exceed 10 digit"
+                                       pattern="\d+(\d{2})?" maxlength="10"/></td>
                         </tr>
                         <tr>
                             <td>Quantity:</td>
-                            <td><input type="tel" name="quantity" required placeholder="Enter Quantity"
+                            <td><input type="tel" maxlength="10" name="quantity" required placeholder="Should not exceed 10 digits"
                                        pattern="\d+(\d{2})?"/></td>
                         </tr>
                         <tr>

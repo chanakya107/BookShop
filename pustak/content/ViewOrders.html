@@ -8,16 +8,16 @@
 </head>
 <body>
 
-<div class="row-fluid header">
+<div class="row-fluid header" style="border:3px solid;">
     <div class="span2"></div>
     <div class="span8">
-        <h1 style="color:White" >Pustak.com</h1>
+        <h1 style="color:White">Pustak.com</h1>
     </div>
     <div class="span2"></div>
 </div>
 
-<div class="row-fluid">
-    <div></div>
+<div class="row-fluid bodySection">
+    <div class="span2"></div>
     <div class="span2 row-fluid">
         <div class="span7">
             <ul class="nav nav-tabs nav-stacked ">
@@ -31,6 +31,7 @@
                         Add Books
                     </a>
                 </li>
+
             </ul>
         </div>
 
@@ -72,53 +73,58 @@
                         Status
                     </th>
                 </tr>
+
                 #foreach($order in $orders)
                 #set($customer = $order.getCustomer())
                 #set($book = $order.getBook())
                 <tr>
-                    <td>
-                        $order.orderId
-                    </td>
-                    <td>
-                        $customer.customerName
-                    </td>
-                    <td>
-                        $customer.email
-                    </td>
-                    <td>
-                        $customer.phoneNumber
-                    </td>
-                    <td>
-                        $customer.address
-                    </td>
-                    <td>
-                        $order.date
-                    </td>
-                    <td>
-                        $book.ISBN
-                    </td>
-                    <td>
-                        $book.title
-                    </td>
-                    <td>
-                        $book.author1
-                        #if (!$book.author2 )
+                    <form action="dispatchBook" method="post">
+                        <input type="hidden" name="orderId" value="$order.orderId">
+                        <input type="hidden" name="customerName" value="$customer.customerName">
+                        <input type="hidden" name="email" value="$customer.email">
+                        <input type="hidden" name="address" value="$customer.address">
+                        <input type="hidden" name="isbn" value="$book.ISBN">
+                            <td>
+                            $order.orderId
+                        </td>
+                        <td>
+                            $customer.customerName
+                        </td>
+                        <td>
+                            $customer.email
+                        </td>
+                        <td>
+                            $customer.phoneNumber
+                        </td>
+                        <td>
+                            $customer.address
+                        </td>
+                        <td>
+                            $order.date
+                        </td>
+                        <td>
+                            $book.ISBN
+                        </td>
+                        <td>
+                            $book.title
+                        </td>
+                        <td>
+                            $book.author1
+                            #if (!$book.author2 )
                             ,$book.author2
-                        #end
-                    </td>
+                            #end
+                        </td>
 
-                    <td>
-                        $book.price
-                    </td>
-                    <td>
-                        $order.status
-                    </td>
-                    <td>
-                        <form action="" method="post">
-                            <input type="submit" value="Dispatch" class="btn">
-                        </form>
-                    </td>
-
+                        <td>
+                            $book.price
+                        </td>
+                        <td>
+                            $order.status
+                        </td>
+                        <td>
+                            <input type="submit" value="Dispatch" class="btn btn-info">
+                        </td>
+                    </form>
                 </tr>
                 #end
 
