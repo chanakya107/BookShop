@@ -15,6 +15,7 @@ public class ReportMain {
         ReportMail mail = new ReportMail("Transaction details on " + date, content);
         mail.setContentType("text/html");
         mail.sendMail("abhilasv@thoughtworks.com");
+        mail.sendMail("chanakya.ajith@gmail.com");
 //      mail.sendMail("srinaray@thoughtworks.com");
     }
 }

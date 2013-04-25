@@ -59,3 +59,17 @@ Done :
 Todo:
         1. Mail after dispatching
         2. Dispatch books
+		
+		
+		
+25-04-13
+
+Done : 
+		1. Dispatched books
+		2. Send daily sales Report 
+		3. Sending mail to customer when book is dispatched
+		
+  Bugs Fixed :
+		1. Replaced the wrong date with current date when order is placed.
+		2. Included grand total in sales reports.
+		3. Quantity and price has fixed length.
