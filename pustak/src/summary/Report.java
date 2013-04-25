@@ -21,13 +21,10 @@ public class Report {
     public String getReport() {
         Velocity.init(getProperties());
         Template template = Velocity.getTemplate("dailyReport.html");
-
         VelocityContext context = new VelocityContext();
         context.put("transactions", orderService.getTodaySales());
-
         Writer writer = new StringWriter();
         template.merge(context, writer);
-
         return writer.toString();
     }
 
