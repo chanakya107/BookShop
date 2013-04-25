@@ -1,11 +1,11 @@
-package mail;
+package summary;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
-public class Mail {
+public class ReportMail {
     private final String USERNAME = "customer.care.pustak@gmail.com";
     private final String PASSWORD = "Pustak123";
     private final String subject;
@@ -16,7 +16,7 @@ public class Mail {
     private String messagetype;
 
     //todo: test not written for this class
-    public Mail(String subject, String messageBody) {
+    public ReportMail(String subject, String messageBody) {
         this.subject = subject;
         this.messageBody = messageBody;
         this.messagetype="";
@@ -46,11 +46,10 @@ public class Mail {
     public void sendMail(String recipientMailId) throws MessagingException {
         createSession();
         message = new MimeMessage(session);
-//        message.setContent(messageBody,messagetype);
+        message.setContent(messageBody, messagetype);
         message.setFrom(new InternetAddress(USERNAME));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientMailId));
         message.setSubject(subject);
-        message.setText(messageBody);
         Transport.send(message);
     }
 
