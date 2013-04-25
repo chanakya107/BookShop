@@ -29,7 +29,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book searchBookByIsbn(String isbn) {
         dataBase.connectTo("pustak.db");
-        String searchQuery = "Select * from books where isbn like '%" + isbn + "%'";
+        String searchQuery = "Select * from books where isbn = " + isbn + "";
         Book book = makeBook(dataBase.selectQuery(searchQuery));
         dataBase.closeConnection();
         return book;
@@ -40,11 +40,11 @@ public class BookServiceImpl implements BookService {
         dataBase.connectTo("pustak.db");
         String updateQuery;
         if(type.equals("New")){
-            updateQuery = "Update books set newbookquantity = newbookquantity +" + additionalCopies + " where isbn like '%" + isbn + "%'";
+            updateQuery = "Update books set newbookquantity = newbookquantity +" + additionalCopies + " where isbn = " + isbn + "";
         }
 
         else{
-            updateQuery = "Update books set usedbookquantity = usedbookquantity +" + additionalCopies + " where isbn like '%" + isbn + "%'";
+            updateQuery = "Update books set usedbookquantity = usedbookquantity +" + additionalCopies + " where isbn = " + isbn + "";
         }
 
         dataBase.updateQuery(updateQuery);
