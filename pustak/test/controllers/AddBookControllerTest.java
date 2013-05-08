@@ -44,43 +44,20 @@ public class AddBookControllerTest
     AddBookController.createAddBookController(context, null);
   }
 
-  @Test
-  public void createBook_will_return_RequestHandlerResult()
-  {
-    stub(context.requestBodyField("isbn")).toReturn("isbn");
-    stub(context.requestBodyField("title")).toReturn("title");
-    stub(context.requestBodyField("author1")).toReturn("author1");
-    stub(context.requestBodyField("author2")).toReturn("author2");
-    stub(context.requestBodyField("price")).toReturn("98");
-    stub(context.requestBodyField("quantity")).toReturn("2");
-    stub(context.requestBodyField("bookstatus")).toReturn("New");
-    stub(context.render(ViewTemplates.AddBook)).toReturn("ok");
-    RequestHandlerResult result = controller.createBook();
-    verify(context).bind("message", "ISBN Already Exists.");
-    Assert.assertTrue(result != null);
-  }
-
 //  @Test
-//  public void add_book_with_hibernate()
+//  public void createBook_will_return_RequestHandlerResult()
 //  {
-//    try
-//    {
-//      Configuration configuration = new Configuration();
-//      configuration.configure("hibernate.cfg.xml");
-////      ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
-//      SessionFactory factory=configuration.buildSessionFactory();
-//      System.out.println("sfkjskjfsflg");
-//      Session session = factory.openSession();
-//      Transaction transaction = session.beginTransaction();
-//      Book book = new Book("1234567", "Hello", "dravid", "", 100, 5, 2);
-//      session.save(book);
-//      transaction.commit();
-//      session.close();
-//
-//    }
-//    catch (Throwable ex)
-//    {
-//      System.err.println("Failed to create sessionFactory object." + ex);
-//    }
+//    stub(context.requestBodyField("isbn")).toReturn("isbn");
+//    stub(context.requestBodyField("title")).toReturn("title");
+//    stub(context.requestBodyField("author1")).toReturn("author1");
+//    stub(context.requestBodyField("author2")).toReturn("author2");
+//    stub(context.requestBodyField("price")).toReturn("98");
+//    stub(context.requestBodyField("quantity")).toReturn("2");
+//    stub(context.requestBodyField("bookstatus")).toReturn("New");
+//    stub(context.render(ViewTemplates.AddBook)).toReturn("ok");
+//    RequestHandlerResult result = controller.createBook();
+//    verify(context).bind("message", "ISBN Already Exists.");
+//    Assert.assertTrue(result != null);
 //  }
+
 }
