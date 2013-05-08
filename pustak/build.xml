@@ -73,20 +73,20 @@
         <copy todir="${sourceOutput}/content/">
             <fileset dir="content"/>
         </copy>
-        <!--<mkdir dir="${sourceOutput}/lib"/>-->
-        <!--<copy todir="${sourceOutput}/lib">-->
-        <!--<fileset dir="lib"/>-->
-        <!--</copy>-->
+        <mkdir dir="${sourceOutput}/lib"/>
+        <copy todir="${sourceOutput}/lib">
+        <fileset dir="lib"/>
+        </copy>
         <jar destfile="${jarName}" basedir="${sourceOutput}">
             <manifest>
                 <attribute name="Main-Class" value="Main"/>
-                <!--<attribute name="Class-Path" value="lib/jetty-webapp-7.3.0.v20110203.jar,-->
-                <!--lib/servlet-api-3.0.pre4.jar,-->
-                <!--lib/slf4j-api-1.6.1.jar,-->
-                <!--lib/spark-0.9.9.4-SNAPSHOT.jar,-->
-                <!--lib/velocity-1.7.jar,-->
-                <!--lib/velocity-1.7-dep.jar,-->
-                <!--lib/step.web.jar"/>-->
+                <attribute name="Class-Path" value="lib/jetty-webapp-7.3.0.v20110203.jar,
+                lib/servlet-api-3.0.pre4.jar,
+                lib/slf4j-api-1.6.1.jar,
+                lib/spark-0.9.9.4-SNAPSHOT.jar,
+                lib/velocity-1.7.jar,
+                lib/velocity-1.7-dep.jar,
+                lib/step.web.jar"/>
             </manifest>
         </jar>
     </target>
@@ -101,7 +101,7 @@
         <java classname="Main" fork="true">
             <classpath>
                 <pathelement location="jar/Pustak.jar"/>
-                <!--// <pathelement location="lib/*.jar"/>-->
+                 <pathelement location="lib/*.jar"/>
 
                 <pathelement location="lib/step.web.jar"/>
                 <pathelement location="lib/jetty-webapp-7.3.0.v20110203.jar"/>

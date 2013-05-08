@@ -21,12 +21,12 @@ public class DisplayBooksControllerTest {
         displayBooksController = new DisplayBooksController(context, bookServices);
     }
 
-//    @Test
-//    public void when_displayController_is_called_list_is_invoked() {
-//        books = new Book[5];
-//        when(context.requestBodyField("searchKey")).thenReturn("a");
-//        when(bookServices.displayAllBooks("New", "a")).thenReturn(books);
-//        displayBooksController.list();
-//        verify(bookServices).displayAllBooks("New", "a");
-//    }
+    @Test
+    public void when_displayController_is_called_list_is_invoked() {
+        books = new Book[5];
+        when(context.requestBodyField("searchKey")).thenReturn("a");
+        when(bookServices.displayAllBooks("New", "a")).thenReturn(books);
+        displayBooksController.list();
+        verify(bookServices).displayAllBooks("New", "a");
+    }
 }
