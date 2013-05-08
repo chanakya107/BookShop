@@ -6,7 +6,7 @@
     <property name="reportsDir" value="reports"/>
     <property name="releaseNotes" value="releaseNotes"/>
     <property name="jars" value="step.web/lib"/>
-    <property name="archiveDir" value="//blrfs02/STEP/PustakArchives"/>
+    <property name="archiveDir" value="//blrfs02/TeamShares/STEP/PustakArchives"/>
 
     <target name="sendReport" depends="jar">
         <java classname="ReportMain" fork="true">
