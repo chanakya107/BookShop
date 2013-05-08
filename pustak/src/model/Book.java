@@ -5,23 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name="Books")
 public class Book {
-  @Id
-  @Column(name = "isbn")
     private String ISBN;
-  @Column(name = "title")
     private String title;
-  @Column(name = "author1")
     private final String author1;
-  @Column(name = "author2")
     private final String author2;
-  @Column(name = "newQuantity")
     private int newQuantity;
-  @Column(name = "usedQuantity")
     private int usedQuantity;
-  @Column(name = "price")
     private int price;
 
     public Book(String isbn, String title, String author1, String author2, int price, int newQuantity, int usedQuantity) {
